@@ -24,6 +24,7 @@
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
+		"lodash-ui-lib": "file:node_modules/v3_modules/modules/lodash-ui-lib",
 		"v3-cli": "^1.0.62"
 	}
 }

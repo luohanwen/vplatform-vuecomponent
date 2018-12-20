@@ -4,21 +4,54 @@
 	<meta charset="utf-8"></meta>
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui"></meta>
 	<script type="text/javascript" src="vendor/vplatform/assets/vue.js"></script>
-	<% var styles = htmlWebpackPlugin.options.resources.styles;if(styles){for(var i = 0,len=styles.length;i<len;i++){var style = styles[i]; %><link href="<%= style %>" type="text/css" rel="stylesheet"><% }} %>
+    <% var styles = htmlWebpackPlugin.options.resources.styles;if(styles){for(var i = 0,len=styles.length;i<len;i++){var style = styles[i]; %><link href="<%= style %>" type="text/css" rel="stylesheet"><% }} %>
+    <style>
+        .demo{
+            font-size:18px;
+        }
+    </style>
 </head>
 <body>
 	<div id="app">
 	</div>
 	<% var scripts = htmlWebpackPlugin.options.resources.scripts;if(scripts){for(var i = 0,len=scripts.length;i<len;i++){var script = scripts[i]; %><script type="text/javascript" src="<%= script %>"></script><% }} %>
 </body>
+<script type="text/template" id="tpl">
+    <div class="demo"> 
+        <vui-countup  v-model="value" :decimals="2" :duration="2" :max="9999" text-align="left" color="rgb(0,121,254)" :bold="true"  font-size="18px"  :thousand-mark="true" ref="vuiCountup">
+            <div slot="header" class="header">标题</div>
+            <div slot="append" class="append">注册人数</div>
+            <div slot="prepend" class="prepend">人</div>
+            <div slot="footer" class="footer">注脚信息</div>
+        </vui-countup>
+        <br>
+        <vui-button @click="start">开始数字动画</vui-button>
+        <vui-button @click="reset">重置数字动画</vui-button>
+    </div>
+</script>
 <script type="text/javascript">
 	if(typeof(Framework7Vue) != "undefined"){
 		Vue.use(Framework7Vue);
 	}
 	new Vue({
 		el : "#app",
-		template : "<vui-countup></vui-countup>",
-		data : {}
+		template : "#tpl",
+        data : {
+            value:1000
+        },
+        watch:{
+            value(value,oldValue){
+                console.log("watch value",value);
+            }
+        },
+        methods:{
+            start(){
+                this.$refs.vuiCountup.start();
+            },
+            reset(){
+                this.$refs.vuiCountup.reset();
+            }
+        }
 	});
 </script>
 </html>

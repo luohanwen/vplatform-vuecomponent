@@ -24,9 +24,8 @@
 			:title="step[titleField]"
 			:content="step[contentField]"
 			:icon="step[iconField]"
-			:status="step[valueField]"
 			v-for="step in dataSource"
-			@click.native="handleClick(step);"
+			@click.native="handleClick(step[valueField]);"
 		></Step>
 	</Steps>
 </template>
@@ -49,8 +48,7 @@ export default {
 			default: "process"
 		},
 		size: {
-			type: String,
-			default: ""
+			type: String
 		},
 		direction: {
 			type: String,
@@ -61,20 +59,16 @@ export default {
 			default: () => []
 		},
 		titleField: {
-			type: String,
-			default: "title"
+            type: String
 		},
 		valueField: {
-			type: String,
-			default: "value"
+            type: String
 		},
 		iconField: {
-			type: String,
-			default: "icon"
+            type: String
 		},
 		contentField: {
-			type: String,
-			default: "content"
+            type: String
 		}
 	},
 	data: function() {

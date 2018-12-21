@@ -15,16 +15,13 @@ export default {
 			default: () => []
 		},
 		textField: {
-			type: String,
-			default: "text"
+			type: String
 		},
 		valueField: {
-			type: String,
-			default: "value"
+			type: String
 		},
 		iconField: {
-			type: String,
-			default: "icon"
+			type: String
 		}
 	},
 	data: function() {
@@ -44,7 +41,7 @@ export default {
 					})
 				);
 			}
-			let text = iconType ? " " + this.textField : this.textField;
+			let text = iconType ? " " + item[this.textField] : item[this.textField];
 			val.push(text);
 			return val;
 		};

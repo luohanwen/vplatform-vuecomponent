@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"></meta>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui"></meta>
+	<script type="text/javascript" src="vendor/vplatform/assets/vue.js"></script>
+	<% var styles = htmlWebpackPlugin.options.resources.styles;if(styles){for(var i = 0,len=styles.length;i<len;i++){var style = styles[i]; %><link href="<%= style %>" type="text/css" rel="stylesheet"><% }} %>
+</head>
+<body>
+	<div id="app">
+	</div>
+	<% var scripts = htmlWebpackPlugin.options.resources.scripts;if(scripts){for(var i = 0,len=scripts.length;i<len;i++){var script = scripts[i]; %><script type="text/javascript" src="<%= script %>"></script><% }} %>
+</body>
+<script type="text/template" id="tpl">
+    <vui-steps
+        :data-source="dataSource"
+        :title-field="titleField"
+        :value-field="valueField"
+        :icon-field="iconField"
+        :content-field="contentField"
+        :current="1"
+        status="process"
+        size="small"
+        direction="vertical"
+        @on-click="handleClick"
+  ></vui-steps>
+</script>
+<script type="text/javascript">
+	if(typeof(Framework7Vue) != "undefined"){
+		Vue.use(Framework7Vue);
+	}
+	new Vue({
+		el : "#app",
+		template : '#tpl',
+		data : {
+            dataSource:[
+                {
+                    title:"已完成",
+                    content:"这里是该步骤的描述信息",
+                    icon:"camera",
+                    // value:"wait"
+                },
+                {
+                    title:"已完成",
+                    content:"这里是该步骤的描述信息",
+                    icon:"camera",
+                    // value:"wait"
+                },
+                {
+                    title:"进行中",
+                    content:"这里是该步骤的描述信息",
+                    icon:"camera",
+                    // value:"wait"
+                },
+                {
+                    title:"待进行",
+                    content:"这里是该步骤的描述信息",
+                    icon:"camera",
+                    // value:"wait"
+                }
+            ],
+            titleField:"title",
+            valueField:"value",
+            iconField:"icon",
+            contentField:"content"
+        },
+        methods:{
+            handleClick(item){
+                alert("我点击了"+JSON.stringify(item));
+            }
+        }
+	});
+</script>
+</html>

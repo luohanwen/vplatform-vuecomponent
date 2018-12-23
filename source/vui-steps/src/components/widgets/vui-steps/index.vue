@@ -1,6 +1,6 @@
 <template>
 	<Steps
-		:current="current"
+		:current="newCurrent"
 		:status="status"
 		:size="size"
 		:direction="direction"
@@ -10,13 +10,12 @@
 			:title="step[titleField]"
 			:content="step[contentField]"
 			:icon="step[iconField]"
-			:status="step[valueField]"
 			v-for="step in dataSource"
-			@click.native="handleClick(step);"
+			@click.native="handleClick(step[valueField]);"
 		></Step>
 	</Steps>
 	<Steps
-		:current="current"
+		:current="newCurrent"
 		:status="status"
 		:direction="direction"
 		v-else-if="dataSource.length && !size"
@@ -40,8 +39,10 @@ export default {
 			default: "vui-steps"
 		},
 		current: {
-			type: Number,
-			default: 0
+			default: 0,
+			validator(value) {
+				return typeof value === "number" || typeof value === "string";
+			}
 		},
 		status: {
 			type: String,
@@ -78,10 +79,15 @@ export default {
 	},
 	data: function() {
 		return {};
-	},
+    },
+    computed:{
+        newCurrent(){
+            return +this.current;
+        }
+    },
 	methods: {
-		handleClick(item) {
-			this.$emit("on-click", item);
+		handleClick(value) {
+			this.$emit("on-click", value);
 		}
 	}
 };

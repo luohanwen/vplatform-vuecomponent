@@ -12,18 +12,14 @@
 	<% var scripts = htmlWebpackPlugin.options.resources.scripts;if(scripts){for(var i = 0,len=scripts.length;i<len;i++){var script = scripts[i]; %><script type="text/javascript" src="<%= script %>"></script><% }} %>
 </body>
 <script type="text/template" id="tpl">
-    <vui-steps
+    <vui-breadcrumb
         :data-source="dataSource"
-        :title-field="titleField"
+        :text-field="textField"
         :value-field="valueField"
         :icon-field="iconField"
-        :content-field="contentField"
-        :current="1"
-        status="process"
-        size="small"
-        direction="vertical"
+        :separator="separator"
         @on-click="handleClick"
-  ></vui-steps>
+  ></vui-breadcrumb>
 </script>
 <script type="text/javascript">
 	if(typeof(Framework7Vue) != "undefined"){
@@ -31,38 +27,29 @@
 	}
 	new Vue({
 		el : "#app",
-		template : '#tpl',
+		template : "#tpl",
 		data : {
             dataSource:[
                 {
-                    title:"已完成",
-                    content:"这里是该步骤的描述信息",
+                    text:"首页",
                     icon:"camera",
                     value:1
                 },
                 {
-                    title:"已完成",
-                    content:"这里是该步骤的描述信息",
+                    text:"产品",
                     icon:"camera",
                     value:2
                 },
                 {
-                    title:"进行中",
-                    content:"这里是该步骤的描述信息",
+                    text:"产品详情",
                     icon:"camera",
                     value:3
-                },
-                {
-                    title:"待进行",
-                    content:"这里是该步骤的描述信息",
-                    icon:"camera",
-                    value:4
                 }
             ],
-            titleField:"title",
+            textField:"text",
             valueField:"value",
             iconField:"icon",
-            contentField:"content"
+            separator:">"
         },
         methods:{
             handleClick(value){

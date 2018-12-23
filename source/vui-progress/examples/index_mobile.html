@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"></meta>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui"></meta>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+	<script type="text/javascript" src="vendor/vplatform/assets/vue.js"></script>
+	<% var styles = htmlWebpackPlugin.options.resources.styles;if(styles){for(var i = 0,len=styles.length;i<len;i++){var style = styles[i]; %><link href="<%= style %>" rel="stylesheet"><% }} %>
+</head>
+<body>
+	<div class="toone-v3-framework7 auto-height-style"><div class="framework-root ios auto-height-style">
+	<div id="app">
+	</div>
+	</div></div>
+	<% var scripts = htmlWebpackPlugin.options.resources.scripts;if(scripts){for(var i = 0,len=scripts.length;i<len;i++){var script = scripts[i]; %><script type="text/javascript" src="<%= script %>"></script><% }} %>
+</body>
+<script type="text/javascript">
+	if(typeof(Framework7Vue) != "undefined"){
+		Vue.use(Framework7Vue);
+	}
+	new Vue({
+		el : "#app",
+		template : "<vui-progress></vui-progress>",
+		data : {}
+	});
+</script>
+</html>

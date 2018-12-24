@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"></meta>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui"></meta>
+	<script type="text/javascript" src="vendor/vplatform/assets/vue.js"></script>
+    <% var styles = htmlWebpackPlugin.options.resources.styles;if(styles){for(var i = 0,len=styles.length;i<len;i++){var style = styles[i]; %><link href="<%= style %>" type="text/css" rel="stylesheet"><% }} %>
+    <style>
+    .demo{
+        width: 300px;
+
+    }
+    .bg{
+        background-color: #506b9e;
+        color: #ccc;
+        font-size:18px;
+        text-align: center;
+        height: 200px;
+        line-height: 200px;
+        width: 300px;
+    }
+    </style>
+</head>
+<body>
+	<div id="app">
+	</div>
+	<% var scripts = htmlWebpackPlugin.options.resources.scripts;if(scripts){for(var i = 0,len=scripts.length;i<len;i++){var script = scripts[i]; %><script type="text/javascript" src="<%= script %>"></script><% }} %>
+</body>
+<script type="text/template" id="tpl">
+    <div class="demo"> 
+        <vui-carousel
+            v-model="value"
+            :height="height"
+            :loop="loop"
+            :autoplay="autoplay"
+            :autoplay-speed="autoplaySpeed"
+            :dots="dots"
+            :radius-dot="radiusDot"
+            :trigger="trigger"
+            :arrow="arrow"
+            :easing="easing"
+            @on-change="changeHandle"
+        >
+            <vui-carousel-item><div class="bg">0</div></vui-carousel-item>
+            <vui-carousel-item><div class="bg">1</div></vui-carousel-item>
+            <vui-carousel-item><div class="bg">2</div></vui-carousel-item>
+            <vui-carousel-item><div class="bg">3</div></vui-carousel-item>
+        </vui-carousel>
+    </div>
+</script>
+<script type="text/javascript">
+	if(typeof(Framework7Vue) != "undefined"){
+		Vue.use(Framework7Vue);
+	}
+	new Vue({
+		el : "#app",
+		template : "#tpl",
+		data : {
+            height: 200,
+            loop: true,
+            autoplay: false,
+            autoplaySpeed: 1000,
+            dots: "outside",
+            radiusDot: true,
+            trigger: "hover",
+            arrow: "always",
+            easing: "ease",
+            value: 1
+        },
+        watch:{
+            value(val,oldValue){
+                console.log("example v-model success val",val);
+            }
+        },
+        methods:{
+            changeHandle(oldValue,value){
+                alert("change,oladValue:"+oldValue+"newValue:"+value);
+            }
+        }
+	});
+</script>
+</html>

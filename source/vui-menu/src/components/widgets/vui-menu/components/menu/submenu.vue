@@ -127,7 +127,6 @@ export default {
       }
     },
     handleMouseleave(event) {
-      return false;
       if (this.disabled) return;
       if (this.mode === "vertical") {
         return;
@@ -214,7 +213,7 @@ export default {
               left = 0;
             } else {
               top = 0;
-              left = subMenuWidth;
+              left = subMenuWidth+2;
             }
             this.menuStyle.left = `${left}px`;
             this.menuStyle.top = `${top}px`;
@@ -239,14 +238,14 @@ export default {
       }
     },
     opened(val) {
-      if (this.mode === "vertical") return;
-      if (val) {
-        // set drop a width to fixed when menu has fixed position
-        this.dropWidth = parseFloat(getStyle(this.$el, "width"));
-        this.$refs.drop.update();
-      } else {
-        this.$refs.drop.destroy();
-      }
+    //   if (this.mode === "vertical") return;
+    //   if (val) {
+    //     // set drop a width to fixed when menu has fixed position
+    //     this.dropWidth = parseFloat(getStyle(this.$el, "width"));
+    //     this.$refs.drop.update();
+    //   } else {
+    //     this.$refs.drop.destroy();
+    //   }
     }
   },
   mounted() {

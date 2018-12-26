@@ -77,6 +77,7 @@
 	}
 }
 
+//垂直全屏
 .vui-menu.ivu-menu.ivu-menu-vertical.vui-menu-fullscreen {
 	height: 100%;
 	.ivu-menu {
@@ -87,6 +88,7 @@
 	}
 }
 
+//垂直非全屏
 .vui-menu.ivu-menu.ivu-menu-vertical.vui-menu-fullscreen-not {
 	height: 100%;
 	.ivu-menu-submenu {
@@ -100,21 +102,22 @@
 	//二级菜单的样式
 	.ivu-menu.vui-menu-level2 {
 		box-shadow: none;
-        position: static;
-        padding-left: 30px;
-        &>.ivu-menu-submenu{
-            &>.ivu-menu-submenu-title{
-                .ivu-menu-submenu-title-icon{
-                    position: absolute;
-                    right:16px;
-                    top:50%;
-                    transform: translateY(-50%);
-                }
-            }
-        }
+		position: static;
+		padding-left: 30px;
+		& > .ivu-menu-submenu {
+			& > .ivu-menu-submenu-title {
+				.ivu-menu-submenu-title-icon {
+					position: absolute;
+					right: 16px;
+					top: 50%;
+					transform: translateY(-50%);
+				}
+			}
+		}
 	}
 }
 
+//垂直折叠模式（只显示菜单）
 .vui-menu.ivu-menu.ivu-menu-vertical.vui-menu-collapse {
 	width: @menu-vertical-collapse-width !important;
 	& > .ivu-menu-submenu,
@@ -165,8 +168,7 @@
 	}
 }
 
-//水平样式 begin
-
+//水平 公共样式
 .vui-menu.ivu-menu.ivu-menu-horizontal {
 	background-color: @menu-horizontal-bg;
 	.ivu-menu {
@@ -177,13 +179,13 @@
 			line-height: 50px;
 			&:hover {
 				color: @menu-horizontal-item-hover-color;
-				border-bottom: none;
+				border-bottom: transparent;
 			}
 		}
 		.ivu-menu-item {
 			&:hover {
 				color: @menu-horizontal-item-hover-color;
-				border-bottom: none;
+				border-bottom: transparent;
 			}
 			&.ivu-menu-item-active {
 				border-bottom: none;
@@ -251,12 +253,30 @@
 	}
 }
 
+//水平非全屏
 .vui-menu.ivu-menu.ivu-menu-horizontal.vui-menu-fullscreen-not {
-	.ivu-menu-submenu {
-		float: initial;
-	}
 	& > .ivu-menu-submenu {
 		float: left;
+		.ivu-menu {
+			.ivu-menu-submenu {
+                box-sizing: border-box;
+                padding-right: 30px;
+				float: initial;
+				.ivu-menu-submenu-title {
+					.ivu-menu-submenu-title-icon {
+						float: initial;
+						position: absolute;
+						right: 4px;
+						top: 50%;
+						transform: translateY(-50%);
+					}
+				}
+            }
+            .ivu-menu-item{
+                box-sizing: border-box;
+                padding-right: 30px;
+            }
+		}
 	}
 	.ivu-menu {
 		position: absolute;
@@ -271,6 +291,7 @@
 	}
 }
 
+//水平全屏
 .vui-menu.ivu-menu.ivu-menu-horizontal.vui-menu-fullscreen {
 	.ivu-menu {
 		font-size: 14px;

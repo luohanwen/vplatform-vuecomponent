@@ -1,0 +1,20 @@
+{
+	"libType": "dev",
+	"type": "widget",
+	"pluginCode": "vui-menu",
+	"groupId": "com.toone.v3.platform",
+	"matchVersion": 1,
+	"scope": "web",
+	"symbolicName": "com.toone.v3.platform-vjs.framework.extension.platform.custom.widget.vui-menu",
+	"version": "1.0.0",
+	"minMatchVersion": 1,
+	"out": "target",
+	"sources": "dist",
+	"webpackCfgVersion": "1.0.5",
+	"extraSources": [],
+	"urlSources": [],
+	"dependencies": [],
+	"VjsList": [],
+	"depVjsList": [],
+	"require": []
+}

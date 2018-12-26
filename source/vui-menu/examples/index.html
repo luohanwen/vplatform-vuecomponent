@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"></meta>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui"></meta>
+	<script type="text/javascript" src="vendor/vplatform/assets/vue.js"></script>
+    <% var styles = htmlWebpackPlugin.options.resources.styles;if(styles){for(var i = 0,len=styles.length;i<len;i++){var style = styles[i]; %><link href="<%= style %>" type="text/css" rel="stylesheet"><% }} %>
+    <style>
+        .page-demo {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+.ivu-layout {
+  min-height: 100%;
+}
+    </style>
+</head>
+<body>
+	<div id="app">
+	</div>
+	<% var scripts = htmlWebpackPlugin.options.resources.scripts;if(scripts){for(var i = 0,len=scripts.length;i<len;i++){var script = scripts[i]; %><script type="text/javascript" src="<%= script %>"></script><% }} %>
+</body>
+<script type="text/template" id="tpl">
+  <div class="page-demo">
+
+   <vui-menu
+    :data-source="dataSource"
+    mode="vertical"
+    :accordion="true"
+    :fullscreen="false"
+    theme="light"
+    width="220px"
+    :collapse="false"
+    active-name="2"
+    :open-names="['name1','name2']"
+    @on-select="select"
+    @on-open-change="openChange"
+  >
+    <div slot="header">i am header</div>
+    <div slot="footer">i am footer</div>
+    <div slot="item-extend">i am item-extend</div>
+  </vui-menu>
+</div>
+</script>
+<script type="text/javascript">
+	if(typeof(Framework7Vue) != "undefined"){
+		Vue.use(Framework7Vue);
+	}
+	new Vue({
+		el : "#app",
+		template : "#tpl",
+		data : {
+            dataSource: [
+        {
+          id: "1",
+          pid: "",
+          title: "一级菜单1",
+          icon: "ios-paper"
+        },
+        {
+          id: "2",
+          pid: "1",
+          title: "二级菜单1-1"
+        },
+        {
+          id: "3",
+          pid: "1",
+          title: "二级菜单1-2"
+        },
+        {
+          id: "4",
+          pid: "",
+          title: "一级菜单2",
+          icon: "ios-paper"
+        },
+        {
+          id: "5",
+          pid: "4",
+          title: "二级菜单2-1"
+        },
+        {
+          id: "6",
+          pid: "4",
+          title: "二级菜单2-2"
+        },
+        {
+          id: "7",
+          pid: "4",
+          title: "二级菜单2-3"
+        },
+        {
+          id: "8",
+          pid: "",
+          title: "一级菜单3",
+          icon: "ios-paper"
+        },
+        {
+          id: "9",
+          pid: "8",
+          title: "二级菜单3-1"
+        },
+        {
+          id: "10",
+          pid: "",
+          title: "一级菜单4",
+          icon: "ios-paper"
+        },
+        {
+          id: "13",
+          pid: "10",
+          groupId: "1",
+          groupTitle: "分组标题1",
+          title: "二级菜单分组4-1"
+        },
+        {
+          id: "14",
+          pid: "13",
+          title: "三级菜单4-1-1"
+        },
+        {
+          id: "15",
+          pid: "13",
+          title: "三级菜单4-1-2"
+        },
+        {
+          id: "16",
+          pid: "10",
+          groupId: "2",
+          groupTitle: "分组标题2",
+          title: "二级菜单分组4-2"
+        },
+        {
+          id: "17",
+          pid: "16",
+          title: "三级菜单4-2-1"
+        },
+        {
+          id: "18",
+          pid: "10",
+          title: "二级菜单4-3"
+        },
+        {
+          id: "19",
+          pid: "18",
+          title: "三级菜单4-3-1"
+        },
+        {
+          id: "20",
+          pid: "18",
+          title: "三级菜单4-3-2"
+        },
+        {
+          id: "21",
+          pid: "",
+          title: "一级菜单5",
+          icon: "ios-paper"
+        },
+        {
+          id: "22",
+          pid: "10",
+          title: "二级菜单4-4"
+        },
+        {
+          id: "23",
+          pid: "20",
+          title: "四级菜单4-3-2-1"
+        }
+      ]
+        },
+        methods: {
+            select(value) {
+              alert("我点击了菜单" + JSON.stringify(value));
+            // console.log("onselect", value);
+            },
+            openChange(value) {
+            //   alert("菜单状态变化了" + JSON.stringify(value));
+            // console.log("openChange", value);
+            }
+        }
+	});
+</script>
+</html>

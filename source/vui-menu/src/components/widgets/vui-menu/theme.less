@@ -1,0 +1,322 @@
+//引入皮肤变量
+@import "./var.less";
+@import "./skin.less";
+.ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+// 垂直公共样式
+.vui-menu.ivu-menu.ivu-menu-vertical {
+	background-color: @menu-vertical-bg;
+	& > .ivu-menu-submenu {
+		& > .ivu-menu-submenu-title {
+			padding-left: 16px;
+			padding-right: 16px;
+		}
+		.ivu-menu {
+			.ivu-menu-submenu {
+				.ivu-menu-submenu-title {
+					padding-left: 16px;
+					padding-right: 50px;
+					.ivu-menu-submenu-title-icon {
+						float: initial;
+						position: absolute;
+						right: 6px;
+						top: 50%;
+						transform: translateY(-50%);
+					}
+				}
+			}
+		}
+	}
+	.ivu-menu {
+		box-shadow: @menu-vertical-dropdown-shadow;
+		background-color: @menu-vertical-bg;
+	}
+	.ivu-menu-submenu {
+		color: @menu-vertical-item-color;
+		font-size: @menu-vertical-item-font-size;
+		.ivu-menu-submenu-title {
+			& > .ivu-icon:not(.ivu-menu-submenu-title-icon) {
+				font-size: @menu-vertical-icon-font-size;
+				position: relative;
+				top: 2px;
+			}
+		}
+		.ivu-menu-item-group {
+			.ivu-menu-item-group-title {
+				color: @menu-vertical-dropdown-group-color;
+			}
+		}
+		&:hover {
+			background-color: @menu-vertical-item-hover-bg;
+			color: @menu-vertical-item-hover-color;
+		}
+	}
+	.ivu-menu-item {
+		color: @menu-vertical-item-color;
+		font-size: @menu-vertical-item-font-size;
+		padding-left: 16px;
+		padding-right: 16px;
+		& > .ivu-icon {
+			font-size: @menu-vertical-icon-font-size;
+			position: relative;
+			top: 2px;
+		}
+		&:hover {
+			background-color: @menu-vertical-item-hover-bg;
+			color: @menu-vertical-item-hover-color;
+		}
+	}
+
+	.ivu-menu-item-active:not(.ivu-menu-submenu) {
+		border-right: none;
+		font-weight: bold;
+		color: @menu-vertical-item-active-color;
+	}
+}
+
+.vui-menu.ivu-menu.ivu-menu-vertical.vui-menu-fullscreen {
+	height: 100%;
+	.ivu-menu {
+		height: 100%;
+		position: absolute;
+		top: 0;
+		white-space: nowrap;
+	}
+}
+
+.vui-menu.ivu-menu.ivu-menu-vertical.vui-menu-fullscreen-not {
+	height: 100%;
+	.ivu-menu-submenu {
+		position: relative;
+	}
+	.ivu-menu {
+		position: absolute;
+		white-space: nowrap;
+	}
+}
+
+.vui-menu.ivu-menu.ivu-menu-vertical.vui-menu-collapse {
+	width: @menu-vertical-collapse-width !important;
+	& > .ivu-menu-submenu,
+	& > .ivu-menu-item {
+		text-align: center;
+		span {
+			display: none;
+		}
+		.ivu-menu-submenu-title-icon {
+			display: none;
+		}
+	}
+}
+
+.vui-menu-collapse {
+	.vui-collapse-footer {
+		.vui-collapse-fl {
+			width: 0;
+			background-color: @menu-vertical-footer-bg;
+		}
+		.vui-collapse-fr {
+			width: 100%;
+		}
+	}
+}
+
+.vui-collapse-footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 38px;
+	line-height: 38px;
+	display: flex;
+	.vui-collapse-fl {
+		background-color: @menu-vertical-footer-bg;
+		margin-right: 1px;
+		flex: 1;
+	}
+	.vui-collapse-fr {
+		width: 41px;
+		background-color: @menu-vertical-footer-bg;
+		font-size: 16px;
+		cursor: pointer;
+		text-align: center;
+		.ivu-icon {
+			color: @menu-vertical-footer-handle-color;
+		}
+	}
+}
+
+//水平样式 begin
+
+.vui-menu.ivu-menu.ivu-menu-horizontal {
+	background-color: @menu-horizontal-bg;
+	.ivu-menu {
+		white-space: nowrap;
+		background-color: @menu-horizontal-bg;
+		.ivu-menu-submenu {
+			height: 50px;
+			line-height: 50px;
+			&:hover {
+				color: @menu-horizontal-item-hover-color;
+				border-bottom: none;
+			}
+		}
+		.ivu-menu-item {
+			&:hover {
+				color: @menu-horizontal-item-hover-color;
+				border-bottom: none;
+			}
+			&.ivu-menu-item-active {
+				border-bottom: none;
+			}
+		}
+		.ivu-menu-item-group {
+			.ivu-menu-item-group-title {
+				color: @menu-horizontal-dropdown-group-color;
+				font-size: @menu-horizontal-item-font-size;
+			}
+		}
+	}
+	.vui-menu-header {
+		float: left;
+	}
+	.vui-menu-footer {
+		float: right;
+	}
+	& > .ivu-menu-submenu {
+		& > .ivu-menu-submenu-title {
+			.ivu-icon {
+				font-size: @menu-vertical-icon-font-size;
+				position: relative;
+				top: 2px;
+			}
+			.ivu-menu-submenu-title-icon {
+				display: none;
+			}
+		}
+	}
+	& > .ivu-menu-item {
+		& > .ivu-icon {
+			font-size: @menu-vertical-icon-font-size;
+			position: relative;
+			top: 2px;
+		}
+	}
+	.ivu-menu-submenu {
+		position: relative;
+		color: @menu-horizontal-item-color;
+		font-size: @menu-horizontal-item-font-size;
+		.ivu-menu-item-group {
+			.ivu-menu-item-group-title {
+				color: @menu-horizontal-dropdown-group-color;
+			}
+		}
+		&:hover {
+			background-color: @menu-horizontal-item-hover-bg;
+			color: @menu-horizontal-item-hover-color;
+		}
+	}
+	.ivu-menu-item {
+		color: @menu-horizontal-item-color;
+		font-size: @menu-horizontal-item-font-size;
+		&:hover {
+			background-color: @menu-horizontal-item-hover-bg;
+			color: @menu-horizontal-item-hover-color;
+		}
+	}
+
+	.ivu-menu-item-active:not(.ivu-menu-submenu) {
+		border-right: none;
+		font-weight: bold;
+		color: @menu-horizontal-item-active-color;
+	}
+}
+
+.vui-menu.ivu-menu.ivu-menu-horizontal.vui-menu-fullscreen-not {
+	.ivu-menu-submenu {
+		float: initial;
+	}
+	& > .ivu-menu-submenu {
+		float: left;
+	}
+	.ivu-menu {
+		position: absolute;
+		background-color: @menu-horizontal-dropdown-bg;
+		box-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
+		.ivu-menu-item {
+			float: initial;
+			height: 50px;
+			line-height: 50px;
+			width: 100%;
+		}
+	}
+}
+
+.vui-menu.ivu-menu.ivu-menu-horizontal.vui-menu-fullscreen {
+	.ivu-menu {
+		font-size: 14px;
+		background-color: @menu-horizontal-dropdown-bg;
+		position: absolute;
+		left: 0;
+		right: 0;
+		box-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
+		padding: 10px 22px;
+		.ivu-menu-item-group {
+			padding-left: 0;
+			.ivu-menu-item-group-title {
+				height: 30px;
+				line-height: 30px;
+			}
+		}
+		.ivu-menu-item {
+			height: 30px;
+			line-height: 30px;
+			padding-left: 0;
+			padding-right: 0;
+		}
+		.ivu-menu-submenu {
+			height: 30px;
+			line-height: 30px;
+			padding-left: 0;
+			padding-right: 0;
+			.ivu-menu-submenu-title {
+				.ivu-menu-submenu-title-icon {
+					display: none;
+				}
+			}
+		}
+
+		.ivu-menu-item-group,
+		.ivu-menu-item,
+		.ivu-menu-submenu {
+			color: rgb(198, 198, 198);
+			float: initial;
+			&:hover {
+				background-color: inherit;
+				border-bottom: none;
+				color: @menu-horizontal-item-active-color;
+			}
+		}
+
+		& > .ivu-menu-item-group,
+		& > .ivu-menu-item,
+		& > .ivu-menu-submenu {
+			width: 15%;
+			max-width: 15%;
+			vertical-align: top;
+			color: #545454;
+			font-weight: bold;
+			display: inline-block;
+			& > .ivu-menu-item-group-title {
+				padding-left: 0;
+				color: #545454;
+				font-weight: bold;
+			}
+		}
+	}
+	.ivu-menu-submenu {
+		position: static;
+	}
+}

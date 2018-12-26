@@ -1,4 +1,5 @@
 <template>
+    <!-- 以下if else判断区别只是有没有size属性 -->
 	<Steps
 		:current="newCurrent"
 		:status="status"

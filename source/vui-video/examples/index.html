@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"></meta>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui"></meta>
+	<script type="text/javascript" src="vendor/vplatform/assets/vue.js"></script>
+	<% var styles = htmlWebpackPlugin.options.resources.styles;if(styles){for(var i = 0,len=styles.length;i<len;i++){var style = styles[i]; %><link href="<%= style %>" type="text/css" rel="stylesheet"><% }} %>
+</head>
+<body>
+	<div id="app">
+	</div>
+	<% var scripts = htmlWebpackPlugin.options.resources.scripts;if(scripts){for(var i = 0,len=scripts.length;i<len;i++){var script = scripts[i]; %><script type="text/javascript" src="<%= script %>"></script><% }} %>
+</body>
+<script type="text/template" id="tpl">
+    <vui-video
+        :widgetCode="widgetCode"
+        :controls="controls"
+        :width="width"
+        :height="height"
+        :poster="poster"
+        :autoplay="autoplay"
+        :loop="loop"
+        :volume="volume"
+        :fullscreen="fullscreen"
+        :label="label"
+        :notSupportedMsg="notSupportedMsg"
+        :showLabel="showLabel"
+        :transfer="transfer"
+        :miniPlayer="miniPlayer"
+        @on-play="onplay"
+        @on-pause="onpause"
+        @on-ended="onended"
+        @on-change-pre="onchangepre"
+        @on-change-next="onchangenext"
+  ></vui-video>
+</script>
+<script type="text/javascript">
+	if(typeof(Framework7Vue) != "undefined"){
+		Vue.use(Framework7Vue);
+	}
+	new Vue({
+		el : "#app",
+		template : "#tpl",
+		data : {
+            widgetCode:"vui-video",
+            controls:true,
+            width:"600px",
+            height:"300px",
+            poster:"https://gss0.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d833c895d143ad4bc8a8bb3b89025aafa50f0642.jpg",
+            autoplay:true,
+            loop:false,
+            volume:0.3,
+            fullscreen:true,
+            label:"视频标题1",
+            notSupportedMsg:"视频无法播放",
+            showLabel:true,
+            transfer:true,
+            miniPlayer:true
+        },
+        methods: {
+            onplay(){
+                // alert("on-play");
+            },
+            onpause(){
+                // alert("on-pause");
+            },
+            onended(){
+                // alert("on-ended");
+            },
+            onchangepre(){
+                alert("on-change-pre");
+            },
+            onchangenext(){
+                alert("on-change-next");
+            }
+        },
+	});
+</script>
+</html>

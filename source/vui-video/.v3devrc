@@ -1,0 +1,47 @@
+{
+	"libType": "dev",
+	"type": "widget",
+	"pluginCode": "vui-video",
+	"groupId": "com.toone.v3.platform",
+	"matchVersion": 1,
+	"scope": "all",
+	"symbolicName": "com.toone.v3.platform-vjs.framework.extension.platform.custom.widget.vui-video",
+	"version": "1.0.0",
+	"minMatchVersion": 1,
+	"out": "target",
+	"sources": "dist",
+	"webpackCfgVersion": "1.0.5",
+	"extraSources": [],
+	"urlSources": [],
+	"dependencies": [
+		{
+			"name": "com.toone.v3.platform-vjs.framework.extension.platform.custom.resource.videojs-ui-lib",
+			"version": "1.0.0",
+			"libType": "dev"
+		}
+	],
+	"VjsList": [
+		{
+			"name": "vjs.framework.extension.platform.custom.widget.vui-video",
+			"version": "1.0.0.SNAPSHOT"
+		},
+		{
+			"name": "vjs.framework.extension.platform.custom.widget.vui-video.$skin"
+		}
+	],
+	"depVjsList": [
+		{
+			"name": "vjs.framework.extension.platform.custom.resource.videojs-ui-lib",
+			"version": "1.0.0.SNAPSHOT",
+			"symbolicName": "com.toone.v3.platform-vjs.framework.extension.platform.custom.resource.videojs-ui-lib"
+		}
+	],
+	"require": [],
+	"libs": [
+		"dist/widget/vui-video.css",
+		"dist/widget/vui-video.js"
+	],
+	"account": "xujw",
+	"pwd": "2",
+	"server": "127.0.0.1:8080"
+}

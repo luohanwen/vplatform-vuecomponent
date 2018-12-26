@@ -12,7 +12,7 @@
 		:easing="easing"
 		@on-change="changeHandle"
 	>
-        <slot></slot>
+		<slot></slot>
 	</Carousel>
 </template>
 <script>
@@ -67,10 +67,14 @@ export default {
 	data: function() {
 		return { currentIndex: this.value };
 	},
+	watch: {
+		currentIndex(value, oldValue) {
+			this.$emit("input", value);
+		}
+	},
 	methods: {
 		changeHandle(oldValue, value) {
 			this.$emit("on-change", oldValue, value);
-			this.$emit("input", value);
 		}
 	}
 };

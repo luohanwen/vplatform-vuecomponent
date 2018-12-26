@@ -1,0 +1,27 @@
+//引入皮肤变量
+@import "./var.less";
+.vui-video.video-js {
+	.vjs-big-play-button {
+		outline: none;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		width: 3rem;
+		height: 3rem;
+		border-radius: 50%;
+	}
+	.vjs-control {
+		outline: none;
+	}
+	.vjs-progress-control {
+		.vjs-play-progress {
+			background-color: @primary-color;
+		}
+	}
+	.vjs-volume-control {
+		.vjs-volume-level {
+			background-color: @primary-color;
+		}
+    }
+}

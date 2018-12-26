@@ -1,0 +1,41 @@
+{
+	"libType": "dev",
+	"type": "resource",
+	"pluginCode": "videojs-ui-lib",
+	"groupId": "com.toone.v3.platform",
+	"matchVersion": 1,
+	"symbolicName": "com.toone.v3.platform-vjs.framework.extension.platform.custom.resource.videojs-ui-lib",
+	"version": "1.0.0",
+	"minMatchVersion": 1,
+	"resourceCode": "vPlatform-resource-a7ec4f2e620a984bb1b3a5d792edbc91",
+	"skin": {},
+	"out": "target",
+	"sources": "dist",
+	"webpackCfgVersion": "1.0.4",
+	"extraSources": [
+		"src/video.js/video-js.min.css",
+		"src/video.js/video.min.js",
+		"src/video.js/font"
+	],
+	"urlSources": [],
+	"dependencies": [],
+	"VjsList": [
+		{
+			"name": "vjs.framework.extension.platform.custom.resource.videojs-ui-lib",
+			"version": "1.0.0.SNAPSHOT"
+		}
+	],
+	"depVjsList": [],
+	"require": [],
+	"libs": [
+		"dist/resource/video-js.min.css",
+		"dist/resource/video.min.js",
+		"dist/resource/VideoJS.eot",
+		"dist/resource/VideoJS.svg",
+		"dist/resource/VideoJS.ttf",
+		"dist/resource/VideoJS.woff"
+	],
+	"account": "xujw",
+	"pwd": "2",
+	"server": "127.0.0.1:8080"
+}

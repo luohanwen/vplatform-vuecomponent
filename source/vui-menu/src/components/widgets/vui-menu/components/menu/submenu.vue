@@ -127,7 +127,7 @@ export default {
       }
     },
     handleMouseleave(event) {
-        return false;
+      return false;
       if (this.disabled) return;
       if (this.mode === "vertical") {
         return;
@@ -149,10 +149,8 @@ export default {
           if (item.$options.name === "Submenu") item.opened = false;
         });
       }
-      console.log("open",opened);
-      console.log("name",this.name);
-      this.opened = !opened;
       this.menu.updateOpenKeys(this.name);
+      this.opened = !opened;
       this.vuiHandle(1, { event: event });
       //全屏处理
       this.vuiHandle(2, { event: event });
@@ -164,23 +162,30 @@ export default {
         //垂直非全屏  点击菜单时处理子菜单位置
         case 1:
           if (!this.fullscreen && this.mode === "vertical") {
+            //点击的是否是第一级菜单
             let event = opt.event;
             let $target = $(event.currentTarget || event.target);
             let isFirstMenu = !$target.parents(".ivu-menu-submenu").length;
-            let targetTop = $target.offset().top;
-            let menuItemHeight = $target.innerHeight();
-            let menuTop = $target.parents(`.${prefixCls}`).offset().top;
-            let subMenuWidth = $target.innerWidth();
-            let top, left;
-            if (isFirstMenu) {
-              top = 0;
-              left = subMenuWidth;
+            if (!isFirstMenu) {
+              //点击的是否是菜单的第一项
+              let isFirstItem = $target.index() === 0;
+              let targetTop = $target.offset().top;
+              let menuItemHeight = $target.innerHeight();
+              let menuTop = $target.parents(`.${prefixCls}`).offset().top;
+              let subMenuWidth = $target.innerWidth();
+              let top, left;
+              if (isFirstMenu || isFirstItem) {
+                top = 0;
+              } else {
+                top = -menuItemHeight;
+              }
+              left = subMenuWidth + 2;
+              this.menuStyle.left = `${left}px`;
+              this.menuStyle.top = `${top}px`;
             } else {
-              top = -menuItemHeight;
-              left = subMenuWidth;
+              //第二级菜单增加指定类名
+              $target.find(">.ivu-menu").addClass("vui-menu-level2");
             }
-            this.menuStyle.left = `${left}px`;
-            this.menuStyle.top = `${top}px`;
           }
           break;
         //垂直全屏  处理子菜单的位置

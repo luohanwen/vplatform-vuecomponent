@@ -43,15 +43,15 @@
 				position: relative;
 				top: 2px;
 			}
+			&:hover {
+				background-color: @menu-vertical-item-hover-bg;
+				color: @menu-vertical-item-hover-color;
+			}
 		}
 		.ivu-menu-item-group {
 			.ivu-menu-item-group-title {
 				color: @menu-vertical-dropdown-group-color;
 			}
-		}
-		&:hover {
-			background-color: @menu-vertical-item-hover-bg;
-			color: @menu-vertical-item-hover-color;
 		}
 	}
 	.ivu-menu-item {
@@ -95,6 +95,23 @@
 	.ivu-menu {
 		position: absolute;
 		white-space: nowrap;
+	}
+
+	//二级菜单的样式
+	.ivu-menu.vui-menu-level2 {
+		box-shadow: none;
+        position: static;
+        padding-left: 30px;
+        &>.ivu-menu-submenu{
+            &>.ivu-menu-submenu-title{
+                .ivu-menu-submenu-title-icon{
+                    position: absolute;
+                    right:16px;
+                    top:50%;
+                    transform: translateY(-50%);
+                }
+            }
+        }
 	}
 }
 

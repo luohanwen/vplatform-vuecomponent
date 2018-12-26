@@ -30,7 +30,7 @@
     :data-source="dataSource"
     mode="vertical"
     :accordion="true"
-    :fullscreen="false"
+    :fullscreen="true"
     theme="light"
     width="220px"
     :collapse="false"
@@ -165,19 +165,19 @@
         },
         {
           id: "23",
-          pid: "20",
+          pid: "19",
           title: "四级菜单4-3-2-1"
         }
       ]
         },
         methods: {
             select(value) {
-              alert("我点击了菜单" + JSON.stringify(value));
-            // console.log("onselect", value);
+            //   alert("我点击了菜单" + JSON.stringify(value));
+            console.log("onselect", value);
             },
             openChange(value) {
             //   alert("菜单状态变化了" + JSON.stringify(value));
-            // console.log("openChange", value);
+            console.log("openChange", value);
             }
         }
 	});

@@ -1,5 +1,218 @@
 @import "./var.less";
-.vui-menu.ivu-menu-vertical.ivu-menu-light {
-	background-color: @menu-vertical-bg;
-	box-shadow: @menu-vertial-shadow;
+
+@pre-class:".vui-menu.ivu-menu.vui-menu-skinextra1.vui-menu-skin";
+// dark
+.vui-menu.ivu-menu.vui-menu-skinextra1.vui-menu-skin.vui-menu-dark {
+	background-color: #272c33;
+	.ivu-menu {
+		background-color: #272c33;
+	}
+	.ivu-menu-submenu {
+		&:hover {
+			background-color: #1a222f;
+			color: white;
+		}
+		.ivu-menu-submenu-title {
+			color: rgba(255, 255, 255, 0.6);
+			&:hover {
+				background-color: #1a222f;
+				color: white;
+			}
+		}
+	}
+	.ivu-menu-item {
+		color: rgba(255, 255, 255, 0.6);
+		&:hover {
+			background-color: #1a222f;
+			color: white;
+		}
+	}
+	.ivu-menu-item-group {
+		.ivu-menu-item-group-title {
+			color: #999999;
+		}
+	}
+	.ivu-menu-item-active:not(.ivu-menu-submenu) {
+		color: white;
+	}
+	.vui-collapse-footer {
+		.vui-collapse-fl {
+			background-color: #1a222f;
+		}
+		.vui-collapse-fr {
+			background-color: #1a222f;
+			.ivu-icon {
+				color: rgba(255, 255, 255, 0.6);
+			}
+		}
+	}
 }
+
+.vui-menu.ivu-menu.vui-menu-skinextra1.vui-menu-skin.vui-menu-dark.vui-menu-fullscreen {
+	.ivu-menu {
+		.ivu-menu-item-group,
+		.ivu-menu-item,
+		.ivu-menu-submenu {
+			color: rgb(198, 198, 198);
+			&:hover {
+				color: white;
+			}
+		}
+		& > .ivu-menu-item-group,
+		& > .ivu-menu-item,
+		& > .ivu-menu-submenu {
+			color: #545454;
+			& > .ivu-menu-item-group-title {
+				color: #545454;
+			}
+		}
+	}
+}
+// dark  over
+
+
+// 其它配色公共样式
+.vui-menu.ivu-menu.vui-menu-skinextra1.vui-menu-skin.vui-menu-maincolor{
+    .ivu-menu-submenu {
+		&:hover {
+			background-color: rgba(255,255,255,.1);
+			color:white;
+		}
+		.ivu-menu-submenu-title {
+            color: rgba(255, 255, 255, 0.6);
+			&:hover {
+				color:white;
+			}
+		}
+	}
+	.ivu-menu-item {
+		color: rgba(255, 255, 255, 0.6);
+		&:hover {
+			background-color: rgba(255,255,255,.1);
+			color:white;
+		}
+	}
+	.ivu-menu-item-group {
+		.ivu-menu-item-group-title {
+			color: rgba(255,255,255,.3);
+		}
+	}
+	.ivu-menu-item-active:not(.ivu-menu-submenu) {
+		color: white;
+	}
+	.vui-collapse-footer {
+		.vui-collapse-fl {
+			background-color: rgba(255,255,255,.1);
+		}
+		.vui-collapse-fr {
+			background-color: rgba(255,255,255,.1);
+			.ivu-icon {
+				color: rgba(255, 255, 255, 0.6);
+			}
+		}
+	}
+}
+
+.vui-menu.ivu-menu.vui-menu-skinextra1.vui-menu-skin.vui-menu-maincolor.vui-menu-fullscreen {
+	.ivu-menu {
+		.ivu-menu-item-group,
+		.ivu-menu-item,
+		.ivu-menu-submenu {
+			color: rgba(255, 255, 255, 0.6);
+			&:hover {
+				color: white;
+			}
+		}
+		& > .ivu-menu-item-group,
+		& > .ivu-menu-item,
+		& > .ivu-menu-submenu {
+			color: rgba(255,255,255,.3);
+			& > .ivu-menu-item-group-title {
+				color: rgba(255,255,255,.3);
+			}
+		}
+	}
+}
+
+
+.vui-menu.ivu-menu.vui-menu-skinextra1.vui-menu-skin.vui-menu-356BBC {
+	background-color: #356BBC;
+	.ivu-menu {
+		background-color: #356BBC;
+	}
+}
+
+.vui-menu.ivu-menu.vui-menu-skinextra1.vui-menu-skin.vui-menu-0079FE {
+	background-color: #356BBC;
+	.ivu-menu {
+		background-color: #356BBC;
+	}
+}
+
+.vui-menu.ivu-menu.vui-menu-skinextra1.vui-menu-skin.vui-menu-00a0e9 {
+	background-color: #356BBC;
+	.ivu-menu {
+		background-color: #356BBC;
+	}
+}
+
+.vui-menu.ivu-menu.vui-menu-skinextra1.vui-menu-skin.vui-menu-c62f2f {
+	background-color: #356BBC;
+	.ivu-menu {
+		background-color: #356BBC;
+	}
+}
+
+.vui-menu.ivu-menu.vui-menu-skinextra1.vui-menu-skin.vui-menu-e72d7e {
+	background-color: #356BBC;
+	.ivu-menu {
+		background-color: #356BBC;
+	}
+}
+
+.vui-menu.ivu-menu.vui-menu-skinextra1.vui-menu-skin.vui-menu-ff6000 {
+	background-color: #356BBC;
+	.ivu-menu {
+		background-color: #356BBC;
+	}
+}
+
+.vui-menu.ivu-menu.vui-menu-skinextra1.vui-menu-skin.vui-menu-f78803 {
+	background-color: #356BBC;
+	.ivu-menu {
+		background-color: #356BBC;
+	}
+}
+
+.vui-menu.ivu-menu.vui-menu-skinextra1.vui-menu-skin.vui-menu-00bc71 {
+	background-color: #356BBC;
+	.ivu-menu {
+		background-color: #356BBC;
+	}
+}
+
+.vui-menu.ivu-menu.vui-menu-skinextra1.vui-menu-skin.vui-menu-01bca2 {
+	background-color: #356BBC;
+	.ivu-menu {
+		background-color: #356BBC;
+	}
+}
+
+.vui-menu.ivu-menu.vui-menu-skinextra1.vui-menu-skin.vui-menu-3f51b5 {
+	background-color: #356BBC;
+	.ivu-menu {
+		background-color: #356BBC;
+	}
+}
+
+.vui-menu.ivu-menu.vui-menu-skinextra1.vui-menu-skin.vui-menu-5b3fb5 {
+	background-color: #356BBC;
+	.ivu-menu {
+		background-color: #356BBC;
+	}
+}
+
+
+
+
+

@@ -41,7 +41,7 @@ export default {
     },
     theme: {
       validator(value) {
-        return oneOf(value, ["light", "dark", "primary"]);
+        return oneOf(value, ["light","dark","#356BBC","#0079FE","#00a0e9","#c62f2f","#e72d7e","#ff6000","#f78803","#00bc71","#01bca2","#3f51b5","#5b3fb5"]);
       },
       default: "light"
     },
@@ -83,15 +83,22 @@ export default {
       let theme = this.theme;
       if (this.mode === "vertical" && this.theme === "primary") theme = "light";
 
+      let mainColor = ["#356BBC","#0079FE","#00a0e9","#c62f2f","#e72d7e","#ff6000","#f78803","#00bc71","#01bca2","#3f51b5","#5b3fb5"]
+      let isMainColor = mainColor.indexOf(this.theme)>=0;
+      let themeClass = isMainColor?theme.slice(1):theme;
+
       return [
         `${preVuiCls}`,
         `${prefixCls}`,
-        `${prefixCls}-${theme}`,
+        `${preVuiCls}-${themeClass}`,
+        `${preVuiCls}-skin`,
+        `${preVuiCls}-skinextra1`,//纯粹就是为了提高皮肤样式的优先级多加的一个类名
         {
           [`${prefixCls}-${this.mode}`]: this.mode,
           [`${preVuiCls}-fullscreen`]: this.fullscreen,
           [`${preVuiCls}-fullscreen-not`]: !this.fullscreen,
-          [`${preVuiCls}-collapse`]: this.collapse && this.isCollapse
+          [`${preVuiCls}-collapse`]: this.collapse && this.isCollapse,
+          [`${preVuiCls}-maincolor`]: isMainColor
         }
       ];
     },

@@ -157,6 +157,7 @@ export default {
     //适配vuimenu做的一些处理
     //option 对应的参数
     vuiHandle(type, opt) {
+      let widthOffset = this.menu.theme === "light"?2:0;
       switch (type) {
         //垂直非全屏  点击菜单时处理子菜单位置
         case 1:
@@ -178,7 +179,7 @@ export default {
               } else {
                 top = -menuItemHeight;
               }
-              left = subMenuWidth + 2;
+              left = subMenuWidth + widthOffset;
               this.menuStyle.left = `${left}px`;
               this.menuStyle.top = `${top}px`;
             } else {
@@ -193,7 +194,7 @@ export default {
             let event = opt.event;
             let $target = $(event.currentTarget || event.target);
             let subMenuWidth = $target.innerWidth();
-            let left = subMenuWidth + 2;
+            let left = subMenuWidth + widthOffset;
             this.menuStyle.left = `${left}px`;
           }
           break;
@@ -213,7 +214,7 @@ export default {
               left = 0;
             } else {
               top = 0;
-              left = subMenuWidth+2;
+              left = subMenuWidth+widthOffset;
             }
             this.menuStyle.left = `${left}px`;
             this.menuStyle.top = `${top}px`;

@@ -103,9 +103,22 @@
 	.ivu-menu.vui-menu-level2 {
 		box-shadow: none;
 		position: static;
-		padding-left: 30px;
+		& > .ivu-menu-item-group {
+			& > .ivu-menu-item-group-title {
+				padding-left: 46px!important;
+			}
+			& > ul > .ivu-menu-item {
+				padding-left: 46px!important;
+			}
+			& > ul > .ivu-menu-submenu {
+				& > .ivu-menu-submenu-title {
+					padding-left: 46px!important;
+				}
+			}
+		}
 		& > .ivu-menu-submenu {
 			& > .ivu-menu-submenu-title {
+				padding-left: 46px!important;
 				.ivu-menu-submenu-title-icon {
 					position: absolute;
 					right: 16px;
@@ -113,6 +126,9 @@
 					transform: translateY(-50%);
 				}
 			}
+		}
+		& > .ivu-menu-item {
+			padding-left: 46px!important;
 		}
 	}
 }
@@ -258,10 +274,10 @@
 	& > .ivu-menu-submenu {
 		float: left;
 		.ivu-menu {
-            min-width: 180px;
+			min-width: 180px;
 			.ivu-menu-submenu {
-                box-sizing: border-box;
-                padding-right: 30px;
+				box-sizing: border-box;
+				padding-right: 30px;
 				float: initial;
 				.ivu-menu-submenu-title {
 					.ivu-menu-submenu-title-icon {
@@ -272,11 +288,11 @@
 						transform: translateY(-50%);
 					}
 				}
-            }
-            .ivu-menu-item{
-                box-sizing: border-box;
-                padding-right: 30px;
-            }
+			}
+			.ivu-menu-item {
+				box-sizing: border-box;
+				padding-right: 30px;
+			}
 		}
 	}
 	.ivu-menu {
@@ -299,8 +315,8 @@
 		background-color: @menu-horizontal-dropdown-bg;
 		position: absolute;
 		left: 0;
-        right: 0;
-        line-height: 1.2;
+		right: 0;
+		line-height: 1.2;
 		box-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
 		padding: 10px 22px;
 		.ivu-menu-item-group {
@@ -314,8 +330,8 @@
 			height: 30px;
 			line-height: 30px;
 			padding-left: 0;
-            padding-right: 0;
-            font-weight: normal;
+			padding-right: 0;
+			font-weight: normal;
 		}
 		.ivu-menu-submenu {
 			height: 30px;

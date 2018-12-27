@@ -157,7 +157,7 @@ export default {
     //适配vuimenu做的一些处理
     //option 对应的参数
     vuiHandle(type, opt) {
-      let widthOffset = this.menu.theme === "light"?2:0;
+      let widthOffset = this.menu.theme === "light" ? 2 : 0;
       switch (type) {
         //垂直非全屏  点击菜单时处理子菜单位置
         case 1:
@@ -166,7 +166,8 @@ export default {
             let event = opt.event;
             let $target = $(event.currentTarget || event.target);
             let isFirstMenu = !$target.parents(".ivu-menu-submenu").length;
-            if (!isFirstMenu) {
+            if (!isFirstMenu||(this.menu.collapse && this.menu.isCollapse)) {
+               $target.find(">.ivu-menu").removeClass("vui-menu-level2");
               //点击的是否是菜单的第一项
               let isFirstItem = $target.index() === 0;
               let targetTop = $target.offset().top;
@@ -214,7 +215,7 @@ export default {
               left = 0;
             } else {
               top = 0;
-              left = subMenuWidth+widthOffset;
+              left = subMenuWidth + widthOffset;
             }
             this.menuStyle.left = `${left}px`;
             this.menuStyle.top = `${top}px`;
@@ -239,14 +240,14 @@ export default {
       }
     },
     opened(val) {
-    //   if (this.mode === "vertical") return;
-    //   if (val) {
-    //     // set drop a width to fixed when menu has fixed position
-    //     this.dropWidth = parseFloat(getStyle(this.$el, "width"));
-    //     this.$refs.drop.update();
-    //   } else {
-    //     this.$refs.drop.destroy();
-    //   }
+      //   if (this.mode === "vertical") return;
+      //   if (val) {
+      //     // set drop a width to fixed when menu has fixed position
+      //     this.dropWidth = parseFloat(getStyle(this.$el, "width"));
+      //     this.$refs.drop.update();
+      //   } else {
+      //     this.$refs.drop.destroy();
+      //   }
     }
   },
   mounted() {

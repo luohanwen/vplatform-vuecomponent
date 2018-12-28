@@ -1,14 +1,14 @@
 <template>
   <div>
     <div
-      class="vui-video-container"
+      :class="['vui-video-container',{'vui-video-mobile':!isPc}]"
       :style="styles"
       :id="containerId"
       v-show="!hideVideo"
     >
       <p
         class="vui-title"
-        v-if="showLabel&&label"
+        v-if="showTitle"
       >{{label}}</p>
       <div
         class="vui-video-operate"
@@ -58,6 +58,7 @@ import drag from "./utils/drag";
 window.videojs = videojs;
 require("./plugins/videojs-resolution-switcher/videojs-resolution-switcher");
 require("./plugins/videojs-resolution-switcher/videojs-resolution-switcher.css");
+
 export default {
   name: "vui-video",
   props: {
@@ -149,6 +150,12 @@ export default {
     hideVideo() {
       //迷你模式并且点击了关闭才隐藏vidoe
       return this.miniPlayer && this.hideMini;
+    },
+    showTitle() {
+      return this.showLabel && this.label && !this.isShowMiniPlayer;
+    },
+    isPc() {
+      return !navigator.userAgent.match(/mobile/i);
     }
   },
   created() {
@@ -195,7 +202,8 @@ export default {
                 name: "progressControl"
               },
               {
-                name: "playbackRateMenuButton"
+                name: "playbackRateMenuButton",
+                playbackRates: [0.5, 1, 1.25, 1.5, 2]
               },
               {
                 name: "volumePanel",
@@ -243,8 +251,7 @@ export default {
     },
     bindScroll() {
       let self = this;
-      let isPc = !navigator.userAgent.match(/mobile/i);
-      if (isPc && this.miniPlayer) {
+      if (this.isPc && this.miniPlayer) {
         let $win = $(window);
         let $target = $(`#${this.containerId}`);
         let offsetTop = $target.offset().top;

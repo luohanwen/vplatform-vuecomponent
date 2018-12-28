@@ -8,7 +8,6 @@
   /* global require */
   'use strict';
   var videojs = null;
-  console.log(window.videojs);
   if(typeof window.videojs === 'undefined' && typeof require === 'function') {
     // videojs = require('video.js');
   } else {

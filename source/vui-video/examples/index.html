@@ -13,8 +13,6 @@
 </body>
 <script type="text/template" id="tpl">
 <div>
-        <div style="height:100px"></div>
-
     <vui-video
         :widgetCode="widgetCode"
         :src="src"
@@ -41,7 +39,7 @@
     <vui-button @click="play">play</vui-button>
     <vui-button @click="pause">pause</vui-button>
     <vui-button @click="requestFullscreen">requestFullscreen</vui-button>
-    <div style="height:2000px"></div>
+    <div style="height:2000px;border:1px solid blue;"></div>
 
 </div>
 </script>
@@ -57,7 +55,7 @@
             src:"http://vjs.zencdn.net/v/oceans.mp4?a=1",
             controls:true,
             width:"600px",
-            height:"300px",
+            height:"250px",
             poster:"https://gss0.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d833c895d143ad4bc8a8bb3b89025aafa50f0642.jpg",
             autoplay:true,
             loop:false,
@@ -80,13 +78,13 @@
                 this.$refs.video.requestFullscreen();
             },
             onplay(){
-                // alert("on-play");
+                console.log("on-play");
             },
             onpause(){
-                // alert("on-pause");
+                console.log("on-pause");
             },
             onended(){
-                // alert("on-ended");
+                console.log("on-ended");
             },
             onchangepre(){
                 alert("on-change-pre");

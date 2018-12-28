@@ -12,8 +12,12 @@
 	<% var scripts = htmlWebpackPlugin.options.resources.scripts;if(scripts){for(var i = 0,len=scripts.length;i<len;i++){var script = scripts[i]; %><script type="text/javascript" src="<%= script %>"></script><% }} %>
 </body>
 <script type="text/template" id="tpl">
+<div>
+        <div style="height:100px"></div>
+
     <vui-video
         :widgetCode="widgetCode"
+        :src="src"
         :controls="controls"
         :width="width"
         :height="height"
@@ -32,7 +36,14 @@
         @on-ended="onended"
         @on-change-pre="onchangepre"
         @on-change-next="onchangenext"
-  ></vui-video>
+        ref="video"
+    ></vui-video>
+    <vui-button @click="play">play</vui-button>
+    <vui-button @click="pause">pause</vui-button>
+    <vui-button @click="requestFullscreen">requestFullscreen</vui-button>
+    <div style="height:2000px"></div>
+
+</div>
 </script>
 <script type="text/javascript">
 	if(typeof(Framework7Vue) != "undefined"){
@@ -43,6 +54,7 @@
 		template : "#tpl",
 		data : {
             widgetCode:"vui-video",
+            src:"http://vjs.zencdn.net/v/oceans.mp4?a=1",
             controls:true,
             width:"600px",
             height:"300px",
@@ -51,13 +63,22 @@
             loop:false,
             volume:0.3,
             fullscreen:true,
-            label:"视频标题1",
-            notSupportedMsg:"视频无法播放",
+            label:"广州同望科技宣传片.mp4",
+            notSupportedMsg:"目前无法播放视频源",
             showLabel:true,
             transfer:true,
             miniPlayer:true
         },
         methods: {
+            play(){
+                this.$refs.video.play();
+            },
+            pause(){
+                this.$refs.video.pause();
+            },
+            requestFullscreen(){
+                this.$refs.video.requestFullscreen();
+            },
             onplay(){
                 // alert("on-play");
             },

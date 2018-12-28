@@ -199,7 +199,7 @@ function getExternals() {
 let vPlatformPath = path.resolve(__dirname, '../../', './node_modules/v3-platform-utils/src/vplatform');
 module.exports = {
   entry: {
-    "widget/vui-video": './index.js'
+    "widget/vui-period": './index.js'
   },
   output: {
     path: _output_path,
@@ -343,7 +343,7 @@ module.exports = {
     new CopyWebpackPlugin(copyList),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      title: 'vui-video测试页面',
+      title: 'vui-period测试页面',
       resources: _analyResources,
       template: path.join(__dirname, '../../', '/examples/index' + ('mobile' == 'all' ? '_mobile' : '') + '.html')
     }),
@@ -366,25 +366,25 @@ module.exports = {
     hints: false
   }
 };
-// if (process.env.NODE_ENV === 'production') {
-//   //module.exports.devtool = '#source-map';
-//   // http://vue-loader.vuejs.org/en/workflow/production.html
-//   module.exports.plugins = (module.exports.plugins || []).concat([
-//     new webpack.DefinePlugin({
-//       'process.env': {
-//         NODE_ENV: '"production"'
-//       }
-//     }),
-//     new webpack.optimize.UglifyJsPlugin({
-//       sourceMap: true,
-//       compress: {
-//         warnings: false
-//       }
-//     }),
-//     new webpack.LoaderOptionsPlugin({
-//       minimize: true
-//     })
-//   ]);
-// } else {
+if (process.env.NODE_ENV === 'production') {
+  //module.exports.devtool = '#source-map';
+  // http://vue-loader.vuejs.org/en/workflow/production.html
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      compress: {
+        warnings: false
+      }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    })
+  ]);
+} else {
   module.exports.devtool = '#eval-source-map';
-// }
+}

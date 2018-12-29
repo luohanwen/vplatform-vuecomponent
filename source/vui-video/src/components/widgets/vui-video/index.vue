@@ -64,7 +64,8 @@ export default {
   props: {
     widgetCode: {
       type: String,
-      default: "vui-video"
+      default: "vui-video",
+      required:true
     },
     src: {
       type: String,
@@ -158,6 +159,12 @@ export default {
       return !navigator.userAgent.match(/mobile/i);
     }
   },
+  watch: {
+    src(val, oldValue) {
+      console.log("src", val);
+      this.changeSrc(val);
+    }
+  },
   created() {
     let notSupportedMsg = this.notSupportedMsg;
     if (notSupportedMsg) {
@@ -228,26 +235,62 @@ export default {
 
           var player = this;
           window.player = player;
-          player.updateSrc([
-            {
-              src: "https://vjs.zencdn.net/v/oceans.mp4?SD",
-              type: "video/mp4",
-              label: "标清",
-              res: 360
-            },
-            {
-              src: "https://vjs.zencdn.net/v/oceans.mp4?HD",
-              type: "video/mp4",
-              label: "高清",
-              res: 720
-            }
-          ]);
-          player.on("resolutionchange", function() {
-            console.info("Source changed to %s", player.src());
-          });
+
+          self.handelResolution();
+          self.handlePreAndNext();
         }
       ));
       player.volume(this.volume);
+    },
+    // 添加上一集下一集
+    handlePreAndNext() {
+      $(
+        '<div class="vjs-control vui-video-skip"><i class="vui-pre ivu-icon ivu-icon-ios-skipbackward"></i><i class="vui-next ivu-icon ivu-icon-ios-skipbackward"></i></span>'
+      ).insertAfter(".vjs-play-control");
+      $(`#${this.containerId}`).on("click",".vui-pre", () => {
+        this.$emit("on-pre");
+      });
+
+      $(`#${this.containerId}`).on("click",".vui-next", () => {
+        this.$emit("on-next");
+      });
+    },
+    // 添加清晰度
+    handelResolution() {
+      let self = this;
+      player.updateSrc([
+        {
+          src: self.src,
+          type: self.videoType,
+          label: "标清",
+          res: 360
+        },
+        {
+          src: self.src,
+          type: self.videoType,
+          label: "高清",
+          res: 720
+        }
+      ]);
+
+      //已经把清晰度切换组件里的点击事件去掉了，这里自己实现点击效果，切换清晰度时通知外面让调用方处理清晰度
+      $(".vjs-resolution-button")
+        .find(".vjs-menu-item")
+        .unbind("click")
+        .bind("click", function(event) {
+          let $target = $(event.currentTarget || event.target);
+          let $show = $(`#${self.containerId}`).find(
+            ".vjs-resolution-button-label"
+          );
+          let resolution = $target.find(".vjs-menu-item-text").text();
+          let nowResolution = $show.text();
+          if (resolution != nowResolution) {
+            $show.html(resolution);
+            $target.siblings().removeClass("vjs-selected");
+            $target.addClass("vjs-selected");
+            self.$emit("on-resolution-change", resolution);
+          }
+        });
     },
     bindScroll() {
       let self = this;
@@ -297,6 +340,9 @@ export default {
     },
     closeMini() {
       this.hideMini = true;
+    },
+    changeSrc(src) {
+      this.videojsEl.src(src);
     }
   },
   render(h) {

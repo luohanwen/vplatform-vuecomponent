@@ -134,15 +134,35 @@
 
 	.vjs-resolution-button-label {
 		outline: none;
-	}
+		&:focus {
+			outline: none;
+		}
+    }
+    
+    .vui-video-skip{
+        margin-right: 10px;
+        .vui-pre,.vui-next{
+            font-size: 16px;
+            position: absolute;
+            top:50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        .vui-pre{
+            left:5px;
+        }
+        .vui-next{
+            right: 5px;
+            transform: translateY(-50%) rotate(180deg);
+        }
+    }
 }
 
-
 //移动端
-.vui-video-container.vui-video-mobile{
-    .vjs-volume-panel,
+.vui-video-container.vui-video-mobile {
+	.vjs-volume-panel,
 	.vjs-resolution-button,
 	.vjs-playback-rate {
-        display: none;
+		display: none;
 	}
 }

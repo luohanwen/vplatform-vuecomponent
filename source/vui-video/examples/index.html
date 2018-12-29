@@ -32,8 +32,11 @@
         @on-play="onplay"
         @on-pause="onpause"
         @on-ended="onended"
+        @on-pre="onpre"
+        @on-next="onnext"
         @on-change-pre="onchangepre"
         @on-change-next="onchangenext"
+        @on-resolution-change="onResolutionChange"
         ref="video"
     ></vui-video>
     <vui-button @click="play">play</vui-button>
@@ -91,6 +94,19 @@
             },
             onchangenext(){
                 alert("on-change-next");
+            },
+            //清晰度切换时触发事件
+            onResolutionChange(resolution){
+                console.log("当前清晰度为："+resolution);
+
+                //改变视频源
+                this.src = "http://vjs.zencdn.net/v/oceans.mp4?a=2";
+            },
+            onpre(){
+                console.log("上一集");
+            },
+            onnext(){
+                console.log("下一集");
             }
         },
 	});

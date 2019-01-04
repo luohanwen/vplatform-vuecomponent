@@ -65,7 +65,7 @@ export default {
     widgetCode: {
       type: String,
       default: "vui-video",
-      required:true
+      required: true
     },
     src: {
       type: String,
@@ -247,11 +247,11 @@ export default {
       $(
         '<div class="vjs-control vui-video-skip"><i class="vui-pre ivu-icon ivu-icon-ios-skipbackward"></i><i class="vui-next ivu-icon ivu-icon-ios-skipbackward"></i></span>'
       ).insertAfter(".vjs-play-control");
-      $(`#${this.containerId}`).on("click",".vui-pre", () => {
+      $(`#${this.containerId}`).on("click", ".vui-pre", () => {
         this.$emit("on-pre");
       });
 
-      $(`#${this.containerId}`).on("click",".vui-next", () => {
+      $(`#${this.containerId}`).on("click", ".vui-next", () => {
         this.$emit("on-next");
       });
     },
@@ -344,9 +344,6 @@ export default {
     changeSrc(src) {
       this.videojsEl.src(src);
     }
-  },
-  render(h) {
-    return h();
   }
 };
 </script>

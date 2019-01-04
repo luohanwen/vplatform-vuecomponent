@@ -24,6 +24,7 @@
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
+		"v-click-outside-x-ui-lib": "file:node_modules/v3_modules/modules/v-click-outside-x-ui-lib",
 		"v3-cli": "^1.0.63"
 	}
 }

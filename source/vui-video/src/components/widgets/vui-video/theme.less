@@ -160,9 +160,28 @@
 
 //移动端
 .vui-video-container.vui-video-mobile {
+    .vui-video-skip,
 	.vjs-volume-panel,
 	.vjs-resolution-button,
 	.vjs-playback-rate {
 		display: none;
-	}
+    }
+    
+    //横屏并且全屏模式
+    @media screen and (orientation: landscape) {
+        .vjs-fullscreen{
+            .vui-video-skip,
+            // .vjs-volume-panel,
+            .vjs-resolution-button,
+            .vjs-playback-rate {
+                display: block;
+            }
+
+            .vjs-volume-panel{
+                .vjs-mute-control{
+                    padding-bottom: 0;
+                }
+            }
+        } 
+    }
 }

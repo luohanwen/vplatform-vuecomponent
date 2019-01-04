@@ -1,2 +1,2 @@
-import vuiPeriod from './index.vue';
+import vuiPeriod from './picker/date-picker';
 export default vuiPeriod;

@@ -13,8 +13,20 @@
 	"webpackCfgVersion": "1.0.5",
 	"extraSources": [],
 	"urlSources": [],
-	"dependencies": [],
+	"dependencies": [
+		{
+			"name": "com.toone.v3.platform-vjs.framework.extension.platform.custom.resource.v-click-outside-x-ui-lib",
+			"version": "1.0.0",
+			"libType": "dev"
+		}
+	],
 	"VjsList": [],
-	"depVjsList": [],
+	"depVjsList": [
+		{
+			"name": "vjs.framework.extension.platform.custom.resource.v-click-outside-x-ui-lib",
+			"version": "1.0.0.SNAPSHOT",
+			"symbolicName": "com.toone.v3.platform-vjs.framework.extension.platform.custom.resource.v-click-outside-x-ui-lib"
+		}
+	],
 	"require": []
 }

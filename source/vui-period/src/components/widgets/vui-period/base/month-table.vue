@@ -13,8 +13,8 @@
 </template>
 <script>
     import { clearHours } from '../util';
-    import { deepCopy } from '../../../utils/assist';
-    import Locale from '../../../mixins/locale';
+    import { deepCopy } from '../utils/assist';
+    import Locale from '../mixins/locale';
     import mixin from './mixin';
     import prefixCls from './prefixCls';
 

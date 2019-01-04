@@ -31,7 +31,7 @@
 
 
     import Mixin from '../panel-mixin';
-    import Locale from '../../../../mixins/locale';
+    import Locale from '../../mixins/locale';
 
     import { initTimeDate } from '../../util';
 

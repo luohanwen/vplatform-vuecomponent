@@ -115,7 +115,7 @@
     </div>
 </template>
 <script>
-    import Icon from '../../../icon/icon.vue';
+    import Icon from '../../components/icon/icon.vue';
     import DateTable from '../../base/date-table.vue';
     import YearTable from '../../base/year-table.vue';
     import MonthTable from '../../base/month-table.vue';
@@ -127,7 +127,7 @@
 
     import Mixin from '../panel-mixin';
     import DateMixin from './date-panel-mixin';
-    import Locale from '../../../../mixins/locale';
+    import Locale from '../../mixins/locale';
 
     const prefixCls = 'ivu-picker-panel';
     const datePrefixCls = 'ivu-date-picker';

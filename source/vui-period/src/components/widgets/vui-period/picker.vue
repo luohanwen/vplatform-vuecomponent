@@ -119,7 +119,6 @@
 
 
     export default {
-        name:"vui-period",
         mixins: [ Emitter ],
         components: { iInput, Drop },
         directives: { clickOutside, TransferDom },

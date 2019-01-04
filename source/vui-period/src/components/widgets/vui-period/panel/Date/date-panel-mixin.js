@@ -1,5 +1,5 @@
 
-import { oneOf } from '../../../../utils/assist';
+import { oneOf } from '../../utils/assist';
 import {initTimeDate } from '../../util';
 
 

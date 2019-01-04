@@ -5,7 +5,7 @@ import RangeDatePickerPanel from '../panel/Date/date-range.vue';
 import { oneOf } from '../utils/assist';
 
 export default {
-    name: 'CalendarPicker',
+    name: 'vui-period',
     mixins: [Picker],
     props: {
         type: {

@@ -19,7 +19,7 @@
 <script>
     import { clearHours, isInRange } from '../util';
     import Locale from '../mixins/locale';
-    import jsCalendar from '../utils/jsCalendar';
+    import jsCalendar from '../utils/jsCalendar/index';
 
     import mixin from './mixin';
     import prefixCls from './prefixCls';

@@ -23,7 +23,7 @@
 <script type="text/template" id="tpl">
     <div class="page-demo">
         1111
-          <vui-period type="date"></vui-period>
+          <vui-period v-model="value" :widget-code="widgetCode" :placeholder="placeholder" :type="type" :size="size" :shortcuts="shortcuts" :confirm="confirm" :disabled="disabled" :readonly="readonly" :clearable="clearable" @on-change="onchange" @on-open-change="onopenchange" @on-ok="onok" @on-clear="onclear"></vui-period>
     </div>
    </script>
 <script type="text/javascript">
@@ -33,7 +33,33 @@
     new Vue({
         el: "#app",
         template: "#tpl",
-        data: {}
+        data: {
+            widgetCode: "vui-period",
+            placeholder: "请选择日期",
+            type: "year",
+            size: "small",
+            shortcuts: true,
+            confirm: true,
+            disabled: false,
+            readonly: false,
+            clearable: false,
+            value:new Date()
+            // value:[]
+        },
+        methods: {
+            onchange(value) {
+                console.log("onchange", value);
+            },
+            onopenchange(value) {
+                console.log("onopenchange", value);
+            },
+            onok() {
+                console.log("onok");
+            },
+            onclear() {
+                console.log("onclear");
+            }
+        },
     });
 </script>
 

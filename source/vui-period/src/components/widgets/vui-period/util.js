@@ -1,9 +1,60 @@
 import dateUtil from './utils/date';
 
-export const toDate = function(date) {
+/**
+ * 判断年份是否为润年
+ *
+ * @param {Number} year
+ */
+function isLeapYear(year) {
+    return (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0);
+}
+/**
+ * 获取某一年份的某一月份的天数
+ *
+ * @param {Number} year
+ * @param {Number} month
+ */
+function getMonthDays(year, month) {
+    return [31, null, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month] || (isLeapYear(year) ? 29 : 28);
+}
+
+//获取第几周
+export const getWeekIndex = function (date) {
+    var year = date.getFullYear(),
+        month = date.getMonth(),
+        days = date.getDate();
+    //那一天是那一年中的第多少天
+    for (var i = 0; i < month; i++) {
+        days += getMonthDays(year, i);
+    }
+
+    //那一年第一天是星期几
+    var yearFirstDay = new Date(year, 0, 1).getDay() || 7;
+
+    var week = null;
+    if (yearFirstDay == 1) {
+        week = Math.ceil(days / 7);
+    } else {
+        days -= (7 - yearFirstDay + 1);
+        week = Math.ceil(days / 7) + 1;
+    }
+
+    return week;
+};
+
+//根据年份和第几周获取对应的日期对象（每一周的第一天）
+export const getDateByWeekNum = function (year, num) {
+    const date = new Date(year, 0, 1);
+    const timeDiff = 3600 * 1000 * 24 * (7 * num - 7);
+    date.setTime(date.getTime() + timeDiff);
+    return date;
+}
+
+
+export const toDate = function (date) {
     let _date = new Date(date);
     // IE patch start (#1422)
-    if (isNaN(_date.getTime()) && typeof date === 'string'){
+    if (isNaN(_date.getTime()) && typeof date === 'string') {
         _date = date.split('-').map(Number);
         _date[1] += 1;
         _date = new Date(..._date);
@@ -26,27 +77,27 @@ export const isInRange = (time, a, b) => {
     return time >= start && time <= end;
 };
 
-export const formatDate = function(date, format) {
+export const formatDate = function (date, format) {
     date = toDate(date);
     if (!date) return '';
     return dateUtil.format(date, format || 'yyyy-MM-dd');
 };
 
-export const parseDate = function(string, format) {
+export const parseDate = function (string, format) {
     return dateUtil.parse(string, format || 'yyyy-MM-dd');
 };
 
-export const getDayCountOfMonth = function(year, month) {
+export const getDayCountOfMonth = function (year, month) {
     return new Date(year, month + 1, 0).getDate();
 };
 
-export const getFirstDayOfMonth = function(date) {
+export const getFirstDayOfMonth = function (date) {
     const temp = new Date(date.getTime());
     temp.setDate(1);
     return temp.getDay();
 };
 
-export const siblingMonth = function(src, diff) {
+export const siblingMonth = function (src, diff) {
     const temp = new Date(src); // lets copy it so we don't change the original
     const newMonth = temp.getMonth() + diff;
     const newMonthDayCount = getDayCountOfMonth(temp.getFullYear(), newMonth);
@@ -58,15 +109,15 @@ export const siblingMonth = function(src, diff) {
     return temp;
 };
 
-export const prevMonth = function(src) {
+export const prevMonth = function (src) {
     return siblingMonth(src, -1);
 };
 
-export const nextMonth = function(src) {
+export const nextMonth = function (src) {
     return siblingMonth(src, 1);
 };
 
-export const initTimeDate = function() {
+export const initTimeDate = function () {
     const date = new Date();
     date.setHours(0);
     date.setMinutes(0);
@@ -74,7 +125,7 @@ export const initTimeDate = function() {
     return date;
 };
 
-export const formatDateLabels = (function() {
+export const formatDateLabels = (function () {
     /*
       Formats:
       yyyy - 4 digit year
@@ -115,7 +166,7 @@ export const formatDateLabels = (function() {
     };
     const formatRegex = new RegExp(['yyyy', 'Mmmm', 'mmmm', 'Mmm', 'mmm', 'mm', 'm'].join('|'), 'g');
 
-    return function(locale, format, date) {
+    return function (locale, format, date) {
         const componetsRegex = /(\[[^\]]+\])([^\[\]]+)(\[[^\]]+\])/;
         const components = format.match(componetsRegex).slice(1);
         const separator = components[1];
@@ -149,13 +200,19 @@ export const DEFAULT_FORMATS = {
 
 export const RANGE_SEPARATOR = ' - ';
 
-const DATE_FORMATTER = function(value, format) {
+const DATE_FORMATTER = function (value, format) {
     return formatDate(value, format);
 };
-const DATE_PARSER = function(text, format) {
+const WEEK_FORMATTER = function (value, format) {
+    const date = toDate(value);
+    const year = date.getFullYear();
+    const weekNum = getWeekIndex(date);
+    return `${year}年第${weekNum}周`;
+};
+const DATE_PARSER = function (text, format) {
     return parseDate(text, format);
 };
-const RANGE_FORMATTER = function(value, format) {
+const RANGE_FORMATTER = function (value, format) {
     if (Array.isArray(value) && value.length === 2) {
         const start = value[0];
         const end = value[1];
@@ -163,12 +220,12 @@ const RANGE_FORMATTER = function(value, format) {
         if (start && end) {
             return formatDate(start, format) + RANGE_SEPARATOR + formatDate(end, format);
         }
-    } else if (!Array.isArray(value) && value instanceof Date){
+    } else if (!Array.isArray(value) && value instanceof Date) {
         return formatDate(value, format);
     }
     return '';
 };
-const RANGE_PARSER = function(text, format) {
+const RANGE_PARSER = function (text, format) {
     const array = Array.isArray(text) ? text : text.split(RANGE_SEPARATOR);
     if (array.length === 2) {
         const range1 = array[0];
@@ -223,6 +280,10 @@ export const TYPE_VALUE_RESOLVER_MAP = {
     },
     year: {
         formatter: DATE_FORMATTER,
+        parser: DATE_PARSER
+    },
+    week: {
+        formatter: WEEK_FORMATTER,
         parser: DATE_PARSER
     },
     multiple: {

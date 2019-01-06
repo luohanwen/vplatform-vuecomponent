@@ -515,7 +515,16 @@ export default {
     onSelectionModeChange(type) {
       if (type.match(/^date/)) type = "date";
       this.selectionMode =
-        oneOf(type, ["year", "month", "date", "time"]) && type;
+        oneOf(type, [
+          "year",
+          "month",
+          "date",
+          "time",
+          "halfyear",
+          "quarter",
+          "tendays",
+          "week"
+        ]) && type;
       return this.selectionMode;
     },
     // 开启 transfer 时，点击 Drop 即会关闭，这里不让其关闭
@@ -901,16 +910,17 @@ export default {
       return isRange || this.multiple ? val || [] : [val];
     },
     formatDate(value) {
-      const format = DEFAULT_FORMATS[this.type];
+    //   const format = DEFAULT_FORMATS[this.type];
 
       if (this.multiple) {
-        const formatter = TYPE_VALUE_RESOLVER_MAP.multiple.formatter;
-        return formatter(value, this.format || format);
+        // const formatter = TYPE_VALUE_RESOLVER_MAP.multiple.formatter;
+        // return formatter(value, this.format || format);
       } else {
         const { formatter } =
           TYPE_VALUE_RESOLVER_MAP[this.type] ||
           TYPE_VALUE_RESOLVER_MAP["default"];
-        return formatter(value, this.format || format);
+        // return formatter(value, this.format || format);
+        return formatter(value);
       }
     },
     onPick(dates, visible = false, type) {
@@ -993,3 +1003,7 @@ export default {
   }
 };
 </script>
+
+
+<style lang="less" src="./theme.less" scoped>
+</style>

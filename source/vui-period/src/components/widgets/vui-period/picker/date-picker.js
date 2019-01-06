@@ -10,7 +10,7 @@ export default {
     props: {
         type: {
             validator (value) {
-                return oneOf(value, ['year', 'month', 'date', 'daterange', 'datetime', 'datetimerange']);
+                return oneOf(value, ['year', 'month', 'date', 'daterange', 'datetime', 'datetimerange','week','halfyear','quarter','tendays']);
             },
             default: 'date'
         },

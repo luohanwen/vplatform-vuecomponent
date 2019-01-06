@@ -36,15 +36,20 @@
         data: {
             widgetCode: "vui-period",
             placeholder: "请选择日期",
-            type: "year",
+            type: "week",
             size: "small",
             shortcuts: true,
             confirm: true,
             disabled: false,
             readonly: false,
             clearable: false,
-            value:new Date()
+            value: new Date()
             // value:[]
+        },
+        watch: {
+            value(val, oldVal) {
+                console.log("watch value", val);
+            }
         },
         methods: {
             onchange(value) {

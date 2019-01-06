@@ -199,7 +199,16 @@ export const DEFAULT_FORMATS = {
 };
 
 export const RANGE_SEPARATOR = ' - ';
-
+const YEAR_FORMATTER = function (value, format) {
+    const date = toDate(value);
+    if (!date) return '';
+    return `${date.getFullYear()}年`;
+};
+const MONTH_FORMATTER = function (value, format) {
+    const date = toDate(value);
+    if (!date) return '';
+    return `${date.getFullYear()}年${date.getMonth()+1}月`;
+};
 const DATE_FORMATTER = function (value, format) {
     return formatDate(value, format);
 };
@@ -276,11 +285,11 @@ export const TYPE_VALUE_RESOLVER_MAP = {
         parser: DATE_PARSER
     },
     month: {
-        formatter: DATE_FORMATTER,
+        formatter: MONTH_FORMATTER,
         parser: DATE_PARSER
     },
     year: {
-        formatter: DATE_FORMATTER,
+        formatter: YEAR_FORMATTER,
         parser: DATE_PARSER
     },
     week: {

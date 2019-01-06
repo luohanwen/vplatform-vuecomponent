@@ -205,6 +205,7 @@ const DATE_FORMATTER = function (value, format) {
 };
 const WEEK_FORMATTER = function (value, format) {
     const date = toDate(value);
+    if (!date) return '';
     const year = date.getFullYear();
     const weekNum = getWeekIndex(date);
     return `${year}年第${weekNum}周`;

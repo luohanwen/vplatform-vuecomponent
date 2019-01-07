@@ -1,76 +1,78 @@
 <template>
-  <div
-    :class="wrapperClasses"
-    v-click-outside:mousedown.capture="handleClose"
-    v-click-outside.capture="handleClose"
-  >
-    <div
-      ref="reference"
-      :class="[prefixCls + '-rel']"
-    >
-      <slot>
-        <i-input
-          :key="forceInputRerender"
-          :element-id="elementId"
-          :class="[prefixCls + '-editor']"
-          :readonly="!editable || readonly"
-          :disabled="disabled"
-          :size="size"
-          :placeholder="placeholder"
-          :value="visualValue"
-          :name="name"
-          ref="input"
-          @on-input-change="handleInputChange"
-          @on-focus="handleFocus"
-          @on-blur="handleBlur"
-          @on-click="handleIconClick"
-          @click.native="handleFocus"
-          @keydown.native="handleKeydown"
-          @mouseenter.native="handleInputMouseenter"
-          @mouseleave.native="handleInputMouseleave"
-          :icon="iconType"
-        ></i-input>
-      </slot>
-    </div>
-    <transition name="transition-drop">
-      <Drop
-        @click.native="handleTransferClick"
-        v-show="opened"
-        :class="{ [prefixCls + '-transfer']: transfer }"
-        :placement="placement"
-        ref="drop"
-        :data-transfer="transfer"
-        :transfer="transfer"
-        v-transfer-dom
-      >
-        <div>
-          <component
-            :is="panel"
-            ref="pickerPanel"
-            :visible="visible"
-            :showTime="type === 'datetime' || type === 'datetimerange'"
-            :confirm="isConfirm"
-            :selectionMode="selectionMode"
-            :steps="steps"
-            :format="format"
-            :value="internalValue"
-            :start-date="startDate"
-            :split-panels="splitPanels"
-            :show-week-numbers="showWeekNumbers"
-            :picker-type="type"
-            :multiple="multiple"
-            :focused-date="focusedDate"
-            :time-picker-options="timePickerOptions"
-            v-bind="ownPickerProps"
-            @on-pick="onPick"
-            @on-pick-clear="handleClear"
-            @on-pick-success="onPickSuccess"
-            @on-pick-click="disableClickOutSide = true"
-            @on-selection-mode-change="onSelectionModeChange"
-          ></component>
+  <div class="ivu-date">
+      <div
+        :class="wrapperClasses"
+        v-click-outside:mousedown.capture="handleClose"
+        v-click-outside.capture="handleClose"
+        >
+        <div
+            ref="reference"
+            :class="[prefixCls + '-rel']"
+        >
+            <slot>
+            <i-input
+                :key="forceInputRerender"
+                :element-id="elementId"
+                :class="[prefixCls + '-editor']"
+                :readonly="!editable || readonly"
+                :disabled="disabled"
+                :size="size"
+                :placeholder="placeholder"
+                :value="visualValue"
+                :name="name"
+                ref="input"
+                @on-input-change="handleInputChange"
+                @on-focus="handleFocus"
+                @on-blur="handleBlur"
+                @on-click="handleIconClick"
+                @click.native="handleFocus"
+                @keydown.native="handleKeydown"
+                @mouseenter.native="handleInputMouseenter"
+                @mouseleave.native="handleInputMouseleave"
+                :icon="iconType"
+            ></i-input>
+            </slot>
         </div>
-      </Drop>
-    </transition>
+        <transition name="transition-drop">
+            <Drop
+            @click.native="handleTransferClick"
+            v-show="opened"
+            :class="{ [prefixCls + '-transfer']: transfer }"
+            :placement="placement"
+            ref="drop"
+            :data-transfer="transfer"
+            :transfer="transfer"
+            v-transfer-dom
+            >
+            <div>
+                <component
+                :is="panel"
+                ref="pickerPanel"
+                :visible="visible"
+                :showTime="type === 'datetime' || type === 'datetimerange'"
+                :confirm="isConfirm"
+                :selectionMode="selectionMode"
+                :steps="steps"
+                :format="format"
+                :value="internalValue"
+                :start-date="startDate"
+                :split-panels="splitPanels"
+                :show-week-numbers="showWeekNumbers"
+                :picker-type="type"
+                :multiple="multiple"
+                :focused-date="focusedDate"
+                :time-picker-options="timePickerOptions"
+                v-bind="ownPickerProps"
+                @on-pick="onPick"
+                @on-pick-clear="handleClear"
+                @on-pick-success="onPickSuccess"
+                @on-pick-click="disableClickOutSide = true"
+                @on-selection-mode-change="onSelectionModeChange"
+                ></component>
+            </div>
+            </Drop>
+        </transition>
+        </div>
   </div>
 </template>
 <script>
@@ -83,7 +85,8 @@ import {
   DEFAULT_FORMATS,
   RANGE_SEPARATOR,
   TYPE_VALUE_RESOLVER_MAP,
-  getDayCountOfMonth
+  getDayCountOfMonth,
+  getOptions
 } from "./util";
 import { findComponentsDownward } from "./utils/assist";
 import Emitter from "./mixins/emitter";
@@ -324,191 +327,7 @@ export default {
       const shortcuts = this.shortcuts;
       const type = this.type;
       if (!this.shortcuts) return {};
-      let map = {
-        year() {
-          return {
-            shortcuts: [
-              {
-                text: "今年",
-                value() {
-                  return new Date();
-                }
-              },
-              {
-                text: "去年",
-                value() {
-                  const date = new Date();
-                  const timediff = 3600 * 1000 * 24 * 365;
-                  date.setTime(date.getTime() - timediff);
-                  return date;
-                }
-              },
-              {
-                text: "明年",
-                value() {
-                  const date = new Date();
-                  const timediff = 3600 * 1000 * 24 * 365;
-                  date.setTime(date.getTime() + timediff);
-                  return date;
-                }
-              }
-            ]
-          };
-        },
-        month() {
-          return {
-            shortcuts: [
-              {
-                text: "本月",
-                value() {
-                  return new Date();
-                }
-              },
-              {
-                text: "上月",
-                value() {
-                  const date = new Date();
-                  const date2 = new Date();
-                  date2.setDate(0);
-                  const days = date2.getDate(); //当前月有多少天
-                  const timediff = 3600 * 1000 * 24 * days;
-                  date.setTime(date.getTime() - timediff);
-                  return date;
-                }
-              },
-              {
-                text: "下月",
-                value() {
-                  const date = new Date();
-                  const date2 = new Date();
-                  date2.setDate(0);
-                  const days = date2.getDate(); //当前月有多少天
-                  const timediff = 3600 * 1000 * 24 * days;
-                  date.setTime(date.getTime() + timediff);
-                  return date;
-                }
-              }
-            ]
-          };
-        },
-        week() {
-          return {
-            shortcuts: [
-              {
-                text: "今周",
-                value() {
-                  return new Date();
-                }
-              },
-              {
-                text: "上周",
-                value() {
-                  const date = new Date();
-                  const timediff = 3600 * 1000 * 24 * 7;
-                  date.setTime(date.getTime() - timediff);
-                  return date;
-                }
-              },
-              {
-                text: "下周",
-                value() {
-                  const date = new Date();
-                  const timediff = 3600 * 1000 * 24 * 7;
-                  date.setTime(date.getTime() + timediff);
-                  return date;
-                }
-              }
-            ]
-          };
-        },
-        halfyear() {
-          return {
-            shortcuts: [
-              {
-                text: "今年上半年",
-                value() {
-                  const date = new Date();
-                  data.setMonth(0);
-                  return data;
-                }
-              },
-              {
-                text: "今年下半年",
-                value() {
-                  const date = new Date();
-                  data.setMonth(6);
-                  return data;
-                }
-              }
-            ]
-          };
-        },
-        tendays() {
-          return {
-            shortcuts: [
-              {
-                text: "本月上旬",
-                value() {
-                  const date = new Date();
-                  data.setDate(1);
-                  return data;
-                }
-              },
-              {
-                text: "本月中旬",
-                value() {
-                  const date = new Date();
-                  data.setDate(11);
-                  return data;
-                }
-              },
-              {
-                text: "本月下旬",
-                value() {
-                  const date = new Date();
-                  data.setDate(21);
-                  return data;
-                }
-              }
-            ]
-          };
-        },
-        quarter() {
-          return {
-            shortcuts: [
-              {
-                text: "本季度",
-                value() {
-                  return new Date();
-                }
-              },
-              {
-                text: "上季度",
-                value() {
-                  const date = new Date();
-                  const timediff = 3600 * 1000 * 24 * 30 * 3;
-                  date.setTime(date.getTime() - timediff);
-                  return data;
-                }
-              },
-              {
-                text: "下季度",
-                value() {
-                  const date = new Date();
-                  const timediff = 3600 * 1000 * 24 * 30 * 3;
-                  date.setTime(date.getTime() + timediff);
-                  return data;
-                }
-              }
-            ]
-          };
-        },
-        default() {
-          return {};
-        }
-      };
-
-      return (map[type] && map[type]()) || map["default"]();
+      return getOptions(type);
     }
   },
   methods: {
@@ -1005,5 +824,5 @@ export default {
 </script>
 
 
-<style lang="less" src="./theme.less" scoped>
+<style lang="less" src="./theme.less">
 </style>

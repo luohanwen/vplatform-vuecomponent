@@ -5,7 +5,7 @@
             v-show="datePanelLabel.labels[0].type === 'year' || currentView === 'date'"
             :class="[datePrefixCls + '-header-label']"
             @click="datePanelLabel.labels[0].handler">{{ datePanelLabel.labels[0].label }}</span>
-        <template v-if="datePanelLabel && currentView === 'date'">{{ datePanelLabel.separator }}</template>
+        <template v-if="showSeparator">{{ datePanelLabel.separator }}</template>
         <span
             v-if="datePanelLabel"
             v-show="datePanelLabel.labels[1].type === 'year' || currentView === 'date'"
@@ -20,6 +20,11 @@ export default {
         datePanelLabel: Object,
         currentView: String,
         datePrefixCls: String
-    }
+    },
+    computed: {
+        showSeparator(){
+            return this.datePanelLabel && this.currentView === 'date';
+        }
+    },
 };
 </script>

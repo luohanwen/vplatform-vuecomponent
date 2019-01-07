@@ -207,7 +207,7 @@ const YEAR_FORMATTER = function (value, format) {
 const MONTH_FORMATTER = function (value, format) {
     const date = toDate(value);
     if (!date) return '';
-    return `${date.getFullYear()}年${date.getMonth()+1}月`;
+    return `${date.getFullYear()}年${date.getMonth() + 1}月`;
 };
 const DATE_FORMATTER = function (value, format) {
     return formatDate(value, format);
@@ -219,6 +219,40 @@ const WEEK_FORMATTER = function (value, format) {
     const weekNum = getWeekIndex(date);
     return `${year}年第${weekNum}周`;
 };
+
+const HALFYEAR_FORMATTER = function (value, format) {
+    const date = toDate(value);
+    if (!date) return '';
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    return `${year}年${month <= 6 ? '上' : '下'}半年`;
+};
+
+const QUARTER_FORMATTER = function (value, format) {
+    const date = toDate(value);
+    if (!date) return '';
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const quarterNum = Math.ceil(month / 3);
+    return `${year}年${quarterNum}季度`;
+};
+
+const TENDAYS_FORMATTER = function (value, format) {
+    const date = toDate(value);
+    if (!date) return '';
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const map = {
+        1: '上',
+        2: '中',
+        3: '下',
+        default: '下'
+    };
+    const tendaysSign = map[Math.ceil(day / 10)] || map['default'];
+    return `${year}年${month}月${tendaysSign}旬`;
+};
+
 const DATE_PARSER = function (text, format) {
     return parseDate(text, format);
 };
@@ -296,6 +330,18 @@ export const TYPE_VALUE_RESOLVER_MAP = {
         formatter: WEEK_FORMATTER,
         parser: DATE_PARSER
     },
+    halfyear: {
+        formatter: HALFYEAR_FORMATTER,
+        parser: DATE_PARSER
+    },
+    quarter: {
+        formatter: QUARTER_FORMATTER,
+        parser: DATE_PARSER
+    },
+    tendays: {
+        formatter: TENDAYS_FORMATTER,
+        parser: DATE_PARSER
+    },
     multiple: {
         formatter: (value, format) => {
             return value.filter(Boolean).map(date => formatDate(date, format)).join(',');
@@ -327,3 +373,194 @@ export const TYPE_VALUE_RESOLVER_MAP = {
     }
 };
 
+export const getOptions = function (type) {
+    let map = {
+        year() {
+            return {
+                shortcuts: [
+                    {
+                        text: "今年",
+                        value() {
+                            return new Date();
+                        }
+                    },
+                    {
+                        text: "去年",
+                        value() {
+                            const date = new Date();
+                            date.setFullYear(date.getFullYear() - 1);
+                            return date;
+                        }
+                    },
+                    {
+                        text: "明年",
+                        value() {
+                            const date = new Date();
+                            date.setFullYear(date.getFullYear() + 1);
+                            return date;
+                        }
+                    }
+                ]
+            };
+        },
+        month() {
+            return {
+                shortcuts: [
+                    {
+                        text: "本月",
+                        value() {
+                            return new Date();
+                        }
+                    },
+                    {
+                        text: "上月",
+                        value() {
+                            const date = new Date();
+                            const date2 = new Date();
+                            date2.setDate(0);
+                            const days = date2.getDate(); //当前月有多少天
+                            const timediff = 3600 * 1000 * 24 * days;
+                            date.setTime(date.getTime() - timediff);
+                            return date;
+                        }
+                    },
+                    {
+                        text: "下月",
+                        value() {
+                            const date = new Date();
+                            const date2 = new Date();
+                            date2.setDate(0);
+                            const days = date2.getDate(); //当前月有多少天
+                            const timediff = 3600 * 1000 * 24 * days;
+                            date.setTime(date.getTime() + timediff);
+                            return date;
+                        }
+                    }
+                ]
+            };
+        },
+        week() {
+            return {
+                shortcuts: [
+                    {
+                        text: "今周",
+                        value() {
+                            return new Date();
+                        }
+                    },
+                    {
+                        text: "上周",
+                        value() {
+                            const date = new Date();
+                            const timediff = 3600 * 1000 * 24 * 7;
+                            date.setTime(date.getTime() - timediff);
+                            return date;
+                        }
+                    },
+                    {
+                        text: "下周",
+                        value() {
+                            const date = new Date();
+                            const timediff = 3600 * 1000 * 24 * 7;
+                            date.setTime(date.getTime() + timediff);
+                            return date;
+                        }
+                    }
+                ]
+            };
+        },
+        halfyear() {
+            return {
+                shortcuts: [
+                    {
+                        text: "今年上半年",
+                        value() {
+                            const date = new Date();
+                            date.setMonth(0);
+                            return date;
+                        }
+                    },
+                    {
+                        text: "今年下半年",
+                        value() {
+                            const date = new Date();
+                            date.setMonth(6);
+                            return date;
+                        }
+                    }
+                ]
+            };
+        },
+        tendays() {
+            return {
+                shortcuts: [
+                    {
+                        text: "本月上旬",
+                        value() {
+                            const date = new Date();
+                            data.setDate(1);
+                            return data;
+                        }
+                    },
+                    {
+                        text: "本月中旬",
+                        value() {
+                            const date = new Date();
+                            data.setDate(11);
+                            return data;
+                        }
+                    },
+                    {
+                        text: "本月下旬",
+                        value() {
+                            const date = new Date();
+                            data.setDate(21);
+                            return data;
+                        }
+                    }
+                ]
+            };
+        },
+        quarter() {
+            return {
+                shortcuts: [
+                    {
+                        text: "本季度",
+                        value() {
+                            return new Date();
+                        }
+                    },
+                    {
+                        text: "上季度",
+                        value() {
+                            const date = new Date();
+                            const nowYear = date.getFullYear();
+                            const nowMonth = date.getMonth() + 1;
+                            const nowDay = date.getDate();
+                            const year = nowMonth-3>0?nowYear:nowYear-1;
+                            const month = (12+nowMonth-3)%12;
+                            return new Date(year,month,nowDay);
+                        }
+                    },
+                    {
+                        text: "下季度",
+                        value() {
+                            const date = new Date();
+                            const nowYear = date.getFullYear();
+                            const nowMonth = date.getMonth() + 1;
+                            const nowDay = date.getDate();
+                            const year = nowMonth+3<=12?nowYear:nowYear+1;
+                            const month = (nowMonth+3)%12;
+                            return new Date(year,month,nowDay);
+                        }
+                    }
+                ]
+            };
+        },
+        default() {
+            return {};
+        }
+    };
+
+    return (map[type] && map[type]()) || map["default"]();
+}

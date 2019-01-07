@@ -1,14 +1,17 @@
 <template>
     <div :class="classes">
-        <span
-            :class="getCellCls(cell)"
-            v-for="cell in cells"
-            @click="handleClick(cell)"
-            @mouseenter="handleMouseMove(cell)"
+        <div :class="[prefixHalfyearCls+(type===1?'-left':'-right')]" v-for="type in types">
+            <span :class="[prefixHalfyearCls+'header']">{{type===1?'上半年':'下半年'}}</span>
+            <span
+                :class="getCellCls(cell)"
+                v-for="cell in getCells(type)"
+                @click="handleClick(cell,type)"
+                @mouseenter="handleMouseMove(cell,type)"
 
-        >
-            <em>{{ cell.text }}</em>
-        </span>
+            >
+                <em>{{ cell.text }}</em>
+            </span>
+        </div>
     </div>
 </template>
 <script>
@@ -18,17 +21,32 @@
     import mixin from './mixin';
     import prefixCls from './prefixCls';
 
+    const prefixHalfyearCls = `${prefixCls}-halfyear`;
+
     export default {
         mixins: [ Locale, mixin ],
         props: {/* in mixin */},
+        data(){
+            return {
+                prefixCls,
+                prefixHalfyearCls,
+                types:[1,2]
+            };
+        },
         computed: {
             classes() {
                 return [
                     `${prefixCls}`,
-                    `${prefixCls}-week`
+                    prefixHalfyearCls
                 ];
             },
-            cells () {
+            startYear() {
+                return Math.floor(this.tableDate.getFullYear() / 10) * 10;
+            },
+        },
+        methods: {
+            //type 1上半年 2下半年
+            getCells (type) {
                 let cells = [];
                 const cell_tmpl = {
                     text: '',
@@ -36,28 +54,25 @@
                     disabled: false
                 };
 
-                const tableYear = this.tableDate.getFullYear();
                 const nowDate = new Date();
-                for (let i = 0; i < 53; i++) {
+                for (let i = 0; i < 10; i++) {
                     const cell = deepCopy(cell_tmpl);
-                    // cell.date = new Date(tableYear, i, 1);
-                    cell.date =getDateByWeekNum(tableYear,i+1);
-                    cell.text = i + 1;
-                    const weekIndex = getWeekIndex(cell.date);
+                    cell.date = new Date(this.startYear+i,type===1?0:6,1);
+                    cell.text = this.startYear+i;
+                    //是否是上半年
+                    const isPreYear = cell.date.getMonth()<6;
                     this.dates.forEach(date => {
-                        if(cell.date.getFullYear() === date.getFullYear() && weekIndex === getWeekIndex(date)){
+                        if(cell.date.getFullYear() === date.getFullYear() && isPreYear === date.getMonth()<6){
                             cell.selected = true;
                         }
                     });
-                    cell.focused = cell.date.getFullYear()===this.focusedDate.getFullYear()&&weekIndex === getWeekIndex(this.focusedDate);
-                    cell.type = cell.date.getFullYear()===nowDate.getFullYear()&&weekIndex===getWeekIndex(nowDate)?"today":"";
+                    cell.focused = cell.date.getFullYear()===this.focusedDate.getFullYear()&&isPreYear === this.focusedDate.getMonth()<6;
+                    cell.type = cell.date.getFullYear() === nowDate.getFullYear() && isPreYear === nowDate.getMonth()<6?'today':'';
                     cells.push(cell);
                 }
 
                 return cells;
-            }
-        },
-        methods: {
+            },
             getCellCls (cell) {
                 return [
                     `${prefixCls}-cell`,

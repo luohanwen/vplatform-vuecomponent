@@ -80,6 +80,7 @@
     import YearTable from '../../base/year-table.vue';
     import MonthTable from '../../base/month-table.vue';
     import WeekTable from '../../base/week-table.vue';
+    import HalfyearTable from '../../base/halfyear-table.vue';
     import TimePicker from '../Time/time.vue';
     import Confirm from '../../base/confirm.vue';
     import datePanelLabel from './date-panel-label.vue';
@@ -96,7 +97,7 @@
     export default {
         name: 'DatePickerPanel',
         mixins: [ Mixin, Locale, DateMixin ],
-        components: { Icon, DateTable, YearTable, MonthTable, WeekTable ,TimePicker, Confirm, datePanelLabel },
+        components: { Icon, DateTable, YearTable, MonthTable, WeekTable ,HalfyearTable,TimePicker, Confirm, datePanelLabel },
         props: {
             // more props in the mixin
             multiple: {
@@ -136,7 +137,12 @@
                 const { labels, separator } = formatDateLabels(locale, datePanelLabel, date);
 
                 const handler = type => {
-                    return () => this.pickerTable = this.getTableType(type);
+                    return () => {
+                        if(this.currentView === 'halfyear'){
+                            return false;
+                        }
+                        this.pickerTable = this.getTableType(type)
+                    };
                 };
 
                 return {
@@ -182,8 +188,12 @@
                 this.pickerTable = this.getTableType(this.currentView);
             },
             changeYear(dir){
-                if (this.selectionMode === 'year' || this.pickerTable === 'year-table'){
+                const selectionMode = this.selectionMode;
+                if (selectionMode === 'year' || this.pickerTable === 'year-table'){
                     this.panelDate = new Date(this.panelDate.getFullYear() + dir * 10, 0, 1);
+                }else if(selectionMode === 'halfyear'){
+                    dir *=10; 
+                     this.panelDate = new Date(this.panelDate.getFullYear() + dir, 0, 1);
                 } else {
                     this.panelDate = siblingMonth(this.panelDate, dir * 12);
                 }

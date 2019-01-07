@@ -40,6 +40,7 @@
 
                 const selectedDays = this.dates.filter(Boolean).map(date => clearHours(new Date(date.getFullYear(), 0, 1)));
                 const focusedDate = clearHours(new Date(this.focusedDate.getFullYear(), 0, 1));
+                const nowYear = (new Date()).getFullYear();
 
                 for (let i = 0; i < 10; i++) {
                     const cell = deepCopy(cell_tmpl);
@@ -48,6 +49,7 @@
                     const day = clearHours(cell.date);
                     cell.selected = selectedDays.includes(day);
                     cell.focused = day === focusedDate;
+                    cell.type = cell.date.getFullYear() === nowYear?'today':""
                     cells.push(cell);
                 }
 
@@ -62,6 +64,7 @@
                         [`${prefixCls}-cell-selected`]: cell.selected,
                         [`${prefixCls}-cell-disabled`]: cell.disabled,
                         [`${prefixCls}-cell-focused`]: cell.focused,
+                        [`${prefixCls}-cell-today`]: cell.type === 'today',
                         [`${prefixCls}-cell-range`]: cell.range && !cell.start && !cell.end
                     }
                 ];

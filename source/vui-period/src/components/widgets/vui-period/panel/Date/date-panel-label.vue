@@ -8,7 +8,7 @@
         <template v-if="showSeparator">{{ datePanelLabel.separator }}</template>
         <span
             v-if="datePanelLabel"
-            v-show="datePanelLabel.labels[1].type === 'year' || currentView === 'date'"
+            v-show="datePanelLabel.labels[1].type === 'year' || currentView === 'date' || currentView === 'tendays'"
             :class="[datePrefixCls + '-header-label']"
             @click="datePanelLabel.labels[1].handler">{{ datePanelLabel.labels[1].label }}</span>
     </span>
@@ -23,7 +23,7 @@ export default {
     },
     computed: {
         showSeparator(){
-            return this.datePanelLabel && this.currentView === 'date';
+            return this.datePanelLabel && (this.currentView === 'date' || this.currentView === 'tendays') ;
         }
     },
 };

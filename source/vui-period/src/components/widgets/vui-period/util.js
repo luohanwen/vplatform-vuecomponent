@@ -498,24 +498,24 @@ export const getOptions = function (type) {
                         text: "本月上旬",
                         value() {
                             const date = new Date();
-                            data.setDate(1);
-                            return data;
+                            date.setDate(1);
+                            return date;
                         }
                     },
                     {
                         text: "本月中旬",
                         value() {
                             const date = new Date();
-                            data.setDate(11);
-                            return data;
+                            date.setDate(11);
+                            return date;
                         }
                     },
                     {
                         text: "本月下旬",
                         value() {
                             const date = new Date();
-                            data.setDate(21);
-                            return data;
+                            date.setDate(21);
+                            return date;
                         }
                     }
                 ]

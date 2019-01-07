@@ -82,6 +82,7 @@
     import WeekTable from '../../base/week-table.vue';
     import HalfyearTable from '../../base/halfyear-table.vue';
     import QuarterTable from '../../base/quarter-table.vue';
+    import TendaysTable from '../../base/tendays-table.vue';
     import TimePicker from '../Time/time.vue';
     import Confirm from '../../base/confirm.vue';
     import datePanelLabel from './date-panel-label.vue';
@@ -98,7 +99,7 @@
     export default {
         name: 'DatePickerPanel',
         mixins: [ Mixin, Locale, DateMixin ],
-        components: { Icon, DateTable, YearTable, MonthTable, WeekTable ,HalfyearTable,QuarterTable,TimePicker, Confirm, datePanelLabel },
+        components: { Icon, DateTable, YearTable, MonthTable, WeekTable ,HalfyearTable,QuarterTable,TendaysTable,TimePicker, Confirm, datePanelLabel },
         props: {
             // more props in the mixin
             multiple: {

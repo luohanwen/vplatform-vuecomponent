@@ -21,7 +21,7 @@
     import mixin from './mixin';
     import prefixCls from './prefixCls';
 
-    const prefixQuarterCls = `${prefixCls}-quarter`;
+    const prefixQuarterCls = `${prefixCls}-tendays`;
 
     export default {
         mixins: [ Locale, mixin ],
@@ -30,8 +30,8 @@
             return {
                 prefixCls,
                 prefixQuarterCls,
-                //1,2,3,4季度
-                types:[1,2,3,4]
+                //上中下旬
+                types:[1,2,3]
             };
         },
         computed: {
@@ -40,13 +40,10 @@
                     `${prefixCls}`,
                     prefixQuarterCls
                 ];
-            },
-            startYear() {
-                return Math.floor(this.tableDate.getFullYear() / 10) * 10;
-            },
+            }
         },
         methods: {
-            //type 1,2,3,4季度
+            //type 1,2,3 上中下旬
             getCells (type) {
                 let cells = [];
                 const cell_tmpl = {
@@ -56,18 +53,21 @@
                 };
 
                 const nowDate = new Date();
-                const getType = (date) => Math.ceil((date.getMonth()+1)/3);
-                for (let i = 0; i < 10; i++) {
+                const getType = (date) => {
+                    const result = Math.ceil(date.getDate()/10);
+                    return result ===4?3:result;
+                };
+                for (let i = 0; i < 12; i++) {
                     const cell = deepCopy(cell_tmpl);
-                    cell.date = new Date(this.startYear+i,type*3-3,1);
-                    cell.text = this.startYear+i;
+                    cell.date = new Date(this.tableDate.getFullYear(),i,type*10-9);
+                    cell.text = `${i+1}月`
                     this.dates.forEach(date => {
-                        if(cell.date.getFullYear() === date.getFullYear() && type === getType(date)){
+                        if(cell.date.getFullYear() === date.getFullYear() && cell.date.getMonth() === date.getMonth() && type === getType(date)){
                             cell.selected = true;
                         }
                     });
-                    cell.focused = cell.date.getFullYear()===this.focusedDate.getFullYear()&&type === getType(this.focusedDate);
-                    cell.type = cell.date.getFullYear() === nowDate.getFullYear() && type === getType(nowDate)?'today':'';
+                    cell.focused = cell.date.getFullYear()===this.focusedDate.getFullYear()&&cell.date.getMonth()===this.focusedDate.getMonth()&&type === getType(this.focusedDate);
+                    cell.type = cell.date.getFullYear() === nowDate.getFullYear() && cell.date.getMonth() === nowDate.getMonth() && type === getType(nowDate)?'today':'';
                     cells.push(cell);
                 }
 
@@ -92,10 +92,9 @@
         filters:{
             toTypeName(type){
                 const map = {
-                    1:"一季",
-                    2:"二季",
-                    3:"三季",
-                    4:"四季"
+                    1:"上旬",
+                    2:"中旬",
+                    3:"下旬"
                 };
                 return map[type] || map[1];
             }

@@ -1,7 +1,7 @@
 <template>
     <div :class="classes">
         <div :class="[prefixHalfyearCls+(type===1?'-left':'-right')]" v-for="type in types">
-            <span :class="[prefixHalfyearCls+'header']">{{type===1?'上半年':'下半年'}}</span>
+            <span :class="[prefixHalfyearCls+'-header']">{{type===1?'上半年':'下半年'}}</span>
             <span
                 :class="getCellCls(cell)"
                 v-for="cell in getCells(type)"

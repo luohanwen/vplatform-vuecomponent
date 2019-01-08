@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    </meta>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+    </meta>
+    <script type="text/javascript" src="vendor/vplatform/assets/vue.js"></script>
+    <% var styles = htmlWebpackPlugin.options.resources.styles;if(styles){for(var i = 0,len=styles.length;i<len;i++){var style = styles[i]; %>
+    <link href="<%= style %>" type="text/css" rel="stylesheet">
+    <% }} %>
+</head>
+
+<body>
+    <div id="app">
+    </div>
+    <% var scripts = htmlWebpackPlugin.options.resources.scripts;if(scripts){for(var i = 0,len=scripts.length;i<len;i++){var script = scripts[i]; %>
+    <script type="text/javascript" src="<%= script %>"></script>
+    <% }} %>
+</body>
+<script type="text/template" id="tpl">
+    <div class="demo"> 
+        <div style="height:200px;"></div>
+        <vui-poptip v-model="value" v-bind="props" @on-popper-show="onPopperShow" @on-popper-hide="onPopperHide" @on-ok="onOk" @on-cancel="onCancel">
+                <Button>Top Left</Button>
+                <span slot="title">我是slot title</span>
+                <span slot="content">我是slot content</span>
+        </vui-poptip>
+    </div>
+</script>
+<script type="text/javascript">
+    if (typeof (Framework7Vue) != "undefined") {
+        Vue.use(Framework7Vue);
+    }
+    new Vue({
+        el: "#app",
+        template: "#tpl",
+        data: {
+            value: false,
+            props: {
+                widgetCode: "vui-poptip",
+                trigger: "hover",
+                title: "我是一个标题",
+                content: "我是正文内容",
+                placement: "right-end",
+                width: 200,
+                confirm: false,
+                okText: "好吧",
+                cancelText: "不好",
+                transfer: false,
+                popperClass: "my-poptip"
+            }
+        },
+        methods: {
+            onPopperShow() {
+                console.log("poper show");
+            }, 
+            onPopperHide() {
+                console.log("poper hide");
+            },
+            onOk() {
+                console.log("ok");
+            }, 
+            onCancel() {
+                console.log("cancel");
+            }
+        },
+        watch: {
+            value(val) {
+                console.log("watch value", val);
+            }
+        },
+    });
+</script>
+
+</html>

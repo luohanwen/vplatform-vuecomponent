@@ -19,6 +19,7 @@
     export default {
         name: 'vui-badge',
         props: {
+            widgetCode:String,
             value: [Number,String],
             dot: {
                 type: Boolean,

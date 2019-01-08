@@ -1,0 +1,20 @@
+{
+	"libType": "dev",
+	"type": "widget",
+	"pluginCode": "vui-poptip",
+	"groupId": "com.toone.v3.platform",
+	"matchVersion": 1,
+	"scope": "all",
+	"symbolicName": "com.toone.v3.platform-vjs.framework.extension.platform.custom.widget.vui-poptip",
+	"version": "1.0.0",
+	"minMatchVersion": 1,
+	"out": "target",
+	"sources": "dist",
+	"webpackCfgVersion": "1.0.5",
+	"extraSources": [],
+	"urlSources": [],
+	"dependencies": [],
+	"VjsList": [],
+	"depVjsList": [],
+	"require": []
+}

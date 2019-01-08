@@ -38,9 +38,6 @@ export default {
     };
   },
   watch: {
-    value(val) {
-      this.realValue = typeof val === "string" ? +val : val;
-    },
     realValue(val) {
       this.$emit("input", val);
     }

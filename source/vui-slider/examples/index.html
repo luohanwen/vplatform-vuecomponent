@@ -13,9 +13,7 @@
 </body>
 <script type="text/template" id="tpl">
     <div class="demo"> 
-        <vui-slider v-model="value" :min="min" :max="max" :step="step" :disabled="disabled" :range="range" :show-input="showInput" :show-stops="showStops" :show-tip="showTip" :tip-format="tipFormat" :input-size="inputSize">
-
-        </vui-slider>
+        <vui-slider v-model="value" :min="min" :max="max" :step="step" :disabled="disabled" :range="range" :show-input="showInput" :show-stops="showStops" :show-tip="showTip" :tip-format="tipFormat" :input-size="inputSize"></vui-slider>
     </div>
 </script>
 <script type="text/javascript">
@@ -27,20 +25,25 @@
 		template : "#tpl",
 		data : {
             widgetCode:"vui-slider",
-            value:25,
+            value:'25',
             min:1,
-            max:91,
+            max:92,
             step:2,
             disabled:false,
             range:false,
-            showInput:false,
-            showStops:false,
-            showTip:always,
+            showInput:true,
+            showStops:true,
+            showTip:"always",
             tipFormat:(val)=>{
                 return 'Progress: ' + val + '%';
             },
-            inputSize:"small"
-        }
+            inputSize:"large"
+        },
+        watch: {
+            value(val){
+                console.log("watch value",val);
+            }
+        },
 	});
 </script>
 </html>

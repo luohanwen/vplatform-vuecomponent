@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    </meta>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+    </meta>
+    <script type="text/javascript" src="vendor/vplatform/assets/vue.js"></script>
+    <% var styles = htmlWebpackPlugin.options.resources.styles;if(styles){for(var i = 0,len=styles.length;i<len;i++){var style = styles[i]; %>
+    <link href="<%= style %>" type="text/css" rel="stylesheet">
+    <% }} %>
+</head>
+
+<body>
+    <div id="app">
+    </div>
+    <% var scripts = htmlWebpackPlugin.options.resources.scripts;if(scripts){for(var i = 0,len=scripts.length;i<len;i++){var script = scripts[i]; %>
+    <script type="text/javascript" src="<%= script %>"></script>
+    <% }} %>
+</body>
+<script type="text/template" id="tpl">
+    <div class="demo"> 
+        <vui-timeline v-bind="props"></vui-timeline>
+        <vui-timeline>
+            <vui-timeline-item color="green">
+                <Icon type="trophy" slot="dot"></Icon>
+                <span>发布里程碑版本</span>
+            </vui-timeline-item>
+            <vui-timeline-item>发布1.0版本</vui-timeline-item>
+            <vui-timeline-item color="green">发布2.0版本</vui-timeline-item>
+            <vui-timeline-item>发布3.0版本</vui-timeline-item>
+        </vui-timeline>
+    </div>
+</script>
+<script type="text/javascript">
+    if (typeof (Framework7Vue) != "undefined") {
+        Vue.use(Framework7Vue);
+    }
+    new Vue({
+        el: "#app",
+        template: "#tpl",
+        data: {
+            props: {
+                widgetCode: "vui-timeline",
+                dataSource: [{ id: 1, text: "标题1", icon: "trophy", color: "blue" }, { id: 2, text: "标题2" }, { id: 3, text: "标题3", icon: "trophy", color: "#000000" }],
+                textField: "text",
+                valueField: "id",
+                iconField: "icon",
+                colorField: "color"
+            }
+        }
+    });
+</script>
+
+</html>

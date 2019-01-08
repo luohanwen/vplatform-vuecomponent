@@ -1,19 +1,17 @@
 <template>
-    <div>
-          <Slider
-            v-model="realValue"
-            :min="min"
-            :max="max"
-            :step="step"
-            :disabled="disabled"
-            :range="range"
-            :show-input="showInput"
-            :show-stops="showStops"
-            :show-tip="showTip"
-            :tip-format="tipFormat"
-            :input-size="inputSize"
-        ></Slider>
-    </div>
+  <Slider
+    v-model="realValue"
+    :min="min"
+    :max="max"
+    :step="step"
+    :disabled="disabled"
+    :range="range"
+    :show-input="showInput"
+    :show-stops="showStops"
+    :show-tip="showTip"
+    :tip-format="tipFormat"
+    :input-size="inputSize"
+  ></Slider>
 </template>
 <script>
 export default {
@@ -34,7 +32,9 @@ export default {
   },
   data: function() {
     return {
-      realValue: (()=>{return typeof this.value === "string"?+this.value:this.value;})()
+      realValue: (() => {
+        return typeof this.value === "string" ? +this.value : this.value;
+      })()
     };
   },
   watch: {

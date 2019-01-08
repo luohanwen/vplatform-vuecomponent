@@ -196,7 +196,10 @@
                 }else if(selectionMode === 'halfyear'){
                     dir *=10; 
                      this.panelDate = new Date(this.panelDate.getFullYear() + dir, 0, 1);
-                } else {
+                }else if(selectionMode === 'tendays'){
+                    this.panelDate = siblingMonth(this.panelDate, dir * 6);
+                }  
+                else {
                     this.panelDate = siblingMonth(this.panelDate, dir * 12);
                 }
             },

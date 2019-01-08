@@ -57,7 +57,10 @@
                     const result = Math.ceil(date.getDate()/10);
                     return result ===4?3:result;
                 };
-                for (let i = 0; i < 12; i++) {
+                const tableMonth = this.tableDate.getMonth()+1;
+                const start = tableMonth<=6?0:6;
+                const end = start+6;
+                for (let i = start; i < end; i++) {
                     const cell = deepCopy(cell_tmpl);
                     cell.date = new Date(this.tableDate.getFullYear(),i,type*10-9);
                     cell.text = `${i+1}月`

@@ -1,0 +1,46 @@
+//引入皮肤变量
+@import './var.less';
+
+.vui-search{
+    display: table;
+    width: 100%;
+    &.vui-search-small{
+        &>.ivu-input-group-prepend{
+            padding: 1px 7px;
+            height: 24px;
+            border-radius: 3px;
+            .ivu-select-selection{
+                height: 24px;
+                border-radius: 3px;
+                .ivu-select-placeholder,.ivu-select-selected-value{
+                    height: 22px;
+                    line-height: 22px;
+                }
+            }
+        }
+    }
+    &.vui-search-large{
+        &>.ivu-input-group-prepend{
+            font-size: 14px;
+            height: 36px;
+            box-sizing: border-box;
+            .ivu-select-selection{
+                height: 36px;
+                .ivu-select-placeholder,.ivu-select-selected-value{
+                    height: 34px;
+                    line-height: 34px;
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .ivu-select-item{
+            padding: 7px 16px 8px;
+            font-size: 14px!important;
+        }
+    }
+    &>.ivu-select{
+        position: relative;
+    }
+
+}

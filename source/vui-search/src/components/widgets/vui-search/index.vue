@@ -1,6 +1,6 @@
 <template>
     <div :class="searchClass">
-        <div class="ivu-input-group-prepend">
+        <div class="ivu-input-group-prepend" v-if="prepend">
             <slot name="prepend"></slot>
         </div>
         <i-select
@@ -30,17 +30,22 @@
                     :disabled="disabled"
                     :size="size"
                     :icon="inputIcon"
-                    @on-click="handleClear"
+                    search
+                    @on-click="handleClearOrSearch"
                     @on-focus="handleFocus"
+                    @on-search="handleSearch"
                     @on-blur="handleBlur">
                     </i-input>
             </slot>
             <slot>
-                <template v-if="autoComplete"><i-option v-for="item in filteredData" :value="item[valueField]" :key="item[valueField]">{{ item[textField] }}</i-option></template>
+                <template v-if="autoComplete"><i-option v-for="item in filteredData" :value="item[textField]" :key="item[textField]">{{ item[textField] }}</i-option></template>
             </slot>
 
-            <slot name="droplist"></slot>
+            <slot name="droplist" v-if="autoComplete"></slot>
         </i-select>
+        <div class="ivu-input-group-append" v-if="append" @click="currentValue&&$emit('on-search',currentValue)">
+            <slot name="append"></slot>
+        </div>
     </div>
 </template>
 <script>
@@ -126,8 +131,14 @@
         data () {
             return {
                 currentValue: this.value,
-                disableEmitChange: false    // for Form reset
+                disableEmitChange: false ,   // for Form reset
+                prepend:true,
+                append:true
             };
+        },
+        mounted() {
+                this.prepend = this.$slots.prepend !== undefined;
+                this.append = this.$slots.append !== undefined;
         },
         computed: {
             inputIcon () {
@@ -170,14 +181,16 @@
         },
         methods: {
             remoteMethod (query) {
-                this.$emit('on-search', query);
+                // this.$emit('on-search', query);
             },
             handleChange (val) {
-                console.log("handle change",val);
                 if (val === undefined || val === null) return;
                 this.currentValue = val;
                 this.$refs.input.blur();
                 this.$emit('on-select', val);
+            },
+            handleSearch(val){
+                this.$emit("on-search",val);
             },
             handleFocus (event) {
                 this.$emit('on-focus', event);
@@ -185,10 +198,13 @@
             handleBlur (event) {
                 this.$emit('on-blur', event);
             },
-            handleClear () {
-                if (!this.clearable) return;
-                this.currentValue = '';
-                this.$refs.select.reset();
+            handleClearOrSearch () {
+                if (!this.clearable){
+                    this.$emit("on-search",this.currentValue);
+                }else{
+                    this.currentValue = '';
+                    this.$refs.select.reset();
+                }
             }
         }
     };

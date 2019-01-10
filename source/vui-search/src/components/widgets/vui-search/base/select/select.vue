@@ -599,7 +599,6 @@
                 this.focusIndex = index;
             },
             onOptionClick(option) {
-                console.log("onOptionClick",option);
                 if (this.multiple){
 
                     // keep the query for remote select

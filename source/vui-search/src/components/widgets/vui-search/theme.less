@@ -4,8 +4,14 @@
 .vui-search{
     display: table;
     width: 100%;
+    &>.ivu-input-group-prepend,.ivu-input-group-append{
+        .ivu-btn{
+            padding:0 15px;
+            position: relative;
+        }
+    }
     &.vui-search-small{
-        &>.ivu-input-group-prepend{
+        &>.ivu-input-group-prepend,.ivu-input-group-append{
             padding: 1px 7px;
             height: 24px;
             border-radius: 3px;
@@ -17,10 +23,13 @@
                     line-height: 22px;
                 }
             }
+            .ivu-btn{
+                height: 24px;
+            }
         }
     }
     &.vui-search-large{
-        &>.ivu-input-group-prepend{
+        &>.ivu-input-group-prepend,.ivu-input-group-append{
             font-size: 14px;
             height: 36px;
             box-sizing: border-box;
@@ -32,11 +41,20 @@
                     font-size: 14px;
                 }
             }
+            .ivu-btn{
+                height: 36px;
+            }
         }
 
         .ivu-select-item{
             padding: 7px 16px 8px;
             font-size: 14px!important;
+        }
+    }
+
+    &.vui-search-default{
+        .ivu-btn{
+            height: 32px;
         }
     }
     &>.ivu-select{

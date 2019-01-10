@@ -1,0 +1,63 @@
+//引入皮肤变量
+@import './var.less';
+
+
+.vui-color-picker{
+    .ivu-color-picker-confirm {
+        margin-top: 8px;
+        position: relative;
+        border-top: 1px solid #e9eaec;
+        text-align: right;
+        padding: 8px;
+        clear: both;
+    }
+    .ivu-color-picker-picker-colors{
+        margin-top: 8px;
+        margin-bottom: 10px;
+        overflow: hidden;
+        border-radius: 2px;
+        transition: border .2s ease-in-out,box-shadow .2s ease-in-out;
+        outline: none;
+        .ivu-color-picker-picker-colors-wrapper{
+            display: inline;
+            width: 20px;
+            height: 20px;
+            float: left;
+            position: relative;
+            .ivu-color-picker-picker-colors-wrapper-color{
+                outline: 0;
+                display: block;
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                margin: 2px;
+                cursor: pointer;
+                border-radius: 2px;
+                box-shadow: inset 0 0 0 1px rgba(0,0,0,.15);
+            }
+            .ivu-color-picker-picker-colors-wrapper-circle{
+                width: 4px;
+                height: 4px;
+                box-shadow: 0 0 0 1.5px #fff, inset 0 0 1px 1px rgba(0,0,0,.3), 0 0 1px 2px rgba(0,0,0,.4);
+                border-radius: 50%;
+                -webkit-transform: translate(-2px,-2px);
+                transform: translate(-2px,-2px);
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                cursor: pointer;
+            }
+            .ivu-color-picker-hide{
+                display: none;
+            }
+        }
+    }
+
+    &-tip{
+        color: rgb(102,102,102);
+        font-size: 12px;
+        &-zj{
+            margin-top: 12px;
+        }
+    }
+}

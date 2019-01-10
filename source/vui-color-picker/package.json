@@ -1,0 +1,44 @@
+{
+	"name": "vui-color-picker",
+	"version": "1.0.0",
+	"description": "v3二次开发控件",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"preinstall": "node .v3platform/preinstall.js",
+		"install": "node .v3platform/afterinstall.js",
+		"cli:update": "v3 cliupdate",
+		"v3:init": "v3 init",
+		"v3:start": "v3 test",
+		"v3:package": "v3 webpack",
+		"v3:pack": "v3 pack",
+		"v3:test": "v3 test",
+		"v3:publish": "v3 publish",
+		"v3:apply": "v3 apply",
+		"v3:install": "v3 install",
+		"v3:uninstall": "v3 uninstall"
+	},
+	"keywords": [
+		"v3"
+	],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {},
+	"devDependencies": {
+		"babel-cli": "^6.26.0",
+		"babel-core": "^6.26.3",
+		"babel-helper-vue-jsx-merge-props": "^2.0.3",
+		"babel-loader": "^7.1.4",
+		"babel-plugin-dynamic-import-node": "^2.2.0",
+		"babel-plugin-syntax-jsx": "^6.18.0",
+		"babel-plugin-transform-class-properties": "^6.24.1",
+		"babel-plugin-transform-es5-property-mutators": "^6.24.1",
+		"babel-plugin-transform-object-rest-spread": "^6.26.0",
+		"babel-plugin-transform-runtime": "^6.23.0",
+		"babel-plugin-transform-vue-jsx": "^3.7.0",
+		"babel-preset-env": "^1.7.0",
+		"babel-preset-stage-3": "^6.24.1",
+		"babel-runtime": "^6.26.0",
+		"v3-cli": "^1.0.72"
+	}
+}

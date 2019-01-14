@@ -45,7 +45,7 @@
                     cell.text = i + 1;
                     const weekIndex = getWeekIndex(cell.date);
                     this.dates.forEach(date => {
-                        if(cell.date.getFullYear() === date.getFullYear() && weekIndex === getWeekIndex(date)){
+                        if(date&&cell.date.getFullYear() === date.getFullYear() && weekIndex === getWeekIndex(date)){
                             cell.selected = true;
                         }
                     });

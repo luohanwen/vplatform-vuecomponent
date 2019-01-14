@@ -823,6 +823,3 @@ export default {
 };
 </script>
 
-
-<style lang="less" src="./theme.less">
-</style>

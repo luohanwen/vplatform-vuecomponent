@@ -62,7 +62,7 @@
                     cell.date = new Date(this.startYear+i,type*3-3,1);
                     cell.text = this.startYear+i;
                     this.dates.forEach(date => {
-                        if(cell.date.getFullYear() === date.getFullYear() && type === getType(date)){
+                        if(date&&cell.date.getFullYear() === date.getFullYear() && type === getType(date)){
                             cell.selected = true;
                         }
                     });

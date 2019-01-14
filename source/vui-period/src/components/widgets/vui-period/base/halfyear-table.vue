@@ -62,7 +62,7 @@
                     //是否是上半年
                     const isPreYear = cell.date.getMonth()<6;
                     this.dates.forEach(date => {
-                        if(cell.date.getFullYear() === date.getFullYear() && isPreYear === date.getMonth()<6){
+                        if(date && cell.date.getFullYear() === date.getFullYear() && isPreYear === date.getMonth()<6){
                             cell.selected = true;
                         }
                     });

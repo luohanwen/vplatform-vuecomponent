@@ -65,7 +65,7 @@
                     cell.date = new Date(this.tableDate.getFullYear(),i,type*10-9);
                     cell.text = `${i+1}月`
                     this.dates.forEach(date => {
-                        if(cell.date.getFullYear() === date.getFullYear() && cell.date.getMonth() === date.getMonth() && type === getType(date)){
+                        if(date&&cell.date.getFullYear() === date.getFullYear() && cell.date.getMonth() === date.getMonth() && type === getType(date)){
                             cell.selected = true;
                         }
                     });

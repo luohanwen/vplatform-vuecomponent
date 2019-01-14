@@ -14,16 +14,13 @@ export default {
       default: () => []
     },
     imgField: {
-      type: String,
-      default: "img"
+      type: String
     },
     imgTitleField: {
-      type: String,
-      default: "imgTitle"
+      type: String
     },
     imgDescField: {
-      type: String,
-      default: "imgDesc"
+      type: String
     },
     slideShow: {
       type: Boolean,
@@ -60,7 +57,7 @@ export default {
         newItem.caption = instance => {
           let str = "",
             title = item[this.imgTitleField],
-            desc = item[this.imgDescField];
+            desc = this.handleDesc(item[this.imgDescField]);
           title && (str += `<h3>${title}</h3>`);
           desc && (str += `<p>${desc}</p>`);
           return str;
@@ -122,6 +119,12 @@ export default {
       console.log("onImageChange", index);
       let item = this.dataSource[index];
       this.$emit("on-image-change", item);
+    },
+    handleDesc(desc) {
+      if (!desc) return "";
+      const clientWidth = document.documentElement.clientWidth;
+      const maxLen = Math.floor(clientWidth / 14)*2 - 12;
+      return desc.length > maxLen ? desc.slice(0, maxLen - 3) + "..." : desc;
     }
   }
 };

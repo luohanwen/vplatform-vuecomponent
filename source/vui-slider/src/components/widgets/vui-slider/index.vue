@@ -33,16 +33,23 @@ export default {
   data: function() {
     return {
       realValue: (() => {
-        return typeof this.value === "string" ? +this.value : this.value;
+        return this.getRealValue(this.value);
       })()
     };
   },
   watch: {
+    value(val) {
+      this.realValue = this.getRealValue(val);
+    },
     realValue(val) {
-      this.$emit("input", val);
+      this.$emit("input", typeof this.value === "string" ? val + "" : val);
     }
   },
-  methods: {}
+  methods: {
+    getRealValue(value) {
+      return typeof value === "string" ? +value : value;
+    }
+  }
 };
 </script>
 <style scoped lang="less" src="./theme.less"></style>

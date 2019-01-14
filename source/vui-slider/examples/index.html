@@ -22,6 +22,9 @@
 <script type="text/template" id="tpl">
     <div class="demo"> 
         <vui-slider v-model="value" v-bind="props"></vui-slider>
+
+        <div style="height:100px;"></div>
+        <Button @click="change">change</Button>
     </div>
 </script>
 <script type="text/javascript">
@@ -32,7 +35,7 @@
         el: "#app",
         template: "#tpl",
         data: {
-            value: '25',
+            value: '',
             props: {
                 widgetCode: "vui-slider",
                 min: 1,
@@ -52,6 +55,11 @@
         watch: {
             value(val) {
                 console.log("watch value", val);
+            }
+        },
+        methods: {
+            change(){
+                this.value = '25';
             }
         },
     });

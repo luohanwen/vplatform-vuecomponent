@@ -48,14 +48,14 @@
                         v-if="visible"
                         :class="[prefixCls + '-picker']">
                         <div :class="[prefixCls + '-picker-wrapper']">
-                            <div :class="[vuiPrefixCls+'-tip']" v-if="colors.length || recommend">默认颜色</div>
+                            <div :class="[vuiPrefixCls+'-tip']" v-if="colorsToArr.length || recommend">默认颜色</div>
                             <recommend-colors
-                                v-if="colors.length"
-                                :list="colors"
+                                v-if="colorsToArr.length"
+                                :list="colorsToArr"
                                 :class="[prefixCls + '-picker-colors']"
                                 @picker-color="handleSelectColor"></recommend-colors>
                             <recommend-colors
-                                v-if="!colors.length && recommend"
+                                v-if="!colorsToArr.length && recommend"
                                 :list="recommendedColor"
                                 :class="[prefixCls + '-picker-colors']"
                                 @picker-color="handleSelectColor"></recommend-colors>
@@ -157,12 +157,12 @@ export default {
             default:58
         },
         useColors:{
-            type:Array,
-            default:()=>[]
+            type:String,
+            default:""
         },
         value: {
             type: String,
-            default: undefined,
+            default: "",
         },
         hue: {
             type: Boolean,
@@ -184,10 +184,8 @@ export default {
             default: undefined,
         },
         colors: {
-            type: Array,
-            default() {
-                return [];
-            },
+            type: String,
+            default:"",
         },
         disabled: {
             type: Boolean,
@@ -243,7 +241,7 @@ export default {
 
     data() {
         return {
-            initUseColors:this.useColors,
+            initUseColors:"",
             vuiPrefixCls:"vui-color-picker",
             val: changeColor(this.value),
             currentValue: this.value,
@@ -279,6 +277,14 @@ export default {
     },
 
     computed: {
+        useColorsToArr(){
+            let useColors = this.useColors;
+            return useColors?useColors.split(","):[];
+        },
+        colorsToArr(){
+            let colors = this.colors;
+            return colors?colors.split(","):[];
+        },
         filterUseColors(){
             let useColors = this.initUseColors || [];
             return useColors.slice(0,24);
@@ -395,6 +401,12 @@ export default {
             this.$refs.drop[val ? 'update' : 'destroy']();
             this.$emit('on-open-change', Boolean(val));
         },
+        useColorsToArr:{
+            handler(val){
+                this.initUseColors = val;
+            },
+            immediate:true,
+        }
     },
 
     mounted() {

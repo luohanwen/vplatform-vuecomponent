@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="videojsInited">
     <div
       :class="['vui-video-container',{'vui-video-mobile':!isPc}]"
       :style="styles"
@@ -28,7 +28,7 @@
         :autoplay="autoplay"
         :loop="loop"
         preload="auto"
-        data-setup="{&quot;language&quot;:&quot;zh-CN&quot;}"
+        data-setup='{"language":"zh-CN"}'
       >
         <source
           :src="src"
@@ -129,7 +129,9 @@ export default {
       isShowMiniPlayer: false,
       hideMini: false,
       firstInitDrag: true,
-      dragIns: null
+      dragIns: null,
+      playOver: true, //播放操作完毕
+      videojsInited: false //初始化完毕
     };
   },
   computed: {
@@ -162,7 +164,16 @@ export default {
   watch: {
     src(val, oldValue) {
       console.log("src", val);
-      this.changeSrc(val);
+      if (val) {
+        if (!this.videojsInited) {
+          this.videojsInited = true;
+          this.$nextTick(function() {
+            this.init();
+          });
+        } else {
+          this.changeSrc(val);
+        }
+      }
     }
   },
   created() {
@@ -174,13 +185,10 @@ export default {
     }
     videojs.addLanguage("zh-CN", lang_zh_CN);
   },
-  mounted() {
-    this.init();
-    this.bindScroll();
-    this.dragIns = drag($(`#${this.containerId}`));
-  },
+  mounted() {},
   methods: {
     init() {
+      console.log("init");
       let self = this;
       let player = (this.videojsEl = videojs(
         this.widgetCode,
@@ -241,6 +249,9 @@ export default {
         }
       ));
       player.volume(this.volume);
+
+      this.bindScroll();
+      this.dragIns = drag($(`#${this.containerId}`));
     },
     // 添加上一集下一集
     handlePreAndNext() {
@@ -330,19 +341,35 @@ export default {
       }
     },
     play() {
-      this.videojsEl.play();
+      if (this.videojsEl) {
+        this.playOver = false;
+        let playPromise = this.videojsEl.play();
+        playPromise
+          .then(() => {
+            this.playOver = true;
+          })
+          .catch(() => {
+            this.playOver = true;
+          });
+      }
     },
     pause() {
-      this.videojsEl.pause();
+      if (this.playOver) {
+        this.videojsEl && this.videojsEl.pause();
+      }
     },
     requestFullscreen() {
-      this.videojsEl.requestFullscreen();
+      this.videojsEl && this.videojsEl.requestFullscreen();
     },
     closeMini() {
       this.hideMini = true;
     },
     changeSrc(src) {
-      this.videojsEl.src(src);
+      let vEl = this.videojsEl;
+      if (vEl) {
+        vEl.src(src);
+        vEl.play();
+      }
     }
   }
 };

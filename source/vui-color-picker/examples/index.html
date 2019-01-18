@@ -46,6 +46,10 @@
                 size: "small"
             }
         },
+        mounted() {
+            this.props.colors = this.props.colors.split(",");
+            this.props.useColors = this.props.useColors.split(",");
+        },
         methods: {
             onChange(value) {
                 console.log("onChange", value);

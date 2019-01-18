@@ -157,7 +157,7 @@ export default {
             default:58
         },
         useColors:{
-            type:String,
+            type:[Array,String],
             default:""
         },
         value: {
@@ -184,7 +184,7 @@ export default {
             default: undefined,
         },
         colors: {
-            type: String,
+            type: [Array,String],
             default:"",
         },
         disabled: {
@@ -279,11 +279,11 @@ export default {
     computed: {
         useColorsToArr(){
             let useColors = this.useColors;
-            return useColors?useColors.split(","):[];
+            return typeof useColors === "string"?(useColors?useColors.split(","):[]):useColors;
         },
         colorsToArr(){
             let colors = this.colors;
-            return colors?colors.split(","):[];
+            return typeof colors === "string"?( colors?colors.split(","):[]):colors;
         },
         filterUseColors(){
             let useColors = this.initUseColors || [];

@@ -42,12 +42,31 @@ export default {
       this.realValue = this.getRealValue(val);
     },
     realValue(val) {
-      this.$emit("input", typeof this.value === "string" ? val + "" : val);
+      let isRange = this.range;
+      let initValue = this.value;
+      let result;
+      if (isRange) {
+        result = typeof initValue === "string" ? val.join(",") : val;
+      } else {
+        result = typeof initValue === "string" ? val + "" : val;
+      }
+      this.$emit("input", result);
     }
   },
   methods: {
     getRealValue(value) {
-      return typeof value === "string" ? +value : value;
+      let isRange = this.range;
+      let result;
+      if (isRange) {
+        result =
+          typeof value === "string" ? (value ? value.split(",") : [0,0]) : value;
+          if(result.length<2){
+              result = [0,0];
+          }
+      } else {
+        result = typeof value === "string" ? +value : value;
+      }
+      return result;
     }
   }
 };

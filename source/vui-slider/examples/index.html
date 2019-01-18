@@ -35,14 +35,14 @@
         el: "#app",
         template: "#tpl",
         data: {
-            value: '',
+            value: "",
             props: {
                 widgetCode: "vui-slider",
                 min: 1,
                 max: 92,
                 step: 2,
                 disabled: false,
-                range: false,
+                range: true,
                 showInput: true,
                 showStops: true,
                 showTip: "always",
@@ -59,7 +59,7 @@
         },
         methods: {
             change(){
-                this.value = '25';
+                this.value = "25,30";
             }
         },
     });

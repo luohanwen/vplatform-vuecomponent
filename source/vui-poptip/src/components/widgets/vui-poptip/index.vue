@@ -50,7 +50,15 @@ export default {
     setTimeout(() => {
       this.realValue = value;
     }, 0);
-  }
+  },
+  watch: {
+      value(val){
+          console.log("popup watch",val);
+          if(!val){
+              this.realValue = val;
+          }
+      }
+  },
 };
 </script>
 <style scoped lang="less" src="./theme.less"></style>

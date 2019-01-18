@@ -25,7 +25,7 @@
         <vui-poptip v-model="value" v-bind="props" @on-popper-show="onPopperShow" @on-popper-hide="onPopperHide" @on-ok="onOk" @on-cancel="onCancel">
                 <Button>Top Left</Button>
                 <span slot="title">我是slot title</span>
-                <span slot="content">我是slot content</span>
+                <span slot="content"><Button @click="close">close</Button></span>
         </vui-poptip>
     </div>
 </script>
@@ -64,6 +64,9 @@
             }, 
             onCancel() {
                 console.log("cancel");
+            },
+            close(){
+                this.value = false;
             }
         },
         watch: {

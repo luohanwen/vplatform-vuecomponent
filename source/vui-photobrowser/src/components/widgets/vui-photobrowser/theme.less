@@ -501,6 +501,16 @@ body.compensate-for-scrollbar {
         text-overflow: ellipsis;
         white-space: nowrap;
     }
+    p{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        /*!autoprefixer: off */
+        -webkit-box-orient:vertical;                           
+        /* autoprefixer: on */
+        -webkit-line-clamp: 2;
+        white-space: normal;
+    }
 }
 
 .fancybox-caption a,

@@ -38,7 +38,7 @@
                     </i-input>
             </slot>
             <slot>
-                <template v-if="autoComplete"><i-option v-for="item in filteredData" :value="item[textField]" :key="item[textField]">{{ item[textField] }}</i-option></template>
+                <template v-if="autoComplete&&filteredData.length"><i-option v-for="item in filteredData" :value="item[textField]" :key="item[textField]">{{ item[textField] }}</i-option></template>
             </slot>
 
             <slot name="droplist" v-if="autoComplete"></slot>
@@ -154,7 +154,10 @@
                 if (this.filterMethod) {
                     return this.dataSource.filter(item => this.filterMethod(this.currentValue, item));
                 } else {
-                    return this.dataSource;
+                    let reg = new RegExp(this.currentValue);
+                    return this.dataSource.filter(item=>{
+                        return reg.test(item[this.textField]);
+                    });
                 }
             },
             searchClass(){

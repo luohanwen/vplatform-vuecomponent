@@ -1,0 +1,30 @@
+{
+	"libType": "dev",
+	"type": "resource",
+	"pluginCode": "lodash-ui-lib",
+	"groupId": "com.toone.v3.platform",
+	"matchVersion": 1,
+	"symbolicName": "com.toone.v3.platform-vjs.framework.extension.platform.custom.resource.lodash-ui-lib",
+	"version": "1.0.0",
+	"minMatchVersion": 1,
+	"resourceCode": "vPlatform-resource-01aa9e087821c35fcaafd7ef39c9b475",
+	"skin": {},
+	"out": "target",
+	"sources": "dist",
+	"webpackCfgVersion": "1.0.4",
+	"extraSources": [],
+	"urlSources": [],
+	"dependencies": [],
+	"VjsList": [
+		{
+			"name": "vjs.framework.extension.platform.custom.resource.lodash-ui-lib",
+			"version": "1.0.0.SNAPSHOT"
+		}
+	],
+	"depVjsList": [],
+	"require": [],
+	"libs": [
+		"dist/resource/lodash-ui-lib.js",
+		"dist/resource/lodash-ui-lib.js.map"
+	]
+}

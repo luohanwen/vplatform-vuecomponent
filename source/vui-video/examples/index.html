@@ -4,7 +4,18 @@
 	<meta charset="utf-8"></meta>
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui"></meta>
 	<script type="text/javascript" src="vendor/vplatform/assets/vue.js"></script>
-	<% var styles = htmlWebpackPlugin.options.resources.styles;if(styles){for(var i = 0,len=styles.length;i<len;i++){var style = styles[i]; %><link href="<%= style %>" type="text/css" rel="stylesheet"><% }} %>
+    <% var styles = htmlWebpackPlugin.options.resources.styles;if(styles){for(var i = 0,len=styles.length;i<len;i++){var style = styles[i]; %><link href="<%= style %>" type="text/css" rel="stylesheet"><% }} %>
+    <style>
+        .container{
+            position: fixed;
+            left: 0;
+            top:0;
+            bottom: 0;
+            right: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+    </style>
 </head>
 <body>
 	<div id="app">
@@ -12,39 +23,42 @@
 	<% var scripts = htmlWebpackPlugin.options.resources.scripts;if(scripts){for(var i = 0,len=scripts.length;i<len;i++){var script = scripts[i]; %><script type="text/javascript" src="<%= script %>"></script><% }} %>
 </body>
 <script type="text/template" id="tpl">
-<div>
-    <vui-video
-        :widgetCode="widgetCode"
-        :src="src"
-        :controls="controls"
-        :width="width"
-        :height="height"
-        :poster="poster"
-        :autoplay="autoplay"
-        :loop="loop"
-        :volume="volume"
-        :fullscreen="fullscreen"
-        :label="label"
-        :notSupportedMsg="notSupportedMsg"
-        :showLabel="showLabel"
-        :transfer="transfer"
-        :miniPlayer="miniPlayer"
-        @on-play="onplay"
-        @on-pause="onpause"
-        @on-ended="onended"
-        @on-pre="onpre"
-        @on-next="onnext"
-        @on-change-pre="onchangepre"
-        @on-change-next="onchangenext"
-        @on-resolution-change="onResolutionChange"
-        ref="video"
-    ></vui-video>
-    <vui-button @click="play">play</vui-button>
-    <vui-button @click="pause">pause</vui-button>
-    <vui-button @click="requestFullscreen">requestFullscreen</vui-button>
-    <vui-button @click="change">changesrc</vui-button>
-    <div style="height:2000px;border:1px solid blue;"></div>
-
+<div class="container">
+    <div style="2000px;">
+        <vui-video
+            :widgetCode="widgetCode"
+            :src="src"
+            :controls="controls"
+            :width="width"
+            :height="height"
+            :poster="poster"
+            :autoplay="autoplay"
+            :loop="loop"
+            :volume="volume"
+            :fullscreen="fullscreen"
+            :label="label"
+            :notSupportedMsg="notSupportedMsg"
+            :showLabel="showLabel"
+            :transfer="transfer"
+            :miniPlayer="miniPlayer"
+            :scrollEl="scrollEl"
+            @on-play="onplay"
+            @on-pause="onpause"
+            @on-ended="onended"
+            @on-pre="onpre"
+            @on-next="onnext"
+            @on-change-pre="onchangepre"
+            @on-change-next="onchangenext"
+            @on-resolution-change="onResolutionChange"
+            ref="video"
+        ></vui-video>
+        <vui-button @click="play">play</vui-button>
+        <vui-button @click="pause">pause</vui-button>
+        <vui-button @click="requestFullscreen">requestFullscreen</vui-button>
+        <vui-button @click="change">changesrc</vui-button>
+        <div style="height:2000px;border:1px solid blue;"></div>
+    
+    </div>
 </div>
 </script>
 <script type="text/javascript">
@@ -56,7 +70,7 @@
 		template : "#tpl",
 		data : {
             widgetCode:"vui-video",
-            src:"",
+            src:"http://vjs.zencdn.net/v/oceans.mp4?a=1",
             controls:true,
             width:"100%",
             height:"250px",
@@ -69,7 +83,8 @@
             notSupportedMsg:"目前无法播放视频源",
             showLabel:true,
             transfer:true,
-            miniPlayer:true
+            miniPlayer:true,
+            scrollEl:".container"
         },
         methods: {
             play(){

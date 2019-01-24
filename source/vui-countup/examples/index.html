@@ -18,7 +18,7 @@
 </body>
 <script type="text/template" id="tpl">
     <div class="demo"> 
-        <vui-countup  v-model="value" :decimals="2" :duration="2" :max="9999" text-align="left" color="rgb(0,121,254)" :bold="true"  font-size="18px"  :thousand-mark="true" ref="vuiCountup">
+        <vui-countup  v-model="value" :decimals="2" :duration="2" :max="9999" text-align="left" color="rgb(0,121,254)" :bold="true"  font-size="18px"  :thousand-mark="true" ref="vuiCountup" @on-change="onChange">
             <div slot="header" class="header">标题</div>
             <div slot="append" class="append">注册人数</div>
             <div slot="prepend" class="prepend">人</div>
@@ -27,6 +27,7 @@
         <br>
         <vui-button @click="start">开始数字动画</vui-button>
         <vui-button @click="reset">重置数字动画</vui-button>
+        <vui-button @click="changeVal">改变val值</vui-button>
     </div>
 </script>
 <script type="text/javascript">
@@ -37,12 +38,7 @@
 		el : "#app",
 		template : "#tpl",
         data : {
-            value:1000
-        },
-        watch:{
-            value(value,oldValue){
-                console.log("watch value",value);
-            }
+            value:0
         },
         methods:{
             start(){
@@ -50,6 +46,12 @@
             },
             reset(){
                 this.$refs.vuiCountup.reset();
+            },
+            onChange(val){
+                console.log("onChange",val);
+            },
+            changeVal(){
+                this.value = 1000;
             }
         }
 	});

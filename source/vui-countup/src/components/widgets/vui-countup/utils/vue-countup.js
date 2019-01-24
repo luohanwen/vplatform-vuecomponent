@@ -45,6 +45,12 @@ const ICountUp = {
         }
       },
       deep: false
+    },
+    startVal(val){
+        if(val){
+            this.uninit();
+            this.init();
+        }
     }
   },
   methods: {
@@ -99,7 +105,6 @@ const ICountUp = {
     },
     update(newEndVal) {
       const that = this;
-
       if (that.instance && _.isFunction(that.instance.update)) {
         return that.instance.update(newEndVal);
       }

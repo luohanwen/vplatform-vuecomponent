@@ -21,6 +21,7 @@
           :duration="duration"
           :options="options"
           @ready="onReady"
+          ref="ICountUp"
         />
       </div>
       <div class="prepend">
@@ -118,7 +119,7 @@ export default {
       if (instance) {
         let finishCallback = () => {};
         let progressCallback = value => {
-          this.$emit("input", value);
+          this.$emit("on-change",value);
         };
         instance.start(finishCallback, progressCallback);
       }

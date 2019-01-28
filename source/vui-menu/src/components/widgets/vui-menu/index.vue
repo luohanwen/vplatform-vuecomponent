@@ -65,7 +65,6 @@ export default {
             let iconType = item[this.iconField];
             let title = item[this.titleField];
             let pid = item[this.pnameField];
-            console.log(iconType, pid, title);
             //有icon并且是第一级菜单
             if (iconType && (pid === "" || pid === undefined)) {
                 return [
@@ -222,7 +221,6 @@ export default {
                     );
                 }
             }
-            console.log("dataSource", val);
             return val;
         }
     },

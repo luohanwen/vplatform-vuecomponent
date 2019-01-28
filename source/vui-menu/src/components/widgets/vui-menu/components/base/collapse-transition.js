@@ -58,7 +58,8 @@ const Transition = {
     afterLeave(el) {
         removeClass(el, 'collapse-transition');
         el.style.height = '';
-        el.style.overflow = el.dataset.oldOverflow;
+        // el.style.overflow = el.dataset.oldOverflow;
+        el.style.overflow = "";
         el.style.paddingTop = el.dataset.oldPaddingTop;
         el.style.paddingBottom = el.dataset.oldPaddingBottom;
     }

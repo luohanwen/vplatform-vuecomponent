@@ -230,8 +230,11 @@ export default {
       type: Array,
       default: () => []
     },
+    // value: {
+    //   type: [Date, String, Array]
+    // },
     value: {
-      type: [Date, String, Array]
+      type: String
     },
     shortcuts: {
       type: Boolean,
@@ -803,7 +806,8 @@ export default {
       const oldValue = JSON.stringify(before);
       const shouldEmitInput =
         newValue !== oldValue || typeof now !== typeof before;
-      if (shouldEmitInput) this.$emit("input", now); // to update v-model
+    //   if (shouldEmitInput) this.$emit("input", now); // to update v-model
+      if (shouldEmitInput) this.$emit("input", `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`); // to update v-model
     }
   },
   mounted() {
@@ -813,7 +817,7 @@ export default {
       typeof initialValue !== typeof parsedValue ||
       JSON.stringify(initialValue) !== JSON.stringify(parsedValue)
     ) {
-      this.$emit("input", this.publicVModelValue); // to update v-model
+    //   this.$emit("input", this.publicVModelValue); // to update v-model
     }
     if (this.open !== null) this.visible = this.open;
 

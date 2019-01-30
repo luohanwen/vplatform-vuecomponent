@@ -123,9 +123,9 @@ export default {
         poster: {
             type: String
         },
-        scrollEl:{
-            type:[Window,String],
-            default:()=>window
+        scrollEl: {
+            type: [Window, String],
+            default: () => window
         }
     },
     data: function() {
@@ -173,7 +173,7 @@ export default {
                     if (!this.videojsInited) {
                         this.videojsInited = true;
                         this.$nextTick(function() {
-                            console.log("autoplay",this.autoplay);
+                            console.log("autoplay", this.autoplay);
                             this.init();
                         });
                     } else {
@@ -181,7 +181,10 @@ export default {
                     }
                 }
             },
-            immediate:true
+            immediate: true
+        },
+        miniPlayer(val){
+            this.initMiniplay();
         }
     },
     created() {
@@ -258,9 +261,9 @@ export default {
             ));
             player.volume(this.volume);
 
-            this.bindScroll();
             this.dragIns = drag($(`#${this.containerId}`));
-
+            
+            this.initMiniplay();
         },
         // 添加上一集下一集
         handlePreAndNext() {
@@ -312,42 +315,28 @@ export default {
                     }
                 });
         },
-        bindScroll() {
-            let self = this;
-            if (this.isPc && this.miniPlayer) {
-                let $scrollContainer = $(this.scrollEl);
-                let $target = $(`#${this.containerId}`);
-                let offsetTop = $target.offset().top;
-                let height = $target.outerHeight();
-                let scrollTop;
-                let playStatus;
-                $scrollContainer.scroll(function() {
-                    scrollTop = $(this).scrollTop();
-                    playStatus = !self.videojsEl.paused();
-
-                    //视频不在可见区域
-                    if (scrollTop > offsetTop + height - 10) {
-                        if (playStatus) {
-                            $target.addClass("vui-mini-player");
-                            self.isShowMiniPlayer = true;
-                            self.dragIns.initDrag();
-                            self.$nextTick(() => {
-                                if (self.firstInitDrag) {
-                                    self.firstInitDrag = false;
-                                }
-                            });
-                            //mini模式
-                            $target.css({ position: "fixed" });
+        initMiniplay() {
+            let $target = $(`#${this.containerId}`);
+            if (this.isPc) {
+                if (this.miniPlayer) {
+                    $target.addClass("vui-mini-player");
+                    this.isShowMiniPlayer = true;
+                    this.dragIns.initDrag();
+                    this.$nextTick(() => {
+                        if (this.firstInitDrag) {
+                            this.firstInitDrag = false;
                         }
-                    } else {
-                        $target.removeClass("vui-mini-player");
-                        self.isShowMiniPlayer = false;
-                        self.hideMini = false;
-                        //清除mini模式拖拽后的影响
-                        $target.css({ position: "static" });
-                        self.dragIns.destroyDrag();
-                    }
-                });
+                    });
+                    //mini模式
+                    $target.css({ position: "fixed" });
+                } else {
+                    $target.removeClass("vui-mini-player");
+                    this.isShowMiniPlayer = false;
+                    this.hideMini = false;
+                    //清除mini模式拖拽后的影响
+                    $target.css({ position: "static" });
+                    this.dragIns.destroyDrag();
+                }
             }
         },
         play() {

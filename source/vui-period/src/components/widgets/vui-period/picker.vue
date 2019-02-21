@@ -807,7 +807,8 @@ export default {
       const shouldEmitInput =
         newValue !== oldValue || typeof now !== typeof before;
     //   if (shouldEmitInput) this.$emit("input", now); // to update v-model
-      if (shouldEmitInput) this.$emit("input", `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`); // to update v-model
+      let value = now?`${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`:""
+      if (shouldEmitInput) this.$emit("input", value); // to update v-model
     }
   },
   mounted() {

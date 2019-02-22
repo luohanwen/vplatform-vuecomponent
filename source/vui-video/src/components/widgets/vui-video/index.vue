@@ -1,5 +1,5 @@
 <template>
-    <div v-if="videojsInited">
+    <div v-if="videojsInited" :style="wrapperStyle">
         <div
             :class="['vui-video-container',{'vui-video-mobile':!isPc}]"
             :style="styles"
@@ -150,6 +150,11 @@ export default {
             return {
                 width: this.width,
                 height: this.height
+            };
+        },
+        wrapperStyle(){
+            return {
+                height:this.height
             };
         },
         containerId() {
@@ -317,6 +322,7 @@ export default {
         },
         initMiniplay() {
             let $target = $(`#${this.containerId}`);
+            let $controls = $target.find(".vjs-control-bar");
             if (this.isPc) {
                 if (this.miniPlayer) {
                     $target.addClass("vui-mini-player");
@@ -329,6 +335,9 @@ export default {
                     });
                     //mini模式
                     $target.css({ position: "fixed" });
+
+                    //隐藏控制条
+                    $controls.hide();
                 } else {
                     $target.removeClass("vui-mini-player");
                     this.isShowMiniPlayer = false;
@@ -336,6 +345,9 @@ export default {
                     //清除mini模式拖拽后的影响
                     $target.css({ position: "static" });
                     this.dragIns.destroyDrag();
+
+                    //显示控制条
+                    $controls.hide();
                 }
             }
         },

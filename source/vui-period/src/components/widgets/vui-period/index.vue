@@ -13,7 +13,7 @@ export default {
             validator (value) {
                 return oneOf(value, ['year', 'month', 'date', 'daterange', 'datetime', 'datetimerange','week','halfyear','quarter','tendays']);
             },
-            default: 'date'
+            default: 'year'
         },
     },
     components: { DatePickerPanel, RangeDatePickerPanel },

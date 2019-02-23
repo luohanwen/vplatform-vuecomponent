@@ -322,6 +322,7 @@ export default {
         initMiniplay() {
             let $target = $(`#${this.containerId}`);
             let $controls = $target.find(".vjs-control-bar");
+            let $vjsTech = $(".vjs-tech");
             if (this.isPc) {
                 if (this.miniPlayer) {
                     $target.addClass("vui-mini-player");
@@ -337,6 +338,9 @@ export default {
 
                     //隐藏控制条
                     $controls.addClass("hide");
+
+                    //点击屏幕不播放/暂停
+                    $vjsTech.addClass("noneEvents");
                 } else {
                     $target.removeClass("vui-mini-player");
                     this.isShowMiniPlayer = false;
@@ -347,6 +351,9 @@ export default {
 
                     //显示控制条
                     $controls.removeClass("hide");
+
+                    //去除点击屏幕不播放/暂停限制
+                    $vjsTech.removeClass("noneEvents");
                 }
             }
         },

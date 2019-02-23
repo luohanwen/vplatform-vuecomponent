@@ -178,7 +178,6 @@ export default {
                     if (!this.videojsInited) {
                         this.videojsInited = true;
                         this.$nextTick(function() {
-                            console.log("autoplay", this.autoplay);
                             this.init();
                         });
                     } else {
@@ -337,7 +336,7 @@ export default {
                     $target.css({ position: "fixed" });
 
                     //隐藏控制条
-                    $controls.hide();
+                    $controls.addClass("hide");
                 } else {
                     $target.removeClass("vui-mini-player");
                     this.isShowMiniPlayer = false;
@@ -347,7 +346,7 @@ export default {
                     this.dragIns.destroyDrag();
 
                     //显示控制条
-                    $controls.hide();
+                    $controls.removeClass("hide");
                 }
             }
         },

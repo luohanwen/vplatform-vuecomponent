@@ -28,7 +28,6 @@
                 :autoplay="autoplay"
                 :loop="loop"
                 preload="auto"
-                muted="muted"
                 data-setup='{"language":"zh-CN"}'
             >
                 <source

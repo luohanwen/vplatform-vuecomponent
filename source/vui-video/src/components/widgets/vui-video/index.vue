@@ -1,5 +1,8 @@
 <template>
-    <div v-if="videojsInited" :style="wrapperStyle">
+    <div
+        v-if="videojsInited"
+        :style="wrapperStyle"
+    >
         <div
             :class="['vui-video-container',{'vui-video-mobile':!isPc}]"
             :style="styles"
@@ -151,9 +154,9 @@ export default {
                 height: this.height
             };
         },
-        wrapperStyle(){
+        wrapperStyle() {
             return {
-                height:this.height
+                height: this.height
             };
         },
         containerId() {
@@ -186,7 +189,7 @@ export default {
             },
             immediate: true
         },
-        miniPlayer(val){
+        miniPlayer(val) {
             this.initMiniplay();
         }
     },
@@ -202,48 +205,51 @@ export default {
     mounted() {},
     methods: {
         init() {
-            console.log("init");
             let self = this;
-            let player = (this.videojsEl = videojs(
-                this.widgetCode,
-                {
-                    plugins: {
-                        videoJsResolutionSwitcher: {
-                            default: "low", // Default resolution [{Number}, 'low', 'high'],
-                            dynamicLabel: true
-                        }
-                    },
-                    controlBar: {
-                        children: [
-                            {
-                                name: "playToggle"
-                            },
-                            {
-                                name: "currentTimeDisplay"
-                            },
-                            {
-                                name: "timeDivider"
-                            },
-                            {
-                                name: "durationDisplay"
-                            },
-                            {
-                                name: "progressControl"
-                            },
-                            {
-                                name: "playbackRateMenuButton",
-                                playbackRates: [0.5, 1, 1.25, 1.5, 2]
-                            },
-                            {
-                                name: "volumePanel",
-                                inline: false
-                            },
-                            {
-                                name: "fullscreenToggle"
-                            }
-                        ]
+            let opt = {
+                plugins: {
+                    videoJsResolutionSwitcher: {
+                        default: "low", // Default resolution [{Number}, 'low', 'high'],
+                        dynamicLabel: true
                     }
                 },
+                controlBar: {
+                    children: [
+                        {
+                            name: "playToggle"
+                        },
+                        {
+                            name: "currentTimeDisplay"
+                        },
+                        {
+                            name: "timeDivider"
+                        },
+                        {
+                            name: "durationDisplay"
+                        },
+                        {
+                            name: "progressControl"
+                        },
+                        {
+                            name: "playbackRateMenuButton",
+                            playbackRates: [0.5, 1, 1.25, 1.5, 2]
+                        },
+                        {
+                            name: "volumePanel",
+                            inline: false
+                        },
+                        {
+                            name: "fullscreenToggle"
+                        }
+                    ]
+                }
+            };
+            if (this.autoplay) {
+                opt.muted = "muted";
+            }
+            let player = (this.videojsEl = videojs(
+                this.widgetCode,
+                opt,
                 function() {
                     this.on("play", function() {
                         self.$emit("on-play");
@@ -265,7 +271,7 @@ export default {
             player.volume(this.volume);
 
             this.dragIns = drag($(`#${this.containerId}`));
-            
+
             this.initMiniplay();
         },
         // 添加上一集下一集

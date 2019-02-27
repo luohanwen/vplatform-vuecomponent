@@ -28,7 +28,6 @@
                 class="video-js vui-video"
                 :controls="controls"
                 :poster="poster"
-                :autoplay="autoplay"
                 :loop="loop"
                 preload="auto"
                 data-setup='{"language":"zh-CN"}'
@@ -244,9 +243,6 @@ export default {
                     ]
                 }
             };
-            if (this.autoplay) {
-                opt.muted = "muted";
-            }
             let player = (this.videojsEl = videojs(
                 this.widgetCode,
                 opt,
@@ -269,6 +265,12 @@ export default {
                 }
             ));
             player.volume(this.volume);
+
+            //设置自动播放
+            if(this.autoplay){
+                player.defaultMuted(true);
+                player.autoplay("any");
+            }
 
             this.dragIns = drag($(`#${this.containerId}`));
 

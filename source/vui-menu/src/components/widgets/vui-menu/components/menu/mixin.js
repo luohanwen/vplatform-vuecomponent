@@ -17,6 +17,9 @@ export default {
         },
         fullscreen(){
             return this.menu.fullscreen;
+        },
+        collapse(){
+            return this.menu.collapse;
         }
     }
 };

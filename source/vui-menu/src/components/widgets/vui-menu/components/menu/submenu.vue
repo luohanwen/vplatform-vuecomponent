@@ -3,11 +3,14 @@
         :class="classes"
         @mouseenter="handleMouseenter"
         @mouseleave="handleMouseleave"
+        :data-depth="treeDepth"
     >
         <div
             :class="[prefixCls + '-submenu-title']"
             ref="reference"
             :style="titleStyle"
+            @click.stop="handleClick"
+            :data-depth="treeDepth"
         >
             <slot name="title"></slot>
             <Icon
@@ -15,15 +18,15 @@
                 :class="[prefixCls + '-submenu-title-icon']"
             ></Icon>
         </div>
-        <collapse-transition>
-            <ul
-                :class="[prefixCls]"
-                v-show="opened"
-                :style="menuStyle"
-            >
-                <slot></slot>
-            </ul>
-        </collapse-transition>
+        <!-- <transition name="collapse" :duration="{ enter: 500}"> -->
+        <ul
+            :class="[prefixCls,vuiPrefixCls+'-depth-'+(treeDepth+1)]"
+            v-show="opened"
+            :style="menuStyle"
+        >
+            <slot></slot>
+        </ul>
+        <!-- </transition> -->
         <!-- <transition
       name="slide-up"
       v-else
@@ -55,6 +58,7 @@ import Emitter from "../../mixins/emitter";
 import mixin from "./mixin";
 
 const prefixCls = "ivu-menu";
+const vuiPrefixCls = "vui-menu";
 
 export default {
     name: "Submenu",
@@ -65,6 +69,9 @@ export default {
             type: [String, Number],
             required: true
         },
+        treeDepth: {
+            type: Number
+        },
         disabled: {
             type: Boolean,
             default: false
@@ -73,6 +80,7 @@ export default {
     data() {
         return {
             prefixCls: prefixCls,
+            vuiPrefixCls:vuiPrefixCls,
             active: false,
             opened: false,
             dropWidth: parseFloat(getStyle(this.$el, "width")),
@@ -114,6 +122,7 @@ export default {
     methods: {
         handleMouseenter(event) {
             if (this.disabled) return;
+            if (this.isFirstMenuOnModel1(event)) return;
             if (this.mode === "vertical") {
                 this.$parent.$children.forEach(item => {
                     if (item.$options.name === "Submenu") item.opened = false;
@@ -124,133 +133,39 @@ export default {
                 this.menu.updateOpenKeys(this.name);
                 this.opened = true;
             }, 250);
-            if (this.mode === "vertical") {
-                this.vuiHandle(1, { event: event });
-                //全屏处理
-                this.vuiHandle(2, { event: event });
-            } else {
-                this.vuiHandle(3, { event: event });
-                this.vuiHandle(4, { event: event });
-            }
         },
         handleMouseleave(event) {
             if (this.disabled) return;
-            if (this.mode === "") {
-                this.$parent.$children.forEach(item => {
-                    if (item.$options.name === "Submenu") item.opened = false;
-                });
-            }
+            if (this.isFirstMenuOnModel1(event)) return;
             clearTimeout(this.timeout);
             this.timeout = setTimeout(() => {
                 this.menu.updateOpenKeys(this.name);
                 this.opened = false;
             }, 150);
         },
-        // handleClick(event) {
-        //     if (this.disabled) return;
-        //     if (this.mode === "horizontal") return;
-        //     const opened = this.opened;
-        //     if (this.accordion) {
-        //         this.$parent.$children.forEach(item => {
-        //             if (item.$options.name === "Submenu") item.opened = false;
-        //         });
-        //     }
-        //     this.menu.updateOpenKeys(this.name);
-        //     this.opened = !opened;
-        //     this.vuiHandle(1, { event: event });
-        //     //全屏处理
-        //     this.vuiHandle(2, { event: event });
-        // },
-        //适配vuimenu做的一些处理
-        //option 对应的参数
-        vuiHandle(type, opt) {
-            let widthOffset = this.menu.theme === "light" ? 2 : 0;
-            switch (type) {
-                //垂直非全屏  点击菜单时处理子菜单位置
-                case 1:
-                    if (!this.fullscreen && this.mode === "vertical") {
-                        //点击的是否是第一级菜单
-                        let event = opt.event;
-                        let $target = $(event.currentTarget || event.target);
-                        let isFirstMenu = !$target.parents(".ivu-menu-submenu")
-                            .length;
-                        if (
-                            !isFirstMenu ||
-                            (this.menu.collapse && this.menu.isCollapse)
-                        ) {
-                            $target
-                                .find(">.ivu-menu")
-                                .removeClass("vui-menu-level2");
-                            //点击的是否是菜单的第一项
-                            let isFirstItem = $target.index() === 0;
-                            let targetTop = $target.offset().top;
-                            let menuItemHeight = $target.innerHeight();
-                            let menuTop = $target
-                                .parents(`.${prefixCls}`)
-                                .offset().top;
-                            let subMenuWidth = $target.innerWidth();
-                            let top, left;
-                            if (isFirstMenu || isFirstItem) {
-                                top = 0;
-                            } else {
-                                top = -menuItemHeight;
-                            }
-                            left = subMenuWidth + widthOffset;
-                            this.menuStyle.left = `${left}px`;
-                            this.menuStyle.top = `${top}px`;
-                        } else {
-                            //第二级菜单增加指定类名
-                            $target
-                                .find(">.ivu-menu")
-                                .addClass("vui-menu-level2");
-                        }
-                    }
-                    break;
-                //垂直全屏  处理子菜单的位置
-                case 2:
-                    if (this.fullscreen && this.mode === "vertical") {
-                        let event = opt.event;
-                        let $target = $(event.currentTarget || event.target);
-                        let subMenuWidth = $target.innerWidth();
-                        let left = subMenuWidth + widthOffset;
-                        this.menuStyle.left = `${left}px`;
-                    }
-                    break;
-                //水平非全屏  处理子菜单的位置
-                case 3:
-                    if (!this.fullscreen && this.mode === "horizontal") {
-                        let event = opt.event;
-                        let $target = $(event.currentTarget || event.target);
-                        let isFirstMenu = !$target.parents(".ivu-menu-submenu")
-                            .length;
-                        let targetTop = $target.offset().top;
-                        let menuItemHeight = $target.outerHeight();
-                        let menuTop = $target.parent(`.${prefixCls}`).offset()
-                            .top;
-                        let subMenuWidth = $target.outerWidth();
-                        let top, left;
-                        if (isFirstMenu) {
-                            top = menuItemHeight;
-                            left = 0;
-                        } else {
-                            top = 0;
-                            left = subMenuWidth + widthOffset;
-                        }
-                        this.menuStyle.left = `${left}px`;
-                        this.menuStyle.top = `${top}px`;
-                    }
-                    break;
-                //水平全屏  处理子菜单的位置
-                case 4:
-                    if (this.fullscreen && this.mode === "horizontal") {
-                        let event = opt.event;
-                        let $target = $(event.currentTarget || event.target);
-                        let top = $target.parent(`.${prefixCls}`).outerHeight();
-                        this.menuStyle.top = `${top}px`;
-                    }
-                    break;
+        handleClick(event) {
+            if (this.disabled) return;
+            if (this.mode === "horizontal") return;
+            if (!this.isFirstMenuOnModel1(event)) return;
+            const opened = this.opened;
+            if (this.accordion || this.collapse) {
+                this.$parent.$children.forEach(item => {
+                    if (item.$options.name === "Submenu") item.opened = false;
+                });
             }
-        }
+            this.menu.updateOpenKeys(this.name);
+            this.opened = !opened;
+            console.log("handleclick");
+        },
+        //垂直非全屏下的第一级菜单,model 1-垂直非全屏 2-垂直全屏 3-水平非全屏 4水平全屏
+        isFirstMenuOnModel1(event){
+            if(this.mode === "vertical" && !this.fullscreen && !this.collapse){
+                let $target = $(event.currentTarget);
+                let isFirstMenu = $target.data("depth") == 1;
+                if(isFirstMenu) return true;
+            }
+            return false;
+        },
     },
     watch: {
         mode(val) {
@@ -274,10 +189,15 @@ export default {
             if (this.mode === "horizontal") {
                 this.opened = false;
             } else {
-                this.opened = false;
-                findComponentsUpward(this, "Submenu").forEach(item => {
-                    item.opened = false;
-                });
+                let parentSubmenu = findComponentsUpward(this, "Submenu");
+                //垂直非全屏非折叠模式下并且为1级菜单不收起来
+                if(this.mode === "vertical"&&!this.fullscreen&&!this.collapse&&!parentSubmenu.length){
+                }else{
+                    this.opened = false;
+                    parentSubmenu.forEach(item => {
+                        item.opened = false;
+                    });
+                }
             }
             this.dispatch("Menu", "on-menu-item-select", name);
             return true;

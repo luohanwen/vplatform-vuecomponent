@@ -1,6 +1,6 @@
 //引入皮肤变量
-@import "./var.less";
-@import "./skin.less";
+@import './var.less';
+@import './skin.less';
 .ellipsis {
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -84,41 +84,46 @@
 		height: 100%;
 		position: absolute;
 		top: 0;
+		right: 0;
+		transform: translateX(100%);
 		white-space: nowrap;
 	}
 }
 
 //垂直非全屏
-.vui-menu.ivu-menu.ivu-menu-vertical.vui-menu-fullscreen-not {
+.vui-menu.ivu-menu.ivu-menu-vertical.vui-menu-fullscreen-not:not(.vui-menu-collapse) {
 	height: 100%;
 	.ivu-menu-submenu {
 		position: relative;
 	}
-	.ivu-menu {
+	.ivu-menu:not(.vui-menu-depth-2) {
 		position: absolute;
+		right: 0;
+		top: 0;
+		transform: translateX(100%);
 		white-space: nowrap;
 	}
 
 	//二级菜单的样式
-	.ivu-menu.vui-menu-level2 {
+	.ivu-menu.vui-menu-depth-2 {
 		box-shadow: none;
 		position: static;
 		& > .ivu-menu-item-group {
 			& > .ivu-menu-item-group-title {
-				padding-left: 46px!important;
+				padding-left: 46px !important;
 			}
 			& > ul > .ivu-menu-item {
-				padding-left: 46px!important;
+				padding-left: 46px !important;
 			}
 			& > ul > .ivu-menu-submenu {
 				& > .ivu-menu-submenu-title {
-					padding-left: 46px!important;
+					padding-left: 46px !important;
 				}
 			}
 		}
 		& > .ivu-menu-submenu {
 			& > .ivu-menu-submenu-title {
-				padding-left: 46px!important;
+				padding-left: 46px !important;
 				.ivu-menu-submenu-title-icon {
 					position: absolute;
 					right: 16px;
@@ -128,15 +133,26 @@
 			}
 		}
 		& > .ivu-menu-item {
-			padding-left: 46px!important;
+			padding-left: 46px !important;
 		}
 	}
 }
 
 //垂直折叠模式（只显示菜单）
 .vui-menu.ivu-menu.ivu-menu-vertical.vui-menu-collapse {
+	height: 100%;
+	.ivu-menu-submenu {
+		position: relative;
+	}
 	width: @menu-vertical-collapse-width !important;
-	& > .ivu-menu-submenu,
+	.ivu-menu {
+		position: absolute;
+		right: 0;
+		top: 0;
+		transform: translateX(100%);
+		white-space: nowrap;
+    }
+    // 1级菜单隐藏三角图标和标题
 	& > .ivu-menu-item {
 		text-align: center;
 		span {
@@ -144,6 +160,17 @@
 		}
 		.ivu-menu-submenu-title-icon {
 			display: none;
+		}
+	}
+	& > .ivu-menu-submenu {
+		& > .ivu-menu-submenu-title {
+			text-align: center;
+			span {
+				display: none;
+			}
+			.ivu-menu-submenu-title-icon {
+				display: none;
+			}
 		}
 	}
 }
@@ -305,7 +332,21 @@
 			line-height: 50px;
 			width: 100%;
 		}
-	}
+    }
+    // 二级菜单
+    .ivu-menu.vui-menu-depth-2{
+        position: absolute;
+        left:0;
+        bottom: 0;
+        transform: translateY(100%);
+    }
+    //二级菜单之后的菜单
+    .ivu-menu:not(.vui-menu-depth-2){
+        position: absolute;
+        top:0;
+        right: 0;
+        transform: translateX(100%);
+    }
 }
 
 //水平全屏

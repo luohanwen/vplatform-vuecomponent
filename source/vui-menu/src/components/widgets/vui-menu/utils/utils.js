@@ -17,9 +17,13 @@ export default {
 		//        console.log(map);
 
 		var val = [];
-		data.forEach(function(item) {
+		data.forEach(item => {
 			// 以当前遍历项，的pid,去map对象中找到索引的id
-			var parent = map[item[pidKeyName]];
+            var parent = map[item[pidKeyName]];
+            
+            //获取节点在树里的深度
+            var treeDepth = this.getTreeDepth(map,item,pidKeyName);
+            item.treeDepth = treeDepth;
 
 			// 好绕啊，如果找到索引，那么说明此项不在顶级当中,那么需要把此项添加到，他对应的父级中
 			if (parent) {
@@ -31,6 +35,21 @@ export default {
 		});
 
 		return val;
+	},
+	/**
+	 * 获取节点在树里的深度 根节点为1 后面的依次加1
+	 */
+	getTreeDepth(idMap, node, pidKeyName) {
+		let depth = 1;
+		let depthHandle = item => {
+			let parent = idMap[item[pidKeyName]];
+			if (parent) {
+				depth = depth + 1;
+				depthHandle(parent);
+			}
+		};
+		depthHandle(node);
+		return depth;
 	},
 	/**
 	 * 将id，pid类型数据转换tree数据
@@ -47,7 +66,7 @@ export default {
 		var val = [];
 		data.forEach(function(item) {
 			map[item[idKeyName]] = item;
-			if (item[pidKeyName] == "") {
+			if (item[pidKeyName] == '') {
 				val.push(item);
 			}
 		});

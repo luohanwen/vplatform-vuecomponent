@@ -145,7 +145,8 @@ export default {
                                 "Submenu",
                                 {
                                     attrs: {
-                                        name: item[this.nameField]
+                                        name: item[this.nameField],
+                                        treeDepth: item.treeDepth
                                     }
                                 },
                                 [

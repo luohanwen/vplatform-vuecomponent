@@ -1,0 +1,195 @@
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.vui-video-container {
+  position: relative;
+}
+.vui-video-container.vui-mini-player {
+  position: fixed;
+  bottom: 70px;
+  right: 30px;
+  z-index: 1000;
+  width: 400px !important;
+  height: 260px !important;
+}
+.vui-video-container .vui-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 10px 0;
+  color: white;
+  font-size: 14px;
+  z-index: 1000;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.vui-video-container .vui-video.video-js {
+  width: 100%;
+  height: 100%;
+}
+.vui-video-container .vui-video.video-js .vjs-big-play-button {
+  outline: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+.vui-video-container .vui-video.video-js .vjs-control {
+  outline: none;
+}
+.vui-video-container .vui-video.video-js .vjs-progress-control .vjs-play-progress {
+  background-color: #0079fe;
+}
+.vui-video-container .vui-video.video-js .vjs-volume-control .vjs-volume-level {
+  background-color: #0079fe;
+}
+.vui-video-container .vui-video-operate {
+  cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  position: relative;
+  background-color: #f2f5fa;
+}
+.vui-video-container .vui-video-operate .ivu-icon {
+  color: #aaaaaa;
+  font-size: 20px;
+}
+.vui-video-container .vui-video-operate .ivu-icon-drag {
+  position: absolute;
+  right: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.vui-video-container .vui-video-operate .ivu-icon-close {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.vui-video-container .vjs-playback-rate {
+  outline: none;
+  color: #ccc;
+}
+.vui-video-container .vjs-menu .vjs-menu-content .vjs-menu-item {
+  padding: 0.3rem 0;
+  outline: none;
+}
+.vui-video-container .vjs-menu .vjs-menu-content .vjs-menu-item.vjs-selected {
+  color: #0079fe;
+  background-color: initial;
+}
+.vui-video-container .vjs-menu .vjs-menu-content .vjs-menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.vui-video-container .vjs-current-time,
+.vui-video-container .vjs-time-divider,
+.vui-video-container .vjs-duration {
+  display: block;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  min-width: 0;
+}
+.vui-video-container .vjs-volume-panel,
+.vui-video-container .vjs-fullscreen-control,
+.vui-video-container .vjs-play-control,
+.vui-video-container .vjs-playback-rate {
+  position: relative;
+  top: 2px;
+}
+.vui-video-container .vjs-resolution-button,
+.vui-video-container .vjs-volume-panel,
+.vui-video-container .vjs-fullscreen-control {
+  width: 2.4rem;
+}
+.vui-video-container .vjs-resolution-button-label {
+  outline: none;
+}
+.vui-video-container .vjs-resolution-button-label:focus {
+  outline: none;
+}
+.vui-video-container .vui-video-skip {
+  margin-right: 10px;
+}
+.vui-video-container .vui-video-skip .vui-pre,
+.vui-video-container .vui-video-skip .vui-next {
+  font-size: 16px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.vui-video-container .vui-video-skip .vui-pre {
+  left: 5px;
+}
+.vui-video-container .vui-video-skip .vui-next {
+  right: 5px;
+  transform: translateY(-50%) rotate(180deg);
+}
+.noneEvents {
+  pointer-events: none!important;
+}
+.hide {
+  display: none!important;
+}
+.vui-video-container.vui-video-mobile .vui-video-skip,
+.vui-video-container.vui-video-mobile .vjs-volume-panel,
+.vui-video-container.vui-video-mobile .vjs-resolution-button,
+.vui-video-container.vui-video-mobile .vjs-playback-rate {
+  display: none;
+}
+@media screen and (orientation: landscape) {
+.vui-video-container.vui-video-mobile .vjs-fullscreen .vui-video-skip,
+  .vui-video-container.vui-video-mobile .vjs-fullscreen .vjs-resolution-button,
+  .vui-video-container.vui-video-mobile .vjs-fullscreen .vjs-playback-rate {
+    display: block;
+}
+.vui-video-container.vui-video-mobile .vjs-fullscreen .vjs-volume-panel .vjs-mute-control {
+    padding-bottom: 0;
+}
+}
+.vjs-resolution-button {
+  color: #ccc;
+  font-family: VideoJS;
+}
+
+.vjs-resolution-button .vjs-resolution-button-staticlabel:before {
+  content: '\F110';
+  font-size: 1.8em;
+  line-height: 1.67;
+}
+
+.vjs-resolution-button .vjs-resolution-button-label {
+    font-size: 1em;
+    line-height: 3em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    box-sizing: inherit;
+		font-family: Arial, Helvetica, sans-serif;
+}
+
+.vjs-resolution-button ul.vjs-menu-content {
+  width: 4em !important;
+}
+
+.vjs-resolution-button .vjs-menu {
+  left: 0;
+}
+
+.vjs-resolution-button .vjs-menu li {
+  text-transform: none;
+	font-size: 1em;
+	font-family: Arial, Helvetica, sans-serif;
+}

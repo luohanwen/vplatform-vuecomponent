@@ -11,14 +11,115 @@
 	</div>
 	<script type="text/javascript" src="resources/js/polyfill.min.js"></script><script type="text/javascript" src="resources/js/jquery-1.10.2.min.js"></script><script type="text/javascript" src="resources/vui/vue/js/vue.js"></script><script type="text/javascript" src="resources/vui/vue/js/vue.extension.js"></script><script type="text/javascript" src="resources/js/browser.adpater.js"></script><script type="text/javascript" src="resources/vui/iview/js/vue.component.js"></script><script type="text/javascript" src="resources/vui/iview/js/vue.events.js"></script><script type="text/javascript" src="resources/vui/iview/js/iview.min.js"></script><script type="text/javascript" src="resources/vui/iview/js/iview.extension.js"></script><script type="text/javascript" src="resources/vui/wj/js/w.min.js"></script><script type="text/javascript" src="resources/vui/wj/js/w.input.min.js"></script><script type="text/javascript" src="resources/vui/wj/js/w.grid.min.js"></script><script type="text/javascript" src="resources/vui/wj/js/w.vue2.min.js"></script><script type="text/javascript" src="resources/vui/wj/js/cultures/w.culture.zh.min.js"></script><script type="text/javascript" src="resources/vui/iview/js/calendar/calendar.min.js"></script><script type="text/javascript" src="resources/vui/iview/js/vui.min.js"></script><script type="text/javascript" src="dependencies/v3-vdk/v3-vdk.js"></script><script type="text/javascript" src="dependencies/videojs-ui-lib/video.min.js"></script>
 <script type="text/javascript" src="widget/vui-video.js"></script></body>
+<script type="text/template" id="tpl">
+    <div>
+        <vui-video 
+            :widgetCode="widgetCode" 
+            :src="src" 
+            :controls="controls" 
+            :width="width" 
+            :height="height" 
+            :poster="poster" 
+            :autoplay="autoplay" 
+            :loop="loop" 
+            :volume="volume" 
+            :fullscreen="fullscreen" 
+            :label="label"
+            :notSupportedMsg="notSupportedMsg" 
+            :showLabel="showLabel" 
+            :transfer="transfer" 
+            :miniPlayer="miniPlayer" 
+            @on-play="onplay" 
+            @on-pause="onpause" 
+            @on-ended="onended" 
+            @on-pre="onpre" 
+            @on-next="onnext" 
+            @on-change-pre="onchangepre"
+            @on-change-next="onchangenext" 
+            @on-resolution-change="onResolutionChange" 
+            ref="video"
+        ></vui-video>
+        <vui-button @click="play">play</vui-button>
+        <vui-button @click="pause">pause</vui-button>
+        <vui-button @click="mini">mini</vui-button>
+        <vui-button @click="big">big</vui-button>
+        <vui-button @click="requestFullscreen">requestFullscreen</vui-button>
+        <vui-button @click="change">change</vui-button>
+        <div style="height:2000px;border:1px solid blue;"></div>
+    </div>
+</script>
 <script type="text/javascript">
 	if(typeof(Framework7Vue) != "undefined"){
 		Vue.use(Framework7Vue);
 	}
 	new Vue({
 		el : "#app",
-		template : "<vui-video></vui-video>",
-		data : {}
+		template : "#tpl",
+		data : {
+            widgetCode: "vui-video",
+			src: "http://vjs.zencdn.net/v/oceans.mp4?a=2",
+			controls: true,
+			width: "100%",
+			height: "250px",
+			poster: "https://gss0.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d833c895d143ad4bc8a8bb3b89025aafa50f0642.jpg",
+			autoplay: true,
+			loop: false,
+			volume: 0.3,
+			fullscreen: true,
+			label: "广东同望科技宣传片.mp4",
+			notSupportedMsg: "目前无法播放视频源",
+			showLabel: true,
+			transfer: true,
+			miniPlayer: null
+        },
+        methods: {
+            play() {
+                this.$refs.video.play();
+            },
+            pause() {
+                this.$refs.video.pause();
+            },
+            requestFullscreen() {
+                this.$refs.video.requestFullscreen();
+            },
+            onplay() {
+                console.log("on-play");
+            },
+            onpause() {
+                console.log("on-pause");
+            },
+            onended() {
+                console.log("on-ended");
+            },
+            onchangepre() {
+                alert("on-change-pre");
+            },
+            onchangenext() {
+                alert("on-change-next");
+            },
+            //清晰度切换时触发事件
+            onResolutionChange(resolution) {
+                console.log("当前清晰度为：" + resolution);
+
+                //改变视频源
+                this.src = "http://vjs.zencdn.net/v/oceans.mp4?a=2";
+            },
+            onpre() {
+                console.log("上一集");
+            },
+            onnext() {
+                console.log("下一集");
+            },
+            change(){
+                this.src = "http://vjs.zencdn.net/v/oceans.mp4?a=1";
+            },
+            mini() {
+                this.miniPlayer = true;
+            },
+            big() {
+                this.miniPlayer = false;
+            }
+        },
 	});
 </script>
 </html>

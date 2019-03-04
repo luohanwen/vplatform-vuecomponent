@@ -195,7 +195,11 @@ export default {
                 }else{
                     this.opened = false;
                     parentSubmenu.forEach(item => {
-                        item.opened = false;
+                        // 垂直非全屏模式下第一级菜单不关闭
+                        if(this.mode === "vertical"&&!this.fullscreen&&item.treeDepth==1){
+                        }else{
+                            item.opened = false;
+                        }
                     });
                 }
             }

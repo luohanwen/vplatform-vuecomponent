@@ -32,14 +32,20 @@ body{
 
    <vui-menu
     :data-source="dataSource"
-    mode="vertical"
+    mode="horizontal"
     :accordion="true"
     :fullscreen="false"
     theme="dark"
     width="220px"
-    :collapse="false"
+    :collapse="true"
     active-name="2"
-    :open-names="['name1','name2']"
+    :open-names="['1']"
+    nameField="id"
+    titleField="title"
+    pnameField="pid"
+    iconField="icon"
+    groupKeyField="groupId"
+    groupTitleField="groupTitle"
     @on-select="select"
     @on-open-change="openChange"
   >
@@ -67,7 +73,8 @@ body{
         {
           id: "2",
           pid: "1",
-          title: "二级菜单1-1"
+          title: "二级菜单1-1",
+          icon: "ios-paper"
         },
         {
           id: "3",

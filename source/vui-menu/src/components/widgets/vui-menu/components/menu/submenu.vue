@@ -14,7 +14,7 @@
         >
             <slot name="title"></slot>
             <Icon
-                type="ios-arrow-down"
+                :type="arrowIconType"
                 :class="[prefixCls + '-submenu-title-icon']"
             ></Icon>
         </div>
@@ -88,6 +88,10 @@ export default {
         };
     },
     computed: {
+        // 箭头类型
+        arrowIconType(){
+            return this.mode === 'vertical' ? 'ios-arrow-right':'ios-arrow-down';
+        },
         classes() {
             return [
                 `${prefixCls}-submenu`,
@@ -117,10 +121,15 @@ export default {
                       paddingLeft: "16px"
                   }
                 : {};
+        },
+        // 是否处于collapse状态
+        isCollapseing(){
+            return this.collapse && this.isCollapse;
         }
     },
     methods: {
         handleMouseenter(event) {
+            console.log("handleMouseenter");
             if (this.disabled) return;
             if (this.isFirstMenuOnModel1(event)) return;
             if (this.mode === "vertical") {
@@ -128,27 +137,32 @@ export default {
                     if (item.$options.name === "Submenu") item.opened = false;
                 });
             }
-            clearTimeout(this.timeout);
-            this.timeout = setTimeout(() => {
+            console.log("handleMouseenter1111");
+            // clearTimeout(this.timeout);
+            // this.timeout = setTimeout(() => {
                 this.menu.updateOpenKeys(this.name);
                 this.opened = true;
-            }, 250);
+                console.log("handleMouseenter show");
+            // }, 250);
         },
         handleMouseleave(event) {
+            console.log("handleMouseleave");
             if (this.disabled) return;
             if (this.isFirstMenuOnModel1(event)) return;
-            clearTimeout(this.timeout);
-            this.timeout = setTimeout(() => {
+            console.log("handleMouseenter2222");
+            // clearTimeout(this.timeout);
+            // this.timeout = setTimeout(() => {
                 this.menu.updateOpenKeys(this.name);
                 this.opened = false;
-            }, 150);
+                console.log("handleMouseenter hide");
+            // }, 150);
         },
         handleClick(event) {
             if (this.disabled) return;
             if (this.mode === "horizontal") return;
             if (!this.isFirstMenuOnModel1(event)) return;
             const opened = this.opened;
-            if (this.accordion || this.collapse) {
+            if (this.accordion || this.isCollapseing) {
                 this.$parent.$children.forEach(item => {
                     if (item.$options.name === "Submenu") item.opened = false;
                 });
@@ -159,7 +173,7 @@ export default {
         },
         //垂直非全屏下的第一级菜单,model 1-垂直非全屏 2-垂直全屏 3-水平非全屏 4水平全屏
         isFirstMenuOnModel1(event){
-            if(this.mode === "vertical" && !this.fullscreen && !this.collapse){
+            if(this.mode === "vertical" && !this.fullscreen && !this.isCollapseing){
                 let $target = $(event.currentTarget);
                 let isFirstMenu = $target.data("depth") == 1;
                 if(isFirstMenu) return true;
@@ -191,7 +205,7 @@ export default {
             } else {
                 let parentSubmenu = findComponentsUpward(this, "Submenu");
                 //垂直非全屏非折叠模式下并且为1级菜单不收起来
-                if(this.mode === "vertical"&&!this.fullscreen&&!this.collapse&&!parentSubmenu.length){
+                if(this.mode === "vertical"&&!this.fullscreen&&!this.isCollapseing&&!parentSubmenu.length){
                 }else{
                     this.opened = false;
                     parentSubmenu.forEach(item => {

@@ -812,6 +812,7 @@ export default {
     }
   },
   mounted() {
+    this.$el.setAttribute("widget-code",this.widgetCode);
     const initialValue = this.value;
     const parsedValue = this.publicVModelValue;
     if (

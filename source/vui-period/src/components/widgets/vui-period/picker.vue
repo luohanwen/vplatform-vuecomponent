@@ -150,7 +150,7 @@ export default {
     },
     clearable: {
       type: Boolean,
-      default: true
+      default: false
     },
     confirm: {
       type: Boolean,

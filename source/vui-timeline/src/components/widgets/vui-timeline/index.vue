@@ -22,6 +22,9 @@ export default {
   data: function() {
     return {};
   },
+  mounted() {
+    this.$el.setAttribute("widget-code",this.widgetCode);      
+  },
   methods: {}
 };
 </script>

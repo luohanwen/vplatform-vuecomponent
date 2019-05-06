@@ -4,18 +4,7 @@
 	<meta charset="utf-8"></meta>
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui"></meta>
 	<script type="text/javascript" src="vendor/vplatform/assets/vue.js"></script>
-    <% var styles = htmlWebpackPlugin.options.resources.styles;if(styles){for(var i = 0,len=styles.length;i<len;i++){var style = styles[i]; %><link href="<%= style %>" type="text/css" rel="stylesheet"><% }} %>
-    <style>
-        .container{
-            position: fixed;
-            left: 0;
-            top:0;
-            bottom: 0;
-            right: 0;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-    </style>
+	<% var styles = htmlWebpackPlugin.options.resources.styles;if(styles){for(var i = 0,len=styles.length;i<len;i++){var style = styles[i]; %><link href="<%= style %>" type="text/css" rel="stylesheet"><% }} %>
 </head>
 <body>
 	<div id="app">
@@ -23,43 +12,41 @@
 	<% var scripts = htmlWebpackPlugin.options.resources.scripts;if(scripts){for(var i = 0,len=scripts.length;i<len;i++){var script = scripts[i]; %><script type="text/javascript" src="<%= script %>"></script><% }} %>
 </body>
 <script type="text/template" id="tpl">
-<div class="container">
-    <div style="2000px;">
-        <vui-video
-            :widgetCode="widgetCode"
-            :src="src"
-            :controls="controls"
-            :width="width"
-            :height="height"
-            :poster="poster"
-            :autoplay="autoplay"
-            :loop="loop"
-            :volume="volume"
-            :fullscreen="fullscreen"
+    <div>
+        <vui-video 
+            :widgetCode="widgetCode" 
+            :src="src" 
+            :controls="controls" 
+            :width="width" 
+            :height="height" 
+            :poster="poster" 
+            :autoplay="autoplay" 
+            :loop="loop" 
+            :volume="volume" 
+            :fullscreen="fullscreen" 
             :label="label"
-            :notSupportedMsg="notSupportedMsg"
-            :showLabel="showLabel"
-            :transfer="transfer"
-            :miniPlayer="miniPlayer"
-            :scrollEl="scrollEl"
-            @on-play="onplay"
-            @on-pause="onpause"
-            @on-ended="onended"
-            @on-pre="onpre"
-            @on-next="onnext"
+            :notSupportedMsg="notSupportedMsg" 
+            :showLabel="showLabel" 
+            :transfer="transfer" 
+            :miniPlayer="miniPlayer" 
+            @on-play="onplay" 
+            @on-pause="onpause" 
+            @on-ended="onended" 
+            @on-pre="onpre" 
+            @on-next="onnext" 
             @on-change-pre="onchangepre"
-            @on-change-next="onchangenext"
-            @on-resolution-change="onResolutionChange"
+            @on-change-next="onchangenext" 
+            @on-resolution-change="onResolutionChange" 
             ref="video"
         ></vui-video>
         <vui-button @click="play">play</vui-button>
         <vui-button @click="pause">pause</vui-button>
+        <vui-button @click="mini">mini</vui-button>
+        <vui-button @click="big">big</vui-button>
         <vui-button @click="requestFullscreen">requestFullscreen</vui-button>
-        <vui-button @click="change">changesrc</vui-button>
+        <vui-button @click="change">change</vui-button>
         <div style="height:2000px;border:1px solid blue;"></div>
-    
     </div>
-</div>
 </script>
 <script type="text/javascript">
 	if(typeof(Framework7Vue) != "undefined"){
@@ -69,63 +56,68 @@
 		el : "#app",
 		template : "#tpl",
 		data : {
-            widgetCode:"vui-video",
-            src:"http://vjs.zencdn.net/v/oceans.mp4?a=1",
-            controls:true,
-            width:"100%",
-            height:"250px",
-            poster:"https://gss0.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d833c895d143ad4bc8a8bb3b89025aafa50f0642.jpg",
-            autoplay:true,
-            loop:false,
-            volume:0.3,
-            fullscreen:true,
-            label:"广州同望科技宣传片.mp4",
-            notSupportedMsg:"目前无法播放视频源",
-            showLabel:true,
-            transfer:true,
-            miniPlayer:true,
-            scrollEl:".container"
+            widgetCode: "vui-video",
+			src: "http://vjs.zencdn.net/v/oceans.mp4?a=2",
+			controls: true,
+			width: "100%",
+			height: "250px",
+			poster: "https://gss0.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d833c895d143ad4bc8a8bb3b89025aafa50f0642.jpg",
+			autoplay: true,
+			loop: false,
+			volume: 0.3,
+			fullscreen: true,
+			label: "广东同望科技宣传片.mp4",
+			notSupportedMsg: "目前无法播放视频源",
+			showLabel: true,
+			transfer: true,
+			miniPlayer: null
         },
         methods: {
-            play(){
+            play() {
                 this.$refs.video.play();
             },
-            pause(){
+            pause() {
                 this.$refs.video.pause();
             },
-            requestFullscreen(){
+            requestFullscreen() {
                 this.$refs.video.requestFullscreen();
             },
-            onplay(){
+            onplay() {
                 console.log("on-play");
             },
-            onpause(){
+            onpause() {
                 console.log("on-pause");
             },
-            onended(){
+            onended() {
                 console.log("on-ended");
             },
-            onchangepre(){
+            onchangepre() {
                 alert("on-change-pre");
             },
-            onchangenext(){
+            onchangenext() {
                 alert("on-change-next");
             },
             //清晰度切换时触发事件
-            onResolutionChange(resolution){
-                console.log("当前清晰度为："+resolution);
-                let type = resolution === "标清"?'l':'h';
+            onResolutionChange(resolution) {
+                console.log("当前清晰度为：" + resolution);
+
                 //改变视频源
-                this.src = "http://vjs.zencdn.net/v/oceans.mp4?type="+type;
+                this.src = "http://vjs.zencdn.net/v/oceans.mp4?a=2";
             },
-            onpre(){
+            onpre() {
                 console.log("上一集");
             },
-            onnext(){
+            onnext() {
                 console.log("下一集");
             },
             change(){
-                this.src="http://vjs.zencdn.net/v/oceans.mp4?a=1";
+                this.src = "http://vjs.zencdn.net/v/oceans.mp4?a=1";
+            },
+            mini() {
+                this.miniPlayer = true;
+            },
+            big() {
+                this.miniPlayer = false;
             }
         },
 	});

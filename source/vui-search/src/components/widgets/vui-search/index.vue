@@ -139,6 +139,7 @@
         mounted() {
                 this.prepend = this.$slots.prepend !== undefined;
                 this.append = this.$slots.append !== undefined;
+                this.$el.setAttribute("widget-code",this.widgetCode);
         },
         computed: {
             inputIcon () {

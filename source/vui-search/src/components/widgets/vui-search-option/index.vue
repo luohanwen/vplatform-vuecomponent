@@ -79,6 +79,7 @@
         mounted () {
             const Select = findComponentUpward(this, 'iSelect');
             if (Select) this.autoComplete = Select.autoComplete;
+            this.$el.setAttribute("widget-code",this.widgetCode);
         },
     };
 </script>

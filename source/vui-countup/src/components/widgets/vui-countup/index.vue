@@ -109,7 +109,9 @@ export default {
       return options;
     }
   },
-  mounted() {},
+  mounted() {
+    this.$el.setAttribute("widget-code",this.widgetCode);
+  },
   methods: {
     onReady: function(instance, CountUp) {
       this.countUpInstance = instance;

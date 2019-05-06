@@ -21,7 +21,7 @@
 </body>
 <script type="text/template" id="tpl">
     <div class="demo"> 
-        <vui-slider v-model="value" v-bind="props"></vui-slider>
+        <vui-slider v-model="value" v-bind="props" @on-change="handleChange" @on-input="handleInput"></vui-slider>
 
         <div style="height:100px;"></div>
         <Button @click="change">change</Button>
@@ -42,7 +42,7 @@
                 max: 92,
                 step: 2,
                 disabled: false,
-                range: true,
+                range: false,
                 showInput: true,
                 showStops: true,
                 showTip: "always",
@@ -60,6 +60,12 @@
         methods: {
             change(){
                 this.value = "25,30";
+            },
+            handleChange(val){
+                console.log("on-chnage",val)
+            },
+            handleInput(val){
+                console.log("on-input",val)
             }
         },
     });

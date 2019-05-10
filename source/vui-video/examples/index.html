@@ -13,38 +13,43 @@
 </body>
 <script type="text/template" id="tpl">
     <div>
-        <vui-video 
-            :widgetCode="widgetCode" 
-            :src="src" 
-            :controls="controls" 
-            :width="width" 
-            :height="height" 
-            :poster="poster" 
-            :autoplay="autoplay" 
-            :loop="loop" 
-            :volume="volume" 
-            :fullscreen="fullscreen" 
-            :label="label"
-            :notSupportedMsg="notSupportedMsg" 
-            :showLabel="showLabel" 
-            :transfer="transfer" 
-            :miniPlayer="miniPlayer" 
-            @on-play="onplay" 
-            @on-pause="onpause" 
-            @on-ended="onended" 
-            @on-pre="onpre" 
-            @on-next="onnext" 
-            @on-change-pre="onchangepre"
-            @on-change-next="onchangenext" 
-            @on-resolution-change="onResolutionChange" 
-            ref="video"
-        ></vui-video>
+                <vui-video 
+                v-show="show"
+                :widgetCode="widgetCode" 
+                :src="src" 
+                :controls="controls" 
+                :width="width" 
+                :height="height" 
+                :poster="poster" 
+                :autoplay="autoplay" 
+                :loop="loop" 
+                :volume="volume" 
+                :fullscreen="fullscreen" 
+                :label="label"
+                :notSupportedMsg="notSupportedMsg" 
+                :showLabel="showLabel" 
+                :transfer="transfer" 
+                :miniPlayer="miniPlayer" 
+                @on-play="onplay" 
+                @on-pause="onpause" 
+                @on-ended="onended" 
+                @on-pre="onpre" 
+                @on-next="onnext" 
+                @on-change-pre="onchangepre"
+                @on-change-next="onchangenext" 
+                @on-resolution-change="onResolutionChange" 
+                ref="video"
+            ></vui-video>
+        
         <vui-button @click="play">play</vui-button>
         <vui-button @click="pause">pause</vui-button>
         <vui-button @click="mini">mini</vui-button>
         <vui-button @click="big">big</vui-button>
         <vui-button @click="requestFullscreen">requestFullscreen</vui-button>
         <vui-button @click="change">change</vui-button>
+        <vui-button @click="changeVolume">changeVolume</vui-button>
+        <vui-button @click="openVideo">openVideo</vui-button>
+        <vui-button @click="closeVideo">closeVideo</vui-button>
         <div style="height:2000px;border:1px solid blue;"></div>
     </div>
 </script>
@@ -56,6 +61,7 @@
 		el : "#app",
 		template : "#tpl",
 		data : {
+            show:false,
             widgetCode: "vui-video",
 			src: "http://vjs.zencdn.net/v/oceans.mp4?a=2",
 			controls: true,
@@ -118,7 +124,16 @@
             },
             big() {
                 this.miniPlayer = false;
-            }
+            },
+            changeVolume(){
+                this.volume = 0.8
+            },
+            openVideo(){
+                this.show = true;
+            },
+            closeVideo(){
+                this.show = false;
+            },
         },
 	});
 </script>

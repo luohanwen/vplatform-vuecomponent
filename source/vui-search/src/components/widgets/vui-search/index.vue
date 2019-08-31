@@ -13,6 +13,7 @@
             :size="size"
             :placement="placement"
             :value="currentValue"
+            :hasOptions="!!filteredData.length"
             filterable
             remote
             auto-complete

@@ -157,6 +157,11 @@
                 type: [String, Number, Array],
                 default: ''
             },
+            // 是否有option选项
+            hasOptions: {
+                type: Boolean,
+                default: false
+            },
             // 使用时，也得设置 value 才行
             label: {
                 type: [String, Number, Array],
@@ -493,6 +498,7 @@
                 setTimeout(() => this.unchangedQuery = true, ANIMATION_TIMEOUT);
             },
             onClickOutside(event){
+                if(!this.hasOptions) return;
                 if (this.visible) {
                     if (event.type === 'mousedown') {
                         event.preventDefault();

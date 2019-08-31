@@ -534,24 +534,14 @@ export const getOptions = function (type) {
                         text: "上季度",
                         value() {
                             const date = new Date();
-                            const nowYear = date.getFullYear();
-                            const nowMonth = date.getMonth() + 1;
-                            const nowDay = date.getDate();
-                            const year = nowMonth-3>0?nowYear:nowYear-1;
-                            const month = (12+nowMonth-3)%12;
-                            return new Date(year,month,nowDay);
+                            return new Date(date.getFullYear(),date.getMonth()-3,date.getDate());
                         }
                     },
                     {
                         text: "下季度",
                         value() {
                             const date = new Date();
-                            const nowYear = date.getFullYear();
-                            const nowMonth = date.getMonth() + 1;
-                            const nowDay = date.getDate();
-                            const year = nowMonth+3<=12?nowYear:nowYear+1;
-                            const month = (nowMonth+3)%12;
-                            return new Date(year,month,nowDay);
+                            return new Date(date.getFullYear(),date.getMonth()+3,date.getDate());
                         }
                     }
                 ]

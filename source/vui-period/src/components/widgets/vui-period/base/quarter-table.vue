@@ -41,8 +41,13 @@
                     prefixQuarterCls
                 ];
             },
+            // 个位数为0,1,2,3,4从0开始，其它从5开始
             startYear() {
-                return Math.floor(this.tableDate.getFullYear() / 10) * 10;
+                const tableDateYear = this.tableDate.getFullYear();
+                // 个位数
+                const singleNum = tableDateYear % 10;
+                const diff = singleNum >= 5 ? 5 : 0;
+                return Math.floor(this.tableDate.getFullYear() / 10) * 10 + diff;
             },
         },
         methods: {
@@ -57,7 +62,7 @@
 
                 const nowDate = new Date();
                 const getType = (date) => Math.ceil((date.getMonth()+1)/3);
-                for (let i = 0; i < 10; i++) {
+                for (let i = 0; i < 5; i++) {
                     const cell = deepCopy(cell_tmpl);
                     cell.date = new Date(this.startYear+i,type*3-3,1);
                     cell.text = this.startYear+i;

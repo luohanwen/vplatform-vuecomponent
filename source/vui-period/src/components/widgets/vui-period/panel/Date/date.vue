@@ -194,9 +194,13 @@
                 if (selectionMode === 'year' || this.pickerTable === 'year-table'){
                     this.panelDate = new Date(this.panelDate.getFullYear() + dir * 10, 0, 1);
                 }else if(selectionMode === 'halfyear'){
-                    dir *=10; 
-                     this.panelDate = new Date(this.panelDate.getFullYear() + dir, 0, 1);
-                }else if(selectionMode === 'tendays'){
+                    dir *=5; 
+                    this.panelDate = new Date(this.panelDate.getFullYear() + dir, 0, 1);
+                }else if(selectionMode === 'quarter'){
+                    dir *=5; 
+                    this.panelDate = new Date(this.panelDate.getFullYear() + dir, 0, 1);
+                }
+                else if(selectionMode === 'tendays'){
                     this.panelDate = siblingMonth(this.panelDate, dir * 6);
                 }  
                 else {
